@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<!--
+	Solarize by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Solarize by TEMPLATED</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/template/jquery.min.js"></script>
+		<script src="js/template/jquery.dropotron.min.js"></script>
+		<script src="js/template/skel.min.js"></script>
+		<script src="js/template/skel-layers.min.js"></script>
+		<script src="js/template/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body class="homepage">
+
+		<!-- Header Wrapper -->
+			<div class="wrapper style1">
+
+			<!-- Header -->
+				<div id="header">
+					<div class="container">
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="active"><a href="index.html">Migratory Goose</a></li>
+									<li><a href="documentation.html">Documentation</a></li>
+								</ul>
+							</nav>
+					</div>
+				</div>
+
+			<!-- Banner -->
+				<div id="banner">
+					<section class="container">
+						<p>Description</p>
+					</section>
+				</div>
+
+			</div>
+
+		<!-- Presentation Section -->
+			<div class="wrapper style3">
+				<section class="container">
+
+					<header class="major">
+						<h2>Instructions</h2>
+					</header>
+
+					<p>Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Vestibulum sem magna, elementum vestibulum arcu.</p>
+				</section>
+			</div>
+
+		<!-- Game Section -->
+			<div class="wrapper style4">
+				<section class="container">
+
+					<header class="major">
+						<span class="byline">pulvinar mollis. Vestibulum sem magna, elementum vestibulum arcu.</span>
+					</header>
+
+					<div id="content" class="container">
+						<!-- Parameters choices -->
+						<div id="menu" class="">
+						</div>
+
+						<!-- Simualtion map -->
+						<div id="map" class="">
+							<div id="bird" class="">^^</div>
+							<script type="text/javascript">
+							document.addEventListener("keydown", deplacement);
+
+							let bird = document.getElementById("bird");
+							let coorX = bird.offsetLeft;
+							let coorY = bird.offsetTop;
+							console.log(coorX+" : "+coorY);
+
+							let step = 1;
+
+							function deplacement(event)
+							// 38 = haut, 37 = gauche, 39 = droite, 40 = bas
+							{
+								event.preventDefault();
+
+								switch (event.keyCode)
+								{
+									case 37:
+										//if(coorX>10) {coorX -= step;}
+										coorX -= step;
+										console.log(coorX+" : "+coorY);
+										break;
+									case 38:
+										//if(coorY>10) {coorY -= step;}
+										coorY -= step;
+										console.log(coorX+" : "+coorY);
+										break;
+									case 39:
+										//if(coorX<525) {coorX += step;}
+										coorX += step;
+										console.log(coorX+" : "+coorY);
+										break;
+									case 40:
+										//if(coorY<620) {coorY += step;}
+										coorY += step;
+										console.log(coorX+" : "+coorY);
+										break;
+									default:
+										console.log('No deplacement');
+								}
+								bird.style.transform = "translate("+coorX+"px,"+coorY+"px)";
+							}
+
+							</script>
+							</div>
+
+						</div>
+
+					</div>
+
+					<!-- <div class="row flush">
+						<div class="4u">
+							<ul class="special-icons">
+								<li>
+									<span class="fa fa-cogs"></span>
+									<h3>Nulla luctus eleifend</h3>
+									<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula pellentesque.</p>
+									<a href="#" class="button alt">Modèle bouton</a>
+								</li>
+								<li>
+									<span class="fa fa-leaf"></span>
+									<h3>Fusce ultrices fringilla</h3>
+									<p>Maecenas pede nisl, elementum eu, ornare ac, malesuada at, erat. Proin gravida orci porttitor.</p>
+									<a href="#" class="button alt">Modèle bouton</a>
+								</li>
+							</ul>
+						</div>
+					</div> -->
+
+				</section>
+			</div>
+
+	<!-- Footer -->
+		<div id="footer">
+			<section class="container">
+		    <header class="major">
+		      <span class="byline">...</span>
+		    </header>
+		    <ul class="icons">
+		      <li class="active"><a href="#" class="fa fa-facebook"><span>Facebook</span></a></li>
+		    </ul>
+		    <hr />
+		  </section>
+
+		  <!-- Copyright -->
+		    <div id="copyright">
+		      Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+		    </div>
+		</div>
+
+	</body>
+</html>
