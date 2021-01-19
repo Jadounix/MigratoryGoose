@@ -1,6 +1,19 @@
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
 
+/* css used for simulation */
+/* 
+#map {
+  position: relative;
+  width: 600px;
+  height: 700px;
+  border: 1px solid rgba(128,128,128);
+}
+
+.onMap {
+  position: absolute;
+} */
+
 /*
 	Solarize by TEMPLATED
 	templated.co @templatedco
