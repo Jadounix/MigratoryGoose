@@ -77,12 +77,10 @@
 				</div>
 
 				<!-- Simulation map -->
-				<canvas id="map" width="600" height="400"></canvas>
-					<!-- Toutes les div de la map doivent avoir la classe onMap -->
-					<div id="bird" class="onMap">^^</div>
+				<canvas id="map" width="500" height="500"></canvas>
+				<!-- Toutes les div de la map doivent avoir la classe onMap -->
 
 			</div>
-
 	</div>
 
 	<!-- <div class="row flush">
@@ -126,52 +124,55 @@
 	</div>
 
 	<script type="text/javascript">
-		document.addEventListener("keydown", deplacement);
 
-		let bird = document.getElementById("bird");
-		let birdPosition = bird.getBoundingClientRect();
+
+		//Récupère l'élément canvas
+		let canvasMap = document.getElementById("map");
+		//getContext conduit à la création d'un objet de représentation 2D
+		let canvasContext = canvasMap.getContext("2d");
+		//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
+		let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
+
+		let birdPicture = new Image();
+		birdPicture.src = 'images/bird.jpg';
+
+		let birdStartPositionX = 20;
+		let birdStartPositionY = 20;
+
+		let birdPositionX = birdStartPositionX;
+		let birdPositionY = birdStartPositionY;
+
+		birdPicture.onload = () => {
+			canvasContext.drawImage(birdPicture, birdStartPositionX, birdStartPositionY);
+		}
 
 		let step = 5;
 
-		const getPosition = (element) => {
-        let ox = 0, oy = 0;
-        while (element = element.offsetParent) {
-                ox += element.scrollLeft - element.offsetLeft;
-                oy += element.scrollTop - element.offsetTop;
-            }
-        return [ox,oy];
-    };
-
-		let coorX = getPosition(bird)[0];
-		let coorY = getPosition(bird)[1];
-
-		function deplacement(event)
+		const deplacement = (event) =>
 		// 38 = top, 37 = left, 39 = right, 40 = down
 		{
 			event.preventDefault();
 
 			switch (event.keyCode) {
 				case 37:
-					//if(coorX>10) {coorX -= step;}
-					coorX -= step;
+					birdPositionX -= step;
 					break;
 				case 38:
-					//if(coorY>10) {coorY -= step;}
-					coorY -= step;
+					birdPositionY -= step;
 					break;
 				case 39:
-					//if(coorX<525) {coorX += step;}
-					coorX += step;
+					birdPositionX += step;
 					break;
 				case 40:
-					//if(coorY<620) {coorY += step;}
-					coorY += step;
+					birdPositionY += step;
 					break;
-				default:
-					console.log('No deplacement');
 			}
-			bird.style.transform = "translate(" + coorX + "px," + coorY + "px)";
+			canvasContext.clearRect(0, 0, 500, 500);
+			canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
 		}
+
+		document.addEventListener("keydown", deplacement);
+
 	</script>
 
 
