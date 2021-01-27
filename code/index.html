@@ -17,6 +17,7 @@
 	<script src="js/template/skel.min.js"></script>
 	<script src="js/template/skel-layers.min.js"></script>
 	<script src="js/template/init.js"></script>
+	<script src="node_modules/canvas-datagrid/dist/canvas-datagrid.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="css/skel.css" />
 		<link rel="stylesheet" href="css/style.css" />
@@ -78,6 +79,10 @@
 
 				<!-- Simulation map -->
 				<canvas id="map" width="500" height="500"></canvas>
+				<!-- <canvas-datagrid id="map">[
+					{"col1": "row 1 column 1", "col2": "row 1 column 2"},
+					{"col1": "row 2 column 1", "col2": "row 2 column 2"}
+					]</canvas-datagrid> -->
 				<!-- Toutes les div de la map doivent avoir la classe onMap -->
 
 			</div>
@@ -124,14 +129,37 @@
 	</div>
 
 	<script type="text/javascript">
-
-
 		//Récupère l'élément canvas
 		let canvasMap = document.getElementById("map");
 		//getContext conduit à la création d'un objet de représentation 2D
 		let canvasContext = canvasMap.getContext("2d");
 		//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
 		let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
+
+		//Création de la grille sur le canvas
+		//Elements de la taille de la grille servant à la fonction drawBoard
+		// Padding
+		let p = 20; // Padding
+		let bw = 400; // Canvas width
+		let bh = 400; // Canvas height
+		//Modification de la taille du canvas
+		canvasMap.height = bh + 2*p;
+		canvasMap.width = bw + 2*p;
+
+		 const drawBoard = () => {
+		     for (let x = 0; x <= bw; x += 40) {
+		       canvasContext.moveTo(0.5 + x + p, p);
+		       canvasContext.lineTo(0.5 + x + p, bh + p);
+		     }
+
+		     for (let x = 0; x <= bh; x += 40) {
+		       canvasContext.moveTo(p, 0.5 + x + p);
+		       canvasContext.lineTo(bw + p, 0.5 + x + p);
+		     }
+		     canvasContext.strokeStyle = "black";
+		     canvasContext.stroke();
+		 }
+		 drawBoard();
 
 		let birdPicture = new Image();
 		birdPicture.src = 'images/bird.jpg';
@@ -149,30 +177,30 @@
 		let step = 5;
 
 		const deplacement = (event) =>
-		// 38 = top, 37 = left, 39 = right, 40 = down
-		{
-			event.preventDefault();
+			// 38 = top, 37 = left, 39 = right, 40 = down
+			{
+				event.preventDefault();
 
-			switch (event.keyCode) {
-				case 37:
-					birdPositionX -= step;
-					break;
-				case 38:
-					birdPositionY -= step;
-					break;
-				case 39:
-					birdPositionX += step;
-					break;
-				case 40:
-					birdPositionY += step;
-					break;
+				switch (event.keyCode) {
+					case 37:
+						birdPositionX -= step;
+						break;
+					case 38:
+						birdPositionY -= step;
+						break;
+					case 39:
+						birdPositionX += step;
+						break;
+					case 40:
+						birdPositionY += step;
+						break;
+				}
+				canvasContext.clearRect(0, 0, 500, 500);
+				drawBoard();
+				canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
 			}
-			canvasContext.clearRect(0, 0, 500, 500);
-			canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
-		}
 
 		document.addEventListener("keydown", deplacement);
-
 	</script>
 
 
