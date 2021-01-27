@@ -139,43 +139,49 @@
 		//Création de la grille sur le canvas
 		//Elements de la taille de la grille servant à la fonction drawBoard
 		// Padding
-		let p = 20; // Padding
+		let p = 10; // Padding = marge
 		let bw = 400; // Canvas width
 		let bh = 400; // Canvas height
 		//Modification de la taille du canvas
-		canvasMap.height = bh + 2*p;
-		canvasMap.width = bw + 2*p;
+		canvasMap.height = bh + 2 * p;
+		canvasMap.width = bw + 2 * p;
 
-		 const drawBoard = () => {
-		     for (let x = 0; x <= bw; x += 40) {
-		       canvasContext.moveTo(0.5 + x + p, p);
-		       canvasContext.lineTo(0.5 + x + p, bh + p);
-		     }
+		//Fonction de dessin de la grille
+		const drawBoard = () => {
+			for (let x = 0; x <= bw; x += 40) {
+				canvasContext.moveTo(0.5 + x + p, p);
+				canvasContext.lineTo(0.5 + x + p, bh + p);
+			}
+			for (let x = 0; x <= bh; x += 40) {
+				canvasContext.moveTo(p, 0.5 + x + p);
+				canvasContext.lineTo(bw + p, 0.5 + x + p);
+			}
+			canvasContext.strokeStyle = "black";
+			canvasContext.stroke();
+		}
+		//Appel à la fonction
+		drawBoard();
 
-		     for (let x = 0; x <= bh; x += 40) {
-		       canvasContext.moveTo(p, 0.5 + x + p);
-		       canvasContext.lineTo(bw + p, 0.5 + x + p);
-		     }
-		     canvasContext.strokeStyle = "black";
-		     canvasContext.stroke();
-		 }
-		 drawBoard();
-
+		//Création de l'image de l'oiseau
 		let birdPicture = new Image();
 		birdPicture.src = 'images/bird.jpg';
 
-		let birdStartPositionX = 20;
-		let birdStartPositionY = 20;
+		//On place l'oiseau dans le coin en haut à gauche de la grille. Le + 1 c'est pour évoter qu'il ne recouvre la grille
+		let birdStartPositionX = p + 1;
+		let birdStartPositionY = p + 1;
 
 		let birdPositionX = birdStartPositionX;
 		let birdPositionY = birdStartPositionY;
 
+		//Affiche de l'image de l'oiseau une première fois
 		birdPicture.onload = () => {
 			canvasContext.drawImage(birdPicture, birdStartPositionX, birdStartPositionY);
 		}
 
-		let step = 5;
+		//Un pas de l'image oiseau correspond à 24*p pour sauter d'une case à une autre puis que les cases font 40 px
+		let step = 4 * p;
 
+		//Fonction de déplacement de l'image avec les touches du clavier
 		const deplacement = (event) =>
 			// 38 = top, 37 = left, 39 = right, 40 = down
 			{
@@ -183,22 +189,49 @@
 
 				switch (event.keyCode) {
 					case 37:
-						birdPositionX -= step;
+						// le + 2 * p permet de se caler dans la grille
+						if (birdPositionX > 0 + 2 * p) {
+							birdPositionX -= step;
+						}
 						break;
 					case 38:
-						birdPositionY -= step;
+						if (birdPositionY > 0 + 2 * p) {
+							birdPositionY -= step;
+						}
 						break;
 					case 39:
-						birdPositionX += step;
+						// le - 8 * p permet de se caler dans la grille
+						if (birdPositionX < canvasMap.width - 8 * p) {
+							birdPositionX += step;
+						}
 						break;
 					case 40:
-						birdPositionY += step;
+						if (birdPositionY < canvasMap.height - 8 * p) {
+							birdPositionY += step;
+						}
 						break;
 				}
+				//On efface tout ce qu'il y a dans le canvas
 				canvasContext.clearRect(0, 0, 500, 500);
+				//On redessine la grlle
 				drawBoard();
+				//On redessine l'oiseau à la bonne position
 				canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
 			}
+
+		//Déplacement automatique toute les secondes	
+		const deplacementV2 = () => {
+			if (birdPositionX < canvasMap.width - 8 * p) {
+				birdPositionX += step;
+				//On efface tout ce qu'il y a dans le canvas
+				canvasContext.clearRect(0, 0, 500, 500);
+				//On redessine la grlle
+				drawBoard();
+				//On redessine l'oiseau à la bonne position
+				canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
+			}
+		}
+		setInterval(deplacementV2, 1000);
 
 		document.addEventListener("keydown", deplacement);
 	</script>
