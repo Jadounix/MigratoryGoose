@@ -140,77 +140,63 @@
 		let p = 10; // Padding = marge
 		let bw = 400; // Canvas width
 		let bh = 400; // Canvas height
-		//Modification de la taille du canvas
+		let cellGridSize = bw / p;
+		let numberCell = bw / cellGridSize;
+		//Modification de la taille du canvas en fonction des valeurs rentrées précédemment
 		canvasMap.height = bh + 2 * p;
 		canvasMap.width = bw + 2 * p;
 
 		//Fonction de dessin de la grille
 		const drawBoard = () => {
-			for (let x = 0; x <= bw; x += bw/p) {
+			for (let x = 0; x <= bw; x += cellGridSize) {
 				canvasContext.moveTo(0.5 + x + p, p);
 				canvasContext.lineTo(0.5 + x + p, bh + p);
 			}
-			for (let x = 0; x <= bh; x += bh/p) {
+			for (let x = 0; x <= bh; x += cellGridSize) {
 				canvasContext.moveTo(p, 0.5 + x + p);
 				canvasContext.lineTo(bw + p, 0.5 + x + p);
 			}
 			canvasContext.strokeStyle = "black";
 			canvasContext.stroke();
 		}
+
 		//Appel à la fonction
 		drawBoard();
 
-
-		let bird1 = new Bird("migrateur", p + 1, p + 1, p + 1, p + 1, 'images/bird.jpg');
-		bird1.CreateBirdPicture(canvasContext);
-
-
-		//2ème oiseau
-		let birdPicture2 = new Image();
-		birdPicture2.src = 'images/bird2.png';
-
-		let birdStartPositionX2 = p + 1;
-		let birdStartPositionY2 = 5 * p + 1;
-
-		let birdPositionX2 = birdStartPositionX2;
-		let birdPositionY2 = birdStartPositionY2;
-
-		birdPicture2.onload = () => {
-			canvasContext.drawImage(birdPicture2, birdStartPositionX2, birdStartPositionY2);
+		//Fonction permettant de convertir une coordonnée de cellule de grille en coordonnée en pixel
+		const convertGridCellToPixel = (padding, cellPosition, cellSize) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
+			let pixel = padding + 1 + cellSize * cellPosition;
+			return (pixel)
 		}
 
-		//Un pas de l'image oiseau correspond à 24*p pour sauter d'une case à une autre puis que les cases font 40 px
-		let step = 4 * p;
+		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
+		bird1.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird1.startPositionX, cellGridSize), convertGridCellToPixel(p, bird1.startPositionY, cellGridSize));
 
-		//Déplacement automatique toute les demie secondes
-		const deplacement = () => {
-			if (bird1.positionX < canvasMap.width - 8 * p) {
-				bird1.SetXPosition(bird1.positionX + step);
-				//birdPositionX += step;
-				birdPositionX2 += step;
+		let bird2 = new Bird("bleu", 1, 1, 1, 1, 'images/bird2.png');
+		bird2.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird2.startPositionX, cellGridSize), convertGridCellToPixel(p, bird2.startPositionY, cellGridSize));
 
-				if (birdPositionY2 < canvasMap.height - 8 * p) {
-					birdPositionY2 += step;
-				}
 
-				// if (birdPositionX > 0 + 2 * p) {
-				// 	birdPositionX -= step;
-				// }
+		let step = 1;
 
-				// if (birdPositionY > 0 + 2 * p) {
-				// 	birdPositionY -= step;
-				// }
+		//Déplacement automatique toute les 500ms
+		const move = (nbCell, cellSize, padding, step) => {
+			bird1.MoveBehavior(nbCell, step);
 
-				//On efface tout ce qu'il y a dans le canvas
-				canvasContext.clearRect(0, 0, 500, 500);
-				//On redessine la grille
-				drawBoard();
-				//On redessine l'oiseau à la bonne position
-				bird1.DrawBirdPicture(canvasContext, bird1.positionX, bird1.positionY)
-				canvasContext.drawImage(birdPicture2, birdPositionX2, birdPositionY2);
+			if (bird2.positionY < nbCell - 1) {
+				bird2.SetYPosition(bird2.positionY + step);
 			}
+
+			//On efface tout ce qu'il y a dans le canvas
+			canvasContext.clearRect(0, 0, 500, 500);
+			//On redessine la grille
+			drawBoard();
+			//On redessine l'oiseau à la bonne position
+			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));
+			bird2.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird2.positionX, cellSize), convertGridCellToPixel(padding, bird2.positionY, cellSize));
 		}
-		setInterval(deplacement, 500);
+
+		setInterval(function() { move(numberCell, cellGridSize, p, step); }, 500 );
+
 
 		//A mettre lorsqu'on veut utilise le clavier (ou la souris)
 		//document.addEventListener("keydown", deplacement);
