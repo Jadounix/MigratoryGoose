@@ -79,10 +79,6 @@
 
 				<!-- Simulation map -->
 				<canvas id="map" width="500" height="500"></canvas>
-				<!-- <canvas-datagrid id="map">[
-					{"col1": "row 1 column 1", "col2": "row 1 column 2"},
-					{"col1": "row 2 column 1", "col2": "row 2 column 2"}
-					]</canvas-datagrid> -->
 				<!-- Toutes les div de la map doivent avoir la classe onMap -->
 
 			</div>
@@ -128,6 +124,7 @@
 		</div>
 	</div>
 
+	<script type="text/javascript" src="js/classes/Bird.js"></script>
 	<script type="text/javascript">
 		//Récupère l'élément canvas
 		let canvasMap = document.getElementById("map");
@@ -138,6 +135,7 @@
 
 		//Création de la grille sur le canvas
 		//Elements de la taille de la grille servant à la fonction drawBoard
+
 		// Padding
 		let p = 10; // Padding = marge
 		let bw = 400; // Canvas width
@@ -148,11 +146,11 @@
 
 		//Fonction de dessin de la grille
 		const drawBoard = () => {
-			for (let x = 0; x <= bw; x += 40) {
+			for (let x = 0; x <= bw; x += bw/p) {
 				canvasContext.moveTo(0.5 + x + p, p);
 				canvasContext.lineTo(0.5 + x + p, bh + p);
 			}
-			for (let x = 0; x <= bh; x += 40) {
+			for (let x = 0; x <= bh; x += bh/p) {
 				canvasContext.moveTo(p, 0.5 + x + p);
 				canvasContext.lineTo(bw + p, 0.5 + x + p);
 			}
@@ -162,78 +160,60 @@
 		//Appel à la fonction
 		drawBoard();
 
-		//Création de l'image de l'oiseau
-		let birdPicture = new Image();
-		birdPicture.src = 'images/bird.jpg';
 
-		//On place l'oiseau dans le coin en haut à gauche de la grille. Le + 1 c'est pour évoter qu'il ne recouvre la grille
-		let birdStartPositionX = p + 1;
-		let birdStartPositionY = p + 1;
+		let bird1 = new Bird("migrateur", p + 1, p + 1, p + 1, p + 1, 'images/bird.jpg');
+		bird1.CreateBirdPicture(canvasContext);
 
-		let birdPositionX = birdStartPositionX;
-		let birdPositionY = birdStartPositionY;
 
-		//Affiche de l'image de l'oiseau une première fois
-		birdPicture.onload = () => {
-			canvasContext.drawImage(birdPicture, birdStartPositionX, birdStartPositionY);
+		//2ème oiseau
+		let birdPicture2 = new Image();
+		birdPicture2.src = 'images/bird2.png';
+
+		let birdStartPositionX2 = p + 1;
+		let birdStartPositionY2 = 5 * p + 1;
+
+		let birdPositionX2 = birdStartPositionX2;
+		let birdPositionY2 = birdStartPositionY2;
+
+		birdPicture2.onload = () => {
+			canvasContext.drawImage(birdPicture2, birdStartPositionX2, birdStartPositionY2);
 		}
 
 		//Un pas de l'image oiseau correspond à 24*p pour sauter d'une case à une autre puis que les cases font 40 px
 		let step = 4 * p;
 
-		//Fonction de déplacement de l'image avec les touches du clavier
-		const deplacement = (event) =>
-			// 38 = top, 37 = left, 39 = right, 40 = down
-			{
-				event.preventDefault();
+		//Déplacement automatique toute les demie secondes
+		const deplacement = () => {
+			if (bird1.positionX < canvasMap.width - 8 * p) {
+				bird1.SetXPosition(bird1.positionX + step);
+				//birdPositionX += step;
+				birdPositionX2 += step;
 
-				switch (event.keyCode) {
-					case 37:
-						// le + 2 * p permet de se caler dans la grille
-						if (birdPositionX > 0 + 2 * p) {
-							birdPositionX -= step;
-						}
-						break;
-					case 38:
-						if (birdPositionY > 0 + 2 * p) {
-							birdPositionY -= step;
-						}
-						break;
-					case 39:
-						// le - 8 * p permet de se caler dans la grille
-						if (birdPositionX < canvasMap.width - 8 * p) {
-							birdPositionX += step;
-						}
-						break;
-					case 40:
-						if (birdPositionY < canvasMap.height - 8 * p) {
-							birdPositionY += step;
-						}
-						break;
+				if (birdPositionY2 < canvasMap.height - 8 * p) {
+					birdPositionY2 += step;
 				}
-				//On efface tout ce qu'il y a dans le canvas
-				canvasContext.clearRect(0, 0, 500, 500);
-				//On redessine la grlle
-				drawBoard();
-				//On redessine l'oiseau à la bonne position
-				canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
-			}
 
-		//Déplacement automatique toute les secondes	
-		const deplacementV2 = () => {
-			if (birdPositionX < canvasMap.width - 8 * p) {
-				birdPositionX += step;
+				// if (birdPositionX > 0 + 2 * p) {
+				// 	birdPositionX -= step;
+				// }
+
+				// if (birdPositionY > 0 + 2 * p) {
+				// 	birdPositionY -= step;
+				// }
+
 				//On efface tout ce qu'il y a dans le canvas
 				canvasContext.clearRect(0, 0, 500, 500);
-				//On redessine la grlle
+				//On redessine la grille
 				drawBoard();
 				//On redessine l'oiseau à la bonne position
-				canvasContext.drawImage(birdPicture, birdPositionX, birdPositionY);
+				bird1.DrawBirdPicture(canvasContext, bird1.positionX, bird1.positionY)
+				canvasContext.drawImage(birdPicture2, birdPositionX2, birdPositionY2);
 			}
 		}
-		setInterval(deplacementV2, 1000);
+		setInterval(deplacement, 500);
 
-		document.addEventListener("keydown", deplacement);
+		//A mettre lorsqu'on veut utilise le clavier (ou la souris)
+		//document.addEventListener("keydown", deplacement);
 	</script>
 
 
