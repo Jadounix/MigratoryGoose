@@ -32,13 +32,28 @@ class Map
   //Initialisation de la map avec des valeurs false ie des cases qui ne sont occupées par rien
   mapInitialisation()
   {
-    for(let i = 0; i<this.dimensionx/this.cellSize; i++)
+    for(let i = 0; i<this.dimensionX/this.cellSize; i++)
 		{
-			for(let j=0;i<this.dimensionY/this.cellSize; j++)
+			for(let j = 0; j<this.dimensionY/this.cellSize; j++)
       {
         this.matrice[i][j] = false;
       }
 		}
+  }
+
+  consoleModeDisplayMap()
+  {
+    console.table(this.matrice);
+  }
+
+  turnCellValueOccupied(x, y)
+  {
+    this.matrice[x][y] = true;
+  }
+
+  turnCellValueUnoccupied(x, y)
+  {
+    this.matrice[x][y] = false;
   }
 
   //Dessin d'une case bonus sur la map

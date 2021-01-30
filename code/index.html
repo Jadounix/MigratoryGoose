@@ -159,7 +159,7 @@
 		map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
 
 
-		let bird1 = new Bird("rouge", 3, 4, 3, 4, 'images/bird.jpg');
+		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
 		bird1.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird1.startPositionX, cellGridSize), convertGridCellToPixel(p, bird1.startPositionY, cellGridSize));
 
 		let bird2 = new Bird("bleu", 1, 1, 1, 1, 'images/bird2.png');
@@ -168,20 +168,44 @@
 
 		let step = 1;
 
+		let memorizedPositionX1 = 0;
+		let memorizedPositionY1 = 0;
+		let memorizedPositionX2 = 0;
+		let memorizedPositionY2 = 0;
+		//A ASSEMBLE DANS LE TABLEAU
+
+		let memorizedPosition = [0,0,0,0];
+
 		//Déplacement automatique toute les 500ms
 		const move = (nbCell, cellSize, padding, step) => {
 
-			bird1.MoveBehavior(nbCell, step);
-			bird2.MoveBehavior(nbCell, step);
+			map.turnCellValueUnoccupied(memorizedPositionX1,memorizedPositionY1);
+			map.turnCellValueUnoccupied(memorizedPositionX2,memorizedPositionY2);
+
+			bird1.MoveBehavior(nbCell, step, map.matrice);
+			bird2.MoveBehavior(nbCell, step, map.matrice);
 
 			//On efface tout ce qu'il y a dans le canvas
 			canvasContext.clearRect(0, 0, 500, 500);
 			//On redessine la grille
 			map.drawBoard(canvasContext);
+			//Dessin de la case verte
 			map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
 			//On redessine l'oiseau à la bonne position
 			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));
+			map.turnCellValueOccupied(bird1.positionX,bird1.positionY);
+
+			memorizedPositionX1 = bird1.positionX;
+			memorizedPositionY1 = bird1.positionY;
+
 			bird2.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird2.positionX, cellSize), convertGridCellToPixel(padding, bird2.positionY, cellSize));
+			map.turnCellValueOccupied(bird2.positionX,bird2.positionY);
+
+			memorizedPositionX2 = bird2.positionX;
+			memorizedPositionY2 = bird2.positionY;
+
+			//map.consoleModeDisplayMap();
+
 		}
 
 		setInterval(function() {

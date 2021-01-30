@@ -28,27 +28,37 @@ class Bird {
     ctx.drawImage(this.birdPicture, x, y);
   }
 
-  RandomMove(nbCell, step) {
+  checkCellDisponibility(tab, i, j)
+  {
+    if(tab[i][j] == false) //la case est innocupée
+    {
+      return true; //Je peux me déplacer sur cette case
+    }
+    else {return false;} //Je ne peux pas me déplacer sur cette case
+  }
+
+
+  RandomMove(nbCell, step, tab) {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
     //let rdn = 2;
     switch (rdn) {
       case 0: //Déplacement vers le haut
-        if (this.positionY > 0) {
+        if (this.positionY > 0 && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
           this.SetYPosition(this.positionY - step);
         }
         break;
       case 1: //Déplacement vers la droite
-        if (this.positionX < nbCell - 1) {
+        if (this.positionX < nbCell - 1 && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
           this.SetXPosition(this.positionX + step);
         }
         break;
       case 2: //Déplacement vers la gauche
-        if (this.positionX > 0) {
+        if (this.positionX > 0 && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
           this.SetXPosition(this.positionX - step);
         }
         break;
       case 3: //Déplacement vers le bas
-        if (this.positionY < nbCell - 1) {
+        if (this.positionY < nbCell - 1 && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
           this.SetYPosition(this.positionY + step);
         }
         break;
@@ -59,15 +69,15 @@ class Bird {
   }
 
   //Comportement de déplacement de l'oiseau
-  MoveBehavior(nbCell, step) {
+  MoveBehavior(nbCell, step, tab) {
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'bleu':
-        this.RandomMove(nbCell, step);
+        this.RandomMove(nbCell, step, tab);
         break;
 
       case 'rouge':
-        this.RandomMove(nbCell, step);
+        this.RandomMove(nbCell, step, tab);
         break;
 
       default:
