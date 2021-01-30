@@ -125,43 +125,30 @@
 	</div>
 
 	<script type="text/javascript" src="js/classes/Bird.js"></script>
+	<script type="text/javascript" src="js/classes/Map.js"></script>
+
 	<script type="text/javascript">
-		//Récupère l'élément canvas
+		//Récupèration l'élément canvas
 		let canvasMap = document.getElementById("map");
 		//getContext conduit à la création d'un objet de représentation 2D
 		let canvasContext = canvasMap.getContext("2d");
 		//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
 		let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
 
-		//Création de la grille sur le canvas
-		//Elements de la taille de la grille servant à la fonction drawBoard
+		 let p = 10; // Padding = marge
+		 let bw = 400; // Canvas width -> X
+		 let bh = 400; // Canvas height -> Y
+		 let cellGridSize = bw / p;
+		 let numberCell = bw / cellGridSize;
 
-		// Padding
-		let p = 10; // Padding = marge
-		let bw = 400; // Canvas width
-		let bh = 400; // Canvas height
-		let cellGridSize = bw / p;
-		let numberCell = bw / cellGridSize;
-		//Modification de la taille du canvas en fonction des valeurs rentrées précédemment
-		canvasMap.height = bh + 2 * p;
-		canvasMap.width = bw + 2 * p;
+		 //Modification de la taille du canvas en fonction des valeurs rentrées précédemment
+ 		canvasMap.height = bh + 2 * p;
+ 		canvasMap.width = bw + 2 * p;
 
-		//Fonction de dessin de la grille
-		const drawBoard = () => {
-			for (let x = 0; x <= bw; x += cellGridSize) {
-				canvasContext.moveTo(0.5 + x + p, p);
-				canvasContext.lineTo(0.5 + x + p, bh + p);
-			}
-			for (let x = 0; x <= bh; x += cellGridSize) {
-				canvasContext.moveTo(p, 0.5 + x + p);
-				canvasContext.lineTo(bw + p, 0.5 + x + p);
-			}
-			canvasContext.strokeStyle = "black";
-			canvasContext.stroke();
-		}
-
-		//Appel à la fonction
-		drawBoard();
+		 //Appel à la classe Map pour créer la grille sur l'espace canvas
+ 		let map = new Map(p,bw,bh,cellGridSize,numberCell);
+		map.mapInitialisation();
+		map.drawBoard(canvasContext);
 
 		//Fonction permettant de convertir une coordonnée de cellule de grille en coordonnée en pixel
 		const convertGridCellToPixel = (padding, cellPosition, cellSize) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
@@ -169,7 +156,10 @@
 			return (pixel)
 		}
 
-		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
+		map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
+
+
+		let bird1 = new Bird("rouge", 3, 4, 3, 4, 'images/bird.jpg');
 		bird1.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird1.startPositionX, cellGridSize), convertGridCellToPixel(p, bird1.startPositionY, cellGridSize));
 
 		let bird2 = new Bird("bleu", 1, 1, 1, 1, 'images/bird2.png');
@@ -180,22 +170,23 @@
 
 		//Déplacement automatique toute les 500ms
 		const move = (nbCell, cellSize, padding, step) => {
-			bird1.MoveBehavior(nbCell, step);
 
-			if (bird2.positionY < nbCell - 1) {
-				bird2.SetYPosition(bird2.positionY + step);
-			}
+			bird1.MoveBehavior(nbCell, step);
+			bird2.MoveBehavior(nbCell, step);
 
 			//On efface tout ce qu'il y a dans le canvas
 			canvasContext.clearRect(0, 0, 500, 500);
 			//On redessine la grille
-			drawBoard();
+			map.drawBoard(canvasContext);
+			map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
 			//On redessine l'oiseau à la bonne position
 			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));
 			bird2.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird2.positionX, cellSize), convertGridCellToPixel(padding, bird2.positionY, cellSize));
 		}
 
-		setInterval(function() { move(numberCell, cellGridSize, p, step); }, 500 );
+		setInterval(function() {
+			move(numberCell, cellGridSize, p, step);
+		}, 500);
 
 
 		//A mettre lorsqu'on veut utilise le clavier (ou la souris)
