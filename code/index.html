@@ -153,14 +153,14 @@
 
 		//Appel à la classe Map pour créer la grille sur l'espace canvas
 		let map = new Map(p, bw, bh, cellGridSize, numberCell);
-		map.mapInitialisation(canvasContext,convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize),convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
+		map.mapInitialisation(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize), convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
 		map.drawBoard(canvasContext);
 
 
 		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
 		bird1.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird1.startPositionX, cellGridSize), convertGridCellToPixel(p, bird1.startPositionY, cellGridSize));
 
-		let bird2 = new Bird("bleu", 1, 1, 1, 1, 'images/bird2.png');
+		let bird2 = new Bird("bleu", 0, 3, 0, 3, 'images/bird2.png');
 		bird2.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird2.startPositionX, cellGridSize), convertGridCellToPixel(p, bird2.startPositionY, cellGridSize));
 
 
@@ -173,28 +173,27 @@
 			[0, 0]
 		];
 
+		let birds = [bird1, bird2];
+
 		//Déplacement automatique toute les 500ms
 		const move = (nbCell, cellSize, padding, step) => {
 
-			map.turnCellValueUnoccupied(memorizedPosition[0][0], memorizedPosition[0][1]);
-			map.turnCellValueUnoccupied(memorizedPosition[1][0], memorizedPosition[1][1]);
-
+			map.turnCellValueUnoccupied(bird1.positionX, bird1.positionY);
 			bird1.MoveBehavior(nbCell, step, map.matrice);
 			map.turnCellValueOccupied(bird1.positionX, bird1.positionY);
-			memorizedPosition[0][0] = bird1.positionX;
-			memorizedPosition[0][1] = bird1.positionY;
 
+			map.turnCellValueUnoccupied(bird2.positionX, bird2.positionY);
 			bird2.MoveBehavior(nbCell, step, map.matrice);
 			map.turnCellValueOccupied(bird2.positionX, bird2.positionY);
-			memorizedPosition[1][0] = bird2.positionX;
-			memorizedPosition[1][1] = bird2.positionY;
+
 
 			//On efface tout ce qu'il y a dans le canvas
 			canvasContext.clearRect(0, 0, 500, 500);
 			//On redessine la grille
 			map.drawBoard(canvasContext);
 			//Dessin de la case verte
-			map.DrawBonusCell(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 3, cellGridSize));
+			map.DrawBonusCell(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize));
+			map.DrawMalusCell(canvasContext, convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
 
 			//On redessine les oiseaux à la bonne position
 			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));

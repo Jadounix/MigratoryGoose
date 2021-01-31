@@ -1,7 +1,7 @@
 class Map
 {
   //Constructeur
-  constructor(padding, dimensionX, dimensionY, cellSize, cellNumber, matrice)
+  constructor(padding, dimensionX, dimensionY, cellSize, cellNumber, matrice, bonusPicture, malusPicture)
   {
     //Taille de la map
     this.padding = padding;
@@ -9,6 +9,8 @@ class Map
     this.dimensionY = dimensionY;
     this.cellSize = cellSize;
     this.cellNumber = cellNumber;
+    this.bonusPicture = new Image();
+    this.malusPicture = new Image();
     //Tableau qui va contenir les valeurs des cases de la map
     this.matrice = new Array(this.dimensionX/this.cellSize);
     for (let i = 0; i < this.matrice.length; i++) {
@@ -39,9 +41,8 @@ class Map
         this.matrice[i][j] = false;
       }
 		}
-    this.DrawBonusCell(ctx, x, y); //this.turnCellValueOccupied(x, y);
-    this.DrawMalusCell(ctx, i, j); //this.turnCellValueOccupied(i, j);
-
+    this.CreateBonusCell(ctx,x,y);
+    this.CreateMalusCell(ctx,i,j);
   }
 
   consoleModeDisplayMap()
@@ -59,19 +60,28 @@ class Map
     this.matrice[y][x] = false;
   }
 
+  CreateBonusCell(ctx, x, y) {
+    this.bonusPicture.src = 'images/green_square.png';
+    this.bonusPicture.onload = () => {
+      ctx.drawImage(this.bonusPicture, x, y);
+    }
+  }
+
   //Dessin d'une case bonus sur la map
-  DrawBonusCell(ctx, x, y)
-  {
-    let greenSquareImage = new Image();
-    greenSquareImage.src = 'images/green_square.png';
-    ctx.drawImage(greenSquareImage, x, y);
+  DrawBonusCell(ctx, x, y) {
+    ctx.drawImage(this.bonusPicture, x, y);
+  }
+
+  CreateMalusCell(ctx, x, y) {
+    this.malusPicture.src = 'images/red_square.png';
+    this.malusPicture.onload = () => {
+      ctx.drawImage(this.malusPicture, x, y);
+    }
   }
 
   //Dessin d'une case malus sur la map
   DrawMalusCell(ctx, x, y)
   {
-    let redSquareImage = new Image();
-    redSquareImage.src = 'images/red_square.png';
-    ctx.drawImage(redSquareImage, x, y);
+    ctx.drawImage(this.malusPicture, x, y);
   }
 }

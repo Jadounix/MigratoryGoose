@@ -28,9 +28,9 @@ class Bird {
     ctx.drawImage(this.birdPicture, x, y);
   }
 
-  checkCellDisponibility(tab, i, j)
+  checkCellDisponibility(tab, x, y)
   {
-    if(tab[i][j] == false) //la case est innocupée
+    if(tab[y][x] == false) //la case est innocupée
     {
       return true; //Je peux me déplacer sur cette case
     }
@@ -41,7 +41,6 @@ class Bird {
 
   RandomMove(nbCell, step, tab) {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
-    //let rdn = 2;
     switch (rdn) {
       case 0: //Déplacement vers le haut
         if (this.positionY > 0 && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
