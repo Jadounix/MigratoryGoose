@@ -30,7 +30,7 @@ class Map
   }
 
   //Initialisation de la map avec des valeurs false ie des cases qui ne sont occupées par rien
-  mapInitialisation()
+  mapInitialisation(ctx, x, y, i, j)
   {
     for(let i = 0; i<this.dimensionX/this.cellSize; i++)
 		{
@@ -39,6 +39,9 @@ class Map
         this.matrice[i][j] = false;
       }
 		}
+    this.DrawBonusCell(ctx, x, y); //this.turnCellValueOccupied(x, y);
+    this.DrawMalusCell(ctx, i, j); //this.turnCellValueOccupied(i, j);
+
   }
 
   consoleModeDisplayMap()
@@ -48,19 +51,27 @@ class Map
 
   turnCellValueOccupied(x, y)
   {
-    this.matrice[x][y] = true;
+    this.matrice[y][x] = true;
   }
 
   turnCellValueUnoccupied(x, y)
   {
-    this.matrice[x][y] = false;
+    this.matrice[y][x] = false;
   }
 
   //Dessin d'une case bonus sur la map
-  DrawBonusCell(ctx,x,y)
+  DrawBonusCell(ctx, x, y)
   {
     let greenSquareImage = new Image();
     greenSquareImage.src = 'images/green_square.png';
     ctx.drawImage(greenSquareImage, x, y);
+  }
+
+  //Dessin d'une case malus sur la map
+  DrawMalusCell(ctx, x, y)
+  {
+    let redSquareImage = new Image();
+    redSquareImage.src = 'images/red_square.png';
+    ctx.drawImage(redSquareImage, x, y);
   }
 }

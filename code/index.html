@@ -135,20 +135,15 @@
 		//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
 		let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
 
-		 let p = 10; // Padding = marge
-		 let bw = 400; // Canvas width -> X
-		 let bh = 400; // Canvas height -> Y
-		 let cellGridSize = bw / p;
-		 let numberCell = bw / cellGridSize;
+		let p = 10; // Padding = marge
+		let bw = 400; // Canvas width -> X
+		let bh = 400; // Canvas height -> Y
+		let cellGridSize = bw / p;
+		let numberCell = bw / cellGridSize;
 
-		 //Modification de la taille du canvas en fonction des valeurs rentrées précédemment
- 		canvasMap.height = bh + 2 * p;
- 		canvasMap.width = bw + 2 * p;
-
-		 //Appel à la classe Map pour créer la grille sur l'espace canvas
- 		let map = new Map(p,bw,bh,cellGridSize,numberCell);
-		map.mapInitialisation();
-		map.drawBoard(canvasContext);
+		//Modification de la taille du canvas en fonction des valeurs rentrées précédemment
+		canvasMap.height = bh + 2 * p;
+		canvasMap.width = bw + 2 * p;
 
 		//Fonction permettant de convertir une coordonnée de cellule de grille en coordonnée en pixel
 		const convertGridCellToPixel = (padding, cellPosition, cellSize) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
@@ -156,7 +151,10 @@
 			return (pixel)
 		}
 
-		map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
+		//Appel à la classe Map pour créer la grille sur l'espace canvas
+		let map = new Map(p, bw, bh, cellGridSize, numberCell);
+		map.mapInitialisation(canvasContext,convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize),convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
+		map.drawBoard(canvasContext);
 
 
 		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
@@ -168,41 +166,39 @@
 
 		let step = 1;
 
-		let memorizedPositionX1 = 0;
-		let memorizedPositionY1 = 0;
-		let memorizedPositionX2 = 0;
-		let memorizedPositionY2 = 0;
-		//A ASSEMBLE DANS LE TABLEAU
-
-		let memorizedPosition = [0,0,0,0];
+		//Tableau qui mémorise la case ou est l'oiseau pour lui redonner la valeur false (ie vide) une fois qu'il est parti
+		//Le premier sous tableau correspond aux positions x et y de l'oiseau 1 et ainsi de suite
+		let memorizedPosition = [
+			[0, 0],
+			[0, 0]
+		];
 
 		//Déplacement automatique toute les 500ms
 		const move = (nbCell, cellSize, padding, step) => {
 
-			map.turnCellValueUnoccupied(memorizedPositionX1,memorizedPositionY1);
-			map.turnCellValueUnoccupied(memorizedPositionX2,memorizedPositionY2);
+			map.turnCellValueUnoccupied(memorizedPosition[0][0], memorizedPosition[0][1]);
+			map.turnCellValueUnoccupied(memorizedPosition[1][0], memorizedPosition[1][1]);
 
 			bird1.MoveBehavior(nbCell, step, map.matrice);
+			map.turnCellValueOccupied(bird1.positionX, bird1.positionY);
+			memorizedPosition[0][0] = bird1.positionX;
+			memorizedPosition[0][1] = bird1.positionY;
+
 			bird2.MoveBehavior(nbCell, step, map.matrice);
+			map.turnCellValueOccupied(bird2.positionX, bird2.positionY);
+			memorizedPosition[1][0] = bird2.positionX;
+			memorizedPosition[1][1] = bird2.positionY;
 
 			//On efface tout ce qu'il y a dans le canvas
 			canvasContext.clearRect(0, 0, 500, 500);
 			//On redessine la grille
 			map.drawBoard(canvasContext);
 			//Dessin de la case verte
-			map.DrawBonusCell(canvasContext,convertGridCellToPixel(p,3,cellGridSize),convertGridCellToPixel(p,3,cellGridSize));
-			//On redessine l'oiseau à la bonne position
+			map.DrawBonusCell(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 3, cellGridSize));
+
+			//On redessine les oiseaux à la bonne position
 			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));
-			map.turnCellValueOccupied(bird1.positionX,bird1.positionY);
-
-			memorizedPositionX1 = bird1.positionX;
-			memorizedPositionY1 = bird1.positionY;
-
 			bird2.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird2.positionX, cellSize), convertGridCellToPixel(padding, bird2.positionY, cellSize));
-			map.turnCellValueOccupied(bird2.positionX,bird2.positionY);
-
-			memorizedPositionX2 = bird2.positionX;
-			memorizedPositionY2 = bird2.positionY;
 
 			//map.consoleModeDisplayMap();
 

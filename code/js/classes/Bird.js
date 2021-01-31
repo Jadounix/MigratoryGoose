@@ -34,7 +34,8 @@ class Bird {
     {
       return true; //Je peux me déplacer sur cette case
     }
-    else {return false;} //Je ne peux pas me déplacer sur cette case
+    else {
+      return false;} //Je ne peux pas me déplacer sur cette case
   }
 
 
@@ -84,7 +85,6 @@ class Bird {
         console.log('error : Unknown bird species');
     }
   }
-
 
 
 } //Fin de la classe
