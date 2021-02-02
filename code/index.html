@@ -126,6 +126,8 @@
 
 	<script type="text/javascript" src="js/classes/Bird.js"></script>
 	<script type="text/javascript" src="js/classes/Map.js"></script>
+	<script type="text/javascript" src="js/classes/Area.js"></script>
+	<script type="text/javascript" src="js/classes/Simulation.js"></script>
 
 	<script type="text/javascript">
 		//Récupèration l'élément canvas
@@ -140,71 +142,17 @@
 		let bh = 400; // Canvas height -> Y
 		let cellGridSize = bw / p;
 		let numberCell = bw / cellGridSize;
+		let step = 1;
 
 		//Modification de la taille du canvas en fonction des valeurs rentrées précédemment
 		canvasMap.height = bh + 2 * p;
 		canvasMap.width = bw + 2 * p;
 
-		//Fonction permettant de convertir une coordonnée de cellule de grille en coordonnée en pixel
-		const convertGridCellToPixel = (padding, cellPosition, cellSize) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
-			let pixel = padding + 1 + cellSize * cellPosition;
-			return (pixel)
-		}
-
-		//Appel à la classe Map pour créer la grille sur l'espace canvas
-		let map = new Map(p, bw, bh, cellGridSize, numberCell);
-		map.mapInitialisation(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize), convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
-		map.drawBoard(canvasContext);
-
-
-		let bird1 = new Bird("rouge", 0, 0, 0, 0, 'images/bird.jpg');
-		bird1.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird1.startPositionX, cellGridSize), convertGridCellToPixel(p, bird1.startPositionY, cellGridSize));
-
-		let bird2 = new Bird("bleu", 0, 3, 0, 3, 'images/bird2.png');
-		bird2.CreateBirdPicture(canvasContext, convertGridCellToPixel(p, bird2.startPositionX, cellGridSize), convertGridCellToPixel(p, bird2.startPositionY, cellGridSize));
-
-
-		let step = 1;
-
-		//Tableau qui mémorise la case ou est l'oiseau pour lui redonner la valeur false (ie vide) une fois qu'il est parti
-		//Le premier sous tableau correspond aux positions x et y de l'oiseau 1 et ainsi de suite
-		let memorizedPosition = [
-			[0, 0],
-			[0, 0]
-		];
-
-		let birds = [bird1, bird2];
-
-		//Déplacement automatique toute les 500ms
-		const move = (nbCell, cellSize, padding, step) => {
-
-			map.turnCellValueUnoccupied(bird1.positionX, bird1.positionY);
-			bird1.MoveBehavior(nbCell, step, map.matrice);
-			map.turnCellValueOccupied(bird1.positionX, bird1.positionY);
-
-			map.turnCellValueUnoccupied(bird2.positionX, bird2.positionY);
-			bird2.MoveBehavior(nbCell, step, map.matrice);
-			map.turnCellValueOccupied(bird2.positionX, bird2.positionY);
-
-
-			//On efface tout ce qu'il y a dans le canvas
-			canvasContext.clearRect(0, 0, 500, 500);
-			//On redessine la grille
-			map.drawBoard(canvasContext);
-			//Dessin de la case verte
-			map.DrawBonusCell(canvasContext, convertGridCellToPixel(p, 3, cellGridSize), convertGridCellToPixel(p, 5, cellGridSize));
-			map.DrawMalusCell(canvasContext, convertGridCellToPixel(p, 8, cellGridSize), convertGridCellToPixel(p, 7, cellGridSize));
-
-			//On redessine les oiseaux à la bonne position
-			bird1.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird1.positionX, cellSize), convertGridCellToPixel(padding, bird1.positionY, cellSize));
-			bird2.DrawBirdPicture(canvasContext, convertGridCellToPixel(padding, bird2.positionX, cellSize), convertGridCellToPixel(padding, bird2.positionY, cellSize));
-
-			//map.consoleModeDisplayMap();
-
-		}
+		let simulation = new Simulation();
+		simulation.initialisation(canvasContext, p, bw, bh, cellGridSize);
 
 		setInterval(function() {
-			move(numberCell, cellGridSize, p, step);
+			simulation.move(numberCell, cellGridSize, p, step, canvasContext);
 		}, 500);
 
 
