@@ -1,6 +1,6 @@
 class Bird {
   //Constructeur
-  constructor(species, nbIndividuals, positionX, positionY, pictureSource, birdPicture) {
+  constructor(species, nbIndividuals, positionX, positionY, pictureSource) {
     this.species = species;
     this.nbIndividuals = nbIndividuals;
     this.positionX = positionX;
@@ -28,29 +28,25 @@ class Bird {
     ctx.drawImage(this.birdPicture, x, y);
   }
 
-  checkCellDisponibility(tab, x, y)
-  {
-    if(tab[y][x] == false) //la case est innocupée
+  checkCellDisponibility(tab, x, y) {
+    //console.log(tab[y][x]);
+    if (tab[y][x] == false) //la case est innocupée
     {
       return true; //Je peux me déplacer sur cette case
-    }
-    else {
-      return false;} //Je ne peux pas me déplacer sur cette case
+    } else {
+      return false;
+    } //Je ne peux pas me déplacer sur cette case
   }
 
-  checkIncreasePopulation(x,y)
-  {
-    if(this.positionX == x && this.positionY == y)
-    {
-      this.nbIndividuals ++;
+  checkIncreasePopulation(x, y) {
+    if (this.positionX == x && this.positionY == y) {
+      this.nbIndividuals++;
     }
   }
 
-  checkDecreasePopulation(x,y)
-  {
-    if(this.positionX == x && this.positionY == y)
-    {
-      this.nbIndividuals --;
+  checkDecreasePopulation(x, y) {
+    if (this.positionX == x && this.positionY == y) {
+      this.nbIndividuals--;
     }
   }
 
@@ -63,7 +59,7 @@ class Bird {
         }
         break;
       case 1: //Déplacement vers la droite
-        if (this.positionX < nbCell - 1 && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
+        if (this.positionX < (widthMap / cellSize) - 1 && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
           this.setXPosition(this.positionX + step);
         }
         break;
@@ -73,7 +69,7 @@ class Bird {
         }
         break;
       case 3: //Déplacement vers le bas
-        if (this.positionY < nbCell - 1 && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
+        if (this.positionY < (heightMap / cellSize) - 1 && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
           this.setYPosition(this.positionY + step);
         }
         break;
@@ -85,7 +81,7 @@ class Bird {
 
   //Comportement de déplacement de l'oiseau
   moveBehavior(nbCell, step, tab) {
-    //Déplacement différent en fonction de l'espèce de l'oiseau
+  //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'bleu':
         this.randomMove(nbCell, step, tab);

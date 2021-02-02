@@ -1,7 +1,5 @@
-class Area
-{
-  constructor(areaType, positionX, positionY, picture)
-  {
+class Area {
+  constructor(areaType, positionX, positionY) {
     this.areaType = areaType;
     this.positionX = positionX;
     this.positionY = positionY;
@@ -9,12 +7,10 @@ class Area
   }
 
   createArea(ctx, x, y) {
-    if(this.areaType == 'bonus')
-    {
+    if (this.areaType == 'bonus') {
       this.picture.src = 'images/green_square.png';
     }
-    if(this.areaType == 'malus')
-    {
+    if (this.areaType == 'malus') {
       this.picture.src = 'images/red_square.png';
     }
     this.picture.onload = () => {

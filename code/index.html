@@ -128,38 +128,7 @@
 	<script type="text/javascript" src="js/classes/Map.js"></script>
 	<script type="text/javascript" src="js/classes/Area.js"></script>
 	<script type="text/javascript" src="js/classes/Simulation.js"></script>
-
-	<script type="text/javascript">
-		//Récupèration l'élément canvas
-		let canvasMap = document.getElementById("map");
-		//getContext conduit à la création d'un objet de représentation 2D
-		let canvasContext = canvasMap.getContext("2d");
-		//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
-		let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
-
-		let p = 10; // Padding = marge
-		let bw = 400; // Canvas width -> X
-		let bh = 400; // Canvas height -> Y
-		let cellGridSize = bw / p;
-		let numberCell = bw / cellGridSize;
-		let step = 1;
-
-		//Modification de la taille du canvas en fonction des valeurs rentrées précédemment
-		canvasMap.height = bh + 2 * p;
-		canvasMap.width = bw + 2 * p;
-
-		let simulation = new Simulation();
-		simulation.initialisation(canvasContext, p, bw, bh, cellGridSize);
-
-		setInterval(function() {
-			simulation.move(numberCell, cellGridSize, p, step, canvasContext);
-		}, 500);
-
-
-		//A mettre lorsqu'on veut utilise le clavier (ou la souris)
-		//document.addEventListener("keydown", deplacement);
-	</script>
-
+	<script type="text/javascript" src="js/program.js"></script>
 
 </body>
 
