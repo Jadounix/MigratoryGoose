@@ -1,11 +1,6 @@
-//Récupèration l'élément canvas
-let canvasMap = document.getElementById("map");
-//getContext conduit à la création d'un objet de représentation 2D
-let canvasContext = canvasMap.getContext("2d");
-//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
-let canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.height);
+//canvasMap et canvasContext sont donnés par config.js
 
-//réation d'une nouvelle simulation
+//Ccréation d'une nouvelle simulation
 let simulation = new Simulation();
 //Initialisation de la simulation
 simulation.initialisation(canvasContext, canvasMap);

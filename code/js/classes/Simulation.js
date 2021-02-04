@@ -1,15 +1,7 @@
-//Constantes correspondant aux dimensions de la matrice
-const padding = 10; //marge
-const widthMap = 1000; // Canvas width -> X
-const heightMap = 400; // Canvas height -> Y
-const cellSize = 40;
-const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
-const step = 1;
-
 class Simulation {
   //Constructeur
   constructor(map, birds, areas) {
-    this.map = new Map(padding, widthMap, heightMap, cellSize, nbCell);
+    this.map = new Map(padding, widthMap, heightMap, cellSize, nbCell); //Les paramètres sont donnés par config.js
     this.birds = [new Bird("rouge", 10, 0, 0, 'images/bird.jpg'), new Bird("bleu", 10, 0, 3, 'images/bird2.png')];
     this.areas = [new Area('bonus', 3, 4), new Area('malus', 6, 1)];
   }
