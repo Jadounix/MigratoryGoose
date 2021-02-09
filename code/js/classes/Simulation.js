@@ -2,7 +2,7 @@ class Simulation {
   //Constructeur
   constructor(map, birds, areas) {
     this.map = new Map(padding, widthMap, heightMap, cellSize, nbCell); //Les paramètres sont donnés par config.js
-    this.birds = [new Bird("rouge", 10, 0, 0, 'images/bird.jpg'), new Bird("bleu", 10, 0, 3, 'images/bird2.png')];
+    this.birds = [new Bird("rouge", 10, 8, 23, 'images/bird.png'), new Bird("bleu", 10, 14, 8, 'images/bird2.png')];
     this.areas = [new Area('bonus', 3, 4), new Area('malus', 6, 1)];
   }
 
@@ -44,8 +44,10 @@ class Simulation {
 
     //On efface tout ce qu'il y a dans le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //On redessine la grille
-    this.map.drawBoard(ctx);
+    //On redessine le fond
+    this.map.drawBackground(ctx);
+    //On dessine la grille
+    //this.map.drawBoard(ctx);
 
     //Dessin des différentes zones du jeu
     for (let area of this.areas) {

@@ -4,10 +4,20 @@
 let simulation = new Simulation();
 //Initialisation de la simulation
 simulation.initialisation(canvasContext, canvasMap);
-//Fait tourner la simulation toutes les 500 ms
-setInterval(function() {
-  simulation.move(canvasContext, canvasMap);
-}, 500);
 
-//A mettre lorsqu'on veut utilise le clavier (ou la souris)
-//document.addEventListener("keydown", deplacement);
+let time;
+
+document.getElementById("buttonStart").addEventListener("click", function() {
+  time = setInterval(function() {
+    simulation.move(canvasContext, canvasMap);
+  }, 500);
+});
+
+document.getElementById("buttonStop").addEventListener("click", function() {
+  clearInterval(time);
+});
+
+//Fait tourner la simulation toutes les 500 ms
+// setInterval(function() {
+//   simulation.move(canvasContext, canvasMap);
+// }, 500);

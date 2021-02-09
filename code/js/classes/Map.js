@@ -7,14 +7,16 @@ class Map {
     this.heightMap = heightMap;
     this.cellSize = cellSize;
     this.cellNumber = cellNumber;
-    this.bonusPicture = new Image();
-    this.malusPicture = new Image();
+    this.mapBackground = new Image();
+    this.mapBackground.src = 'images/fond_map.png';
+
     //Tableau qui va contenir les valeurs des cases de la map
     this.matrice = new Array(this.heightMap / this.cellSize);
     for (let i = 0; i < this.matrice.length; i++) {
       this.matrice[i] = new Array(this.widthMap / this.cellSize);
     }
   }
+
   //Méthodes
   //Dessin de la grille sur le canvas
   drawBoard(ctx) {
@@ -30,6 +32,18 @@ class Map {
     ctx.stroke();
   }
 
+  createBackground(ctx)
+  {
+    this.mapBackground.onload = () => {
+      ctx.drawImage(this.mapBackground, padding + 1, padding + 1);
+    }
+  }
+
+  drawBackground(ctx)
+  {
+    ctx.drawImage(this.mapBackground, padding + 1, padding + 1);
+  }
+
   //Initialisation de la map avec des valeurs false ie des cases qui ne sont occupées par rien
   mapInitialisation(ctx) {
     for (let i = 0; i < this.heightMap / this.cellSize; i++) {
@@ -37,8 +51,7 @@ class Map {
         this.matrice[i][j] = false;
       }
     }
-    //this.CreateBonusCell(ctx,x,y);
-    //this.CreateMalusCell(ctx,i,j);
+    this.createBackground(ctx);
   }
 
   consoleModeDisplayMap() {
