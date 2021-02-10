@@ -3,7 +3,9 @@ class Simulation {
   constructor(map, birds, areas) {
     this.map = new Map(padding, widthMap, heightMap, cellSize, nbCell); //Les paramètres sont donnés par config.js
     this.birds = [new Bird("rouge", 10, 8, 23, 'images/bird.png'), new Bird("bleu", 10, 14, 8, 'images/bird2.png')];
-    this.areas = [new Area('bonus', 3, 4), new Area('malus', 6, 1)];
+    //this.areas = [new Area('bonus', 3, 4), new Area('malus', 6, 1)];
+    this.areas = [new Area('water', Math.round(0.4*widthMap/cellSize), Math.round(0*heightMap/cellSize), Math.round(0.6*widthMap/cellSize), Math.round(0.2*heightMap/cellSize))];
+
   }
 
   convertGridCellToPixel(padding, cellPosition, cellSize) { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
@@ -19,17 +21,16 @@ class Simulation {
     this.map.drawBoard(ctx);
 
     for (let area of this.areas) {
-      area.createArea(ctx, this.convertGridCellToPixel(padding, area.PositionX, cellSize), this.convertGridCellToPixel(padding, area.PositionY, cellSize));
+      area.createArea(this.convertGridCellToPixel(padding, area.positionX, cellSize), this.convertGridCellToPixel(padding, area.positionY, cellSize), this.convertGridCellToPixel(padding, area.sizeWidth, cellSize) - padding, this.convertGridCellToPixel(padding, area.sizeHeight,cellSize) - padding);
     }
 
     for (let bird of this.birds) {
-      bird.createBirdPicture(ctx, this.convertGridCellToPixel(padding, bird.PositionX, cellSize), this.convertGridCellToPixel(padding, bird.PositionY, cellSize));
+      bird.createBirdPicture(ctx, this.convertGridCellToPixel(padding, bird.positionX, cellSize), this.convertGridCellToPixel(padding, bird.positionY, cellSize));
     }
   }
 
   //Méthodes
   move(ctx, canvas) {
-    //console.table(this.map.matrice);
     for (let bird of this.birds) {
       this.map.turnUnoccupied(bird.positionX, bird.positionY);
       bird.moveBehavior(nbCell, step, this.map.matrice);
@@ -44,14 +45,12 @@ class Simulation {
 
     //On efface tout ce qu'il y a dans le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //On redessine le fond
-    this.map.drawBackground(ctx);
     //On dessine la grille
-    //this.map.drawBoard(ctx);
+    this.map.drawBoard(ctx);
 
     //Dessin des différentes zones du jeu
     for (let area of this.areas) {
-      area.drawArea(ctx, this.convertGridCellToPixel(padding, area.positionX, cellSize), this.convertGridCellToPixel(padding, area.positionY, cellSize));
+      area.drawArea(this.convertGridCellToPixel(padding, area.positionX, cellSize), this.convertGridCellToPixel(padding, area.positionY, cellSize), this.convertGridCellToPixel(padding, area.sizeWidth, cellSize) - padding, this.convertGridCellToPixel(padding, area.sizeHeight,cellSize) - padding);
     }
 
     //Dessin des oiseaux sur le canvas
