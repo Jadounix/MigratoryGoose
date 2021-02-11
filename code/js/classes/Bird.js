@@ -44,9 +44,37 @@ class Bird {
     }
   }
 
-  checkDecreasePopulation(x, y) {
-    if (this.positionX == x && this.positionY == y) {
-      this.nbIndividuals--;
+  checkCellElement(area) {
+    switch (area.hasElement) {
+      case 'food':
+        console.log('Miam un burger vegan');
+        break;
+      case 'hurricane':
+        console.log('ah une tempête !');
+        break;
+      case 'no':
+        console.log('Cette case est vide');
+        break;
+      default: ('error area element');
+    }
+  }
+
+
+  checkCellType(area) {
+    switch (area.areaType) {
+      case 'blue':
+        //console.log('je suis sur bleu');
+        break;
+      case 'orange':
+        //console.log('je suis sur orange');
+        break;
+      case 'purple':
+        //console.log('je suis sur violet');
+        break;
+      case 'green':
+        //console.log('je suis sur vert');
+        break;
+      default: ('error area type');
     }
   }
 
@@ -81,7 +109,7 @@ class Bird {
 
   //Comportement de déplacement de l'oiseau
   moveBehavior(nbCell, step, tab) {
-  //Déplacement différent en fonction de l'espèce de l'oiseau
+    //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'bleu':
         this.randomMove(nbCell, step, tab);

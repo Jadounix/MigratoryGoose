@@ -1,37 +1,108 @@
 class Area {
-  constructor(areaType, positionX, positionY, sizeWidth, sizeHeight) {
+  constructor(areaType, positionX, positionY, hasElement) {
     this.areaType = areaType;
     this.positionX = positionX;
     this.positionY = positionY;
-    this.sizeWidth = sizeWidth;
-    this.sizeHeight = sizeHeight;
+    this.hasElement = hasElement; //food, hurricane or no
     this.picture = new Image();
   }
 
-  createArea(x,y,w,h) {
-    if (this.areaType == 'bonus') {
-      //this.picture.src = 'images/tree.png';
+  colorMap(x, y) {
+    switch (this.areaType) {
+      case 'blue':
+        this.colorAreaBlue(x, y);
+        break;
+      case 'orange':
+        this.colorAreaOrange(x, y);
+        break;
+      case 'green':
+        this.colorAreaGreen(x, y);
+        break;
+      case 'purple':
+        this.colorAreaPurple(x, y);
+        break;
+      default:
+        console.log('error type of area');
     }
-
-    if (this.areaType == 'malus') {
-      //this.picture.src = 'images/hurricane.png';
-    }
-
-    // this.picture.onload = () => {
-    //   ctx.drawImage(this.picture, this.positionX, this.positionY);
-    // }
-    // this.picture.src = 'images/water_square.png';
-    // this.picture.onload = () => {
-    //   ctx.drawImage(this.picture, this.positionX, this.positionY);
-    // }
-    canvasContext.fillStyle = 'rgba(0,0,255,0.5)';
-    canvasContext.fillRect(x, y, w, h);
   }
 
-  drawArea(x,y,w,h) {
+  colorAreaBlue(x, y) {
     canvasContext.fillStyle = 'rgba(0,0,255,0.5)';
-    canvasContext.fillRect(x, y, w, h);
+    canvasContext.fillRect(x, y, cellSize, cellSize);
   }
 
+  colorAreaGreen(x, y) {
+    canvasContext.fillStyle = 'rgba(160,255,135,0.5)';
+    canvasContext.fillRect(x, y, cellSize, cellSize);
+  }
+
+  colorAreaOrange(x, y) {
+    canvasContext.fillStyle = 'rgba(245,202,128,0.5)';
+    canvasContext.fillRect(x, y, cellSize, cellSize);
+  }
+
+  colorAreaPurple(x, y) {
+    canvasContext.fillStyle = 'rgba(210,179,245,0.7)';
+    canvasContext.fillRect(x, y, cellSize, cellSize);
+  }
+
+  createElement() {
+    let rdn = Math.random();
+    let hurricaneValue = 0;
+    let foodValue = 0;
+
+    switch (this.areaType) {
+      case 'blue':
+      hurricaneValue = 0.6; //Sur une case bleu j'ai 60% de chance d'avoir une tempête
+      foodValue = 0.2;
+        break;
+
+      case 'orange':
+      hurricaneValue = 0.3;
+      foodValue = 0.2;
+        break;
+
+      case 'purple':
+      hurricaneValue = 0.3;
+      foodValue = 0.2;
+        break;
+
+      case 'green':
+      hurricaneValue = 0.3;
+      foodValue = 0.2;
+        break;
+
+      default: ("");
+
+      if(rdn < hurricaneValue)
+      {
+        this.hasElement = hurricane;
+      }
+
+      if(rdn < foodValue)
+      {
+        this.hasElement = food;
+      }
+    }
+  }
+
+  putElement() {
+    switch (this.hasElement) {
+      case 'food':
+        this.picture.src = 'images/tree.png';
+        // this.picture.onload = () => {
+        //   canvasContext.drawImage(this.picture, this.positionX, this.positionY);
+        //}
+        break;
+      case 'hurricane':
+        this.picture.src = 'images/hurricane.png';
+        // this.picture.onload = () => {
+        //   canvasContext.drawImage(this.picture, this.positionX, this.positionY);
+        //}
+        break;
+      default:
+        ('error type of element area');
+    }
+  }
 
 }
