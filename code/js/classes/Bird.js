@@ -16,47 +16,43 @@ class Bird {
     this.positionY = newPosition;
   }
   //Récupération de l'image à afficher et affichage la première fois dans le canvas
-  createBirdPicture(ctx, x, y) {
+  createBirdPicture(x, y) {
+    x = convertGridCellToPixel(x);
+    y = convertGridCellToPixel(y);
     this.birdPicture.src = this.pictureSource;
     this.birdPicture.onload = () => {
-      ctx.drawImage(this.birdPicture, x, y);
+      canvasContext.drawImage(this.birdPicture, convertGridCellToPixel(x), convertGridCellToPixel(y));
     }
   }
   //Dessin de l'oiseau une fois que l'image est déjà crée. x et y représente les coodonées de position
-  drawBirdPicture(ctx, x, y) {
-    ctx.drawImage(this.birdPicture, x, y);
+  drawBirdPicture(x, y) {
+    canvasContext.drawImage(this.birdPicture, convertGridCellToPixel(x), convertGridCellToPixel(y));
   }
 
   checkCellDisponibility(tab, x, y) {
-    //console.log(tab[y][x]);
     if (tab[y][x] == false) //la case est innocupée
     {
       return true; //Je peux me déplacer sur cette case
     } else {
-      return false;
-    } //Je ne peux pas me déplacer sur cette case
-  }
-
-  checkIncreasePopulation(x, y) {
-    if (this.positionX == x && this.positionY == y) {
-      this.nbIndividuals++;
+      return false; //Je ne peux pas me déplacer sur cette case
     }
   }
+
 
   checkCellElement(area) {
     switch (area.hasElement) {
       case 'food':
-        console.log('Miam un burger vegan');
+        console.log('Miam un burger vegan case ' + this.positionX,this.positionY);
         this.nbIndividuals ++;
         break;
       case 'hurricane':
-        console.log('ah une tempête !');
+        console.log('ah une tempête ! '+ this.positionX,this.positionY);
         this.nbIndividuals --;
         break;
       case 'no':
-        console.log('Cette case est vide');
+        //console.log('Cette case est vide');
         break;
-      default: ('error area element');
+      default: ('error: area element');
     }
   }
 

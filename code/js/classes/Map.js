@@ -10,21 +10,21 @@ class Map {
 
   //Méthodes
   //Dessin de la grille sur le canvas
-  drawBoard(ctx) {
+  drawBoard() {
     for (let x = 0; x <= widthMap; x += cellSize) {
-      ctx.moveTo(0.5 + x + padding, padding);
-      ctx.lineTo(0.5 + x + padding, heightMap + padding);
+      canvasContext.moveTo(0.5 + x + padding, padding);
+      canvasContext.lineTo(0.5 + x + padding, heightMap + padding);
     }
     for (let x = 0; x <= heightMap; x += cellSize) {
-      ctx.moveTo(padding, 0.5 + x + padding);
-      ctx.lineTo(widthMap + padding, 0.5 + x + padding);
+      canvasContext.moveTo(padding, 0.5 + x + padding);
+      canvasContext.lineTo(widthMap + padding, 0.5 + x + padding);
     }
-    ctx.strokeStyle = "black";
-    ctx.stroke();
+    canvasContext.strokeStyle = "black";
+    canvasContext.stroke();
   }
 
   //Initialisation de la map avec des valeurs false ie des cases qui ne sont occupées par rien
-  mapInitialisation(ctx) {
+  mapInitialisation() {
     for (let i = 0; i < heightMap / cellSize; i++) {
       for (let j = 0; j < widthMap / cellSize; j++) {
         this.matrice[i][j] = false;

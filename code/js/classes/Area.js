@@ -28,22 +28,22 @@ class Area {
 
   colorAreaBlue(x, y) {
     canvasContext.fillStyle = 'rgba(0,0,255,0.5)';
-    canvasContext.fillRect(x, y, cellSize, cellSize);
+    canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
   colorAreaGreen(x, y) {
     canvasContext.fillStyle = 'rgba(160,255,135,0.5)';
-    canvasContext.fillRect(x, y, cellSize, cellSize);
+    canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
   colorAreaOrange(x, y) {
     canvasContext.fillStyle = 'rgba(245,202,128,0.5)';
-    canvasContext.fillRect(x, y, cellSize, cellSize);
+    canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
   colorAreaPurple(x, y) {
     canvasContext.fillStyle = 'rgba(210,179,245,0.7)';
-    canvasContext.fillRect(x, y, cellSize, cellSize);
+    canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
   createElement() {
@@ -86,13 +86,12 @@ class Area {
 
   }
 
-  putElementPicture(x,y) {
+  putElementPicture(x, y) {
+    x = convertGridCellToPixel(x);
+    y = convertGridCellToPixel(y);
     switch (this.hasElement) {
       case 'food':
         this.picture.src = 'images/tree.png';
-        //canvasContext.fillStyle = 'rgba(0,0,0,1)';
-        //canvasContext.fillRect(x, y, cellSize, cellSize);
-
         this.picture.onload = () => {
           canvasContext.drawImage(this.picture, x, y);
         }
@@ -102,8 +101,6 @@ class Area {
         this.picture.onload = () => {
           canvasContext.drawImage(this.picture, x, y);
         }
-        //canvasContext.fillStyle = 'rgba(255,255,255,1)';
-        //canvasContext.fillRect(x, y, cellSize, cellSize);
         break;
       default:
         ('error type of element area');

@@ -2,22 +2,16 @@ class Simulation {
   //Constructeur
   constructor(map, birds, areas) {
     this.map = new Map(); //Les paramètres sont donnés par config.js
-    //this.birds = [new Bird("migratory", 10, 8, 23, 'images/bird.png'), new Bird("sedentary", 10, 14, 8, 'images/bird2.png')];
-    this.birds = [new Bird("migratory", 10, 8, 23, 'images/bird.png')];
+    this.birds = [new Bird("migratory", 10, 8, 23, 'images/bird.png'), new Bird("sedentary", 10, 14, 8, 'images/bird2.png')];
     this.areas = new Array(nbCell);
     for (let i = 0; i < this.areas.length; i++) {
       this.areas[i] = new Array(widthMap / cellSize);
     }
 
-    let rdnCaseNumber = Math.floor(Math.random() * nbCell/10); //Retourne un nombre aléatoire entre 0 et le nombre de cellules/10
+    let rdnCaseNumber = Math.floor(Math.random() * nbCell / 10); //Retourne un nombre aléatoire entre 0 et le nombre de cellules/10
     let rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
     let rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
 
-  }
-
-  convertGridCellToPixel(padding, cellPosition, cellSize) { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
-    let pixel = padding + 1 + cellSize * cellPosition;
-    return (pixel)
   }
 
   putTypeCell() {
@@ -59,33 +53,34 @@ class Simulation {
   }
 
 
-  initialisation(ctx, canvas) {
-    canvas.height = heightMap + 2 * padding;
-    canvas.width = widthMap + 2 * padding;
+  initialisation() {
+    canvasMap.height = heightMap + 2 * padding;
+    canvasMap.width = widthMap + 2 * padding;
 
-    this.map.mapInitialisation(ctx);
-    this.map.drawBoard(ctx);
+    this.map.mapInitialisation();
+    this.map.drawBoard();
 
     this.putTypeCell();
 
-    nbMigratory.innerHTML = '0';
-    nbSedentary.innerHTML = '0';
+    nbMigratory.innerHTML = "Nombre d'individus dans la population de migrateurs : " + 0;
+    nbSedentary.innerHTML = "Nombre d'individus dans la population de sédentaires : " + 0;
 
     let area;
     for (let i = 0; i < heightMap / cellSize; i++) {
       for (let j = 0; j < widthMap / cellSize; j++) {
         area = this.areas[i][j];
-        area.colorMap(this.convertGridCellToPixel(padding, area.positionX, cellSize), this.convertGridCellToPixel(padding, area.positionY, cellSize));
+        area.colorMap(area.positionX, area.positionY);
       }
     }
 
     for (let bird of this.birds) {
-      bird.createBirdPicture(ctx, this.convertGridCellToPixel(padding, bird.positionX, cellSize), this.convertGridCellToPixel(padding, bird.positionY, cellSize));
+      bird.createBirdPicture(bird.positionX, bird.positionY);
     }
   }
 
   //Méthodes
-  move(ctx, canvas) {
+  move() {
+
     for (let bird of this.birds) {
       this.map.turnUnoccupied(bird.positionX, bird.positionY);
       bird.moveBehavior(nbCell, step, this.map.matrice);
@@ -96,50 +91,42 @@ class Simulation {
     }
 
     //On efface tout ce qu'il y a dans le canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvasContext.clearRect(0, 0, canvasMap.width, canvasMap.height);
     //On dessine la grille
-    this.map.drawBoard(ctx);
+    this.map.drawBoard();
 
     let area;
     for (let i = 0; i < heightMap / cellSize; i++) {
       for (let j = 0; j < widthMap / cellSize; j++) {
         area = this.areas[i][j];
-        area.colorMap(this.convertGridCellToPixel(padding, area.positionX, cellSize), this.convertGridCellToPixel(padding, area.positionY, cellSize));
+        area.colorMap(area.positionX, area.positionY);
+        //On remet les cases à zero
+        area.hasElement = 'no';
       }
     }
-      //Choix aléatoire des cases qui contiendront les malus/bonus
-      for(let k = 0; k<this.rdnCaseNumber; k++)
-      {
-        this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
-        this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
+    //Choix aléatoire des cases qui contiendront les malus/bonus
+    for (let k = 0; k < this.rdnCaseNumber; k++) {
+      this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
+      this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
 
-        area = this.areas[this.rdnHeight][this.rdnWidth];
-
-        area.createElement();
-        area.putElementPicture(this.convertGridCellToPixel(padding, area.positionX, cellSize),this.convertGridCellToPixel(padding, area.positionY, cellSize));
-      }
-      this.rdnCaseNumber = Math.floor(Math.random() * nbCell/100);
-
-
-
-
+      area = this.areas[this.rdnWidth][this.rdnHeight];
+      area.createElement();
+      area.putElementPicture(this.rdnWidth, this.rdnHeight);
+    }
+    this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 100);
 
     //Dessin des oiseaux sur le canvas et actualisation du nombre d'individus
     for (let bird of this.birds) {
-      bird.drawBirdPicture(ctx, this.convertGridCellToPixel(padding, bird.positionX, cellSize), this.convertGridCellToPixel(padding, bird.positionY, cellSize));
+      bird.drawBirdPicture(bird.positionX, bird.positionY);
 
-      if(bird.species == 'migratory')
-      {
-        nbMigratory.innerHTML = bird.nbIndividuals;
+      if (bird.species == 'migratory') {
+        nbMigratory.innerHTML = "Nombre d'individus dans la population de migrateurs : " + bird.nbIndividuals;
+      } else if (bird.species == 'sedentary') {
+        nbSedentary.innerHTML =  "Nombre d'individus dans la population de sédentaires : " + bird.nbIndividuals;
+      } else {
+        console.log('error: Unknown bird species');
       }
-      else if(bird.species == 'sedentary')
-      {
-        nbSedentary.innerHTML = bird.nbIndividuals;
-      }
-      else {console.log('error: Unknown bird species');}
     }
-
-    //this.map.consoleModeDisplayMap();
   }
 
 
