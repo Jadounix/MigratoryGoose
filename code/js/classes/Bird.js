@@ -7,7 +7,6 @@ class Bird {
     this.positionY = positionY;
     this.pictureSource = pictureSource;
     this.birdPicture = new Image();
-
   }
   //Méthodes
   setXPosition(newPosition) {
@@ -48,9 +47,11 @@ class Bird {
     switch (area.hasElement) {
       case 'food':
         console.log('Miam un burger vegan');
+        this.nbIndividuals ++;
         break;
       case 'hurricane':
         console.log('ah une tempête !');
+        this.nbIndividuals --;
         break;
       case 'no':
         console.log('Cette case est vide');
@@ -111,11 +112,11 @@ class Bird {
   moveBehavior(nbCell, step, tab) {
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
-      case 'bleu':
+      case 'migratory':
         this.randomMove(nbCell, step, tab);
         break;
 
-      case 'rouge':
+      case 'sedentary':
         this.randomMove(nbCell, step, tab);
         break;
 

@@ -53,52 +53,57 @@ class Area {
 
     switch (this.areaType) {
       case 'blue':
-      hurricaneValue = 0.6; //Sur une case bleu j'ai 60% de chance d'avoir une tempête
-      foodValue = 0.2;
+        hurricaneValue = 0.6; //Sur une case bleu j'ai 60% de chance d'avoir une tempête
+        foodValue = 0.2;
         break;
 
       case 'orange':
-      hurricaneValue = 0.3;
-      foodValue = 0.2;
+        hurricaneValue = 0.3;
+        foodValue = 0.2;
         break;
 
       case 'purple':
-      hurricaneValue = 0.3;
-      foodValue = 0.2;
+        hurricaneValue = 0.3;
+        foodValue = 0.2;
         break;
 
       case 'green':
-      hurricaneValue = 0.3;
-      foodValue = 0.2;
+        hurricaneValue = 0.3;
+        foodValue = 0.2;
         break;
 
-      default: ("");
-
-      if(rdn < hurricaneValue)
-      {
-        this.hasElement = hurricane;
-      }
-
-      if(rdn < foodValue)
-      {
-        this.hasElement = food;
-      }
+      default:
+        ("");
     }
+
+    if (rdn < hurricaneValue) {
+      this.hasElement = 'hurricane';
+    }
+
+    if (rdn < foodValue) {
+      this.hasElement = 'food';
+    }
+
   }
 
-  putElement() {
+  putElementPicture(x,y) {
     switch (this.hasElement) {
       case 'food':
         this.picture.src = 'images/tree.png';
-        // this.picture.onload = () => {
-        //   canvasContext.drawImage(this.picture, this.positionX, this.positionY);
-        //}
+        //canvasContext.fillStyle = 'rgba(0,0,0,1)';
+        //canvasContext.fillRect(x, y, cellSize, cellSize);
+
+        this.picture.onload = () => {
+          canvasContext.drawImage(this.picture, x, y);
+        }
         break;
       case 'hurricane':
         this.picture.src = 'images/hurricane.png';
-        // this.picture.onload = () => {
-        //   canvasContext.drawImage(this.picture, this.positionX, this.positionY);
-        //}
+        this.picture.onload = () => {
+          canvasContext.drawImage(this.picture, x, y);
+        }
+        //canvasContext.fillStyle = 'rgba(255,255,255,1)';
+        //canvasContext.fillRect(x, y, cellSize, cellSize);
         break;
       default:
         ('error type of element area');

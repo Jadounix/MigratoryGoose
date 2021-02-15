@@ -12,3 +12,7 @@ const heightMap = 800; // Canvas height -> Y
 const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
+
+//Modification de l'affichage du nombre d'oiseau dans la checkIncreasePopulation
+const nbMigratory = document.getElementById("nbMigratory");
+const nbSedentary = document.getElementById("nbSedentary");
