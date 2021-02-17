@@ -2,16 +2,17 @@ class Simulation {
   //Constructeur
   constructor(map, birds, areas) {
     this.map = new Map(); //Les paramètres sont donnés par config.js
-    this.birds = [new Bird("migratory", 10, 8, 23, 'images/bird.png'), new Bird("sedentary", 10, 14, 8, 'images/bird2.png')];
+    this.birds = [new Bird("migratory", 10, 8, 23, 'images/birdM.png'), new Bird("sedentary", 10, 14, 8, 'images/birdS.png')];
     this.areas = new Array(nbCell);
     for (let i = 0; i < this.areas.length; i++) {
       this.areas[i] = new Array(widthMap / cellSize);
     }
 
-    let rdnCaseNumber = Math.floor(Math.random() * nbCell / 10); //Retourne un nombre aléatoire entre 0 et le nombre de cellules/10
-    let rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
-    let rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
+    this.nbTree = 100;
 
+    this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 10); //Retourne un nombre aléatoire entre 0 et le nombre de cellules/10
+    this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
+    this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
   }
 
   putTypeCell() {
@@ -70,11 +71,28 @@ class Simulation {
       for (let j = 0; j < widthMap / cellSize; j++) {
         area = this.areas[i][j];
         area.colorMap(area.positionX, area.positionY);
+        area.createElementPicture(area.positionX, area.positionY);
       }
     }
 
     for (let bird of this.birds) {
       bird.createBirdPicture(bird.positionX, bird.positionY);
+    }
+
+
+  }
+
+  createTree()
+  {
+    //Création des zones d'abres pour ajouter un peu de décors
+    for (let t = 0; t < this.nbTree; t++)
+    {
+      this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
+      this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
+      if(this.areas[this.rdnHeight][this.rdnWidth].areaType != 'blue')
+      {
+        this.areas[this.rdnHeight][this.rdnWidth].hasElement = 'tree';
+      }
     }
   }
 
@@ -100,10 +118,17 @@ class Simulation {
       for (let j = 0; j < widthMap / cellSize; j++) {
         area = this.areas[i][j];
         area.colorMap(area.positionX, area.positionY);
-        //On remet les cases à zero
-        area.hasElement = 'no';
+        //On remet les cases à zero sauf si c'est un arbre
+        if(area.hasElement != 'tree')
+        {
+          area.hasElement = 'no';
+        }
+        else {
+          area.drawElementPicture(area.positionX, area.positionY);
+        }
       }
     }
+
     //Choix aléatoire des cases qui contiendront les malus/bonus
     for (let k = 0; k < this.rdnCaseNumber; k++) {
       this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
@@ -111,7 +136,7 @@ class Simulation {
 
       area = this.areas[this.rdnWidth][this.rdnHeight];
       area.createElement();
-      area.putElementPicture(this.rdnWidth, this.rdnHeight);
+      area.drawElementPicture(this.rdnWidth, this.rdnHeight);
     }
     this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 100);
 

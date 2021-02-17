@@ -2,6 +2,7 @@
 let simulation = new Simulation();
 //Initialisation de la simulation
 simulation.initialisation();
+simulation.createTree();
 
 let time;
 
