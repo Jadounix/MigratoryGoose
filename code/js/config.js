@@ -7,8 +7,8 @@ const canvasData = canvasContext.getImageData(0, 0, canvasMap.width, canvasMap.h
 
 //Constantes correspondant aux dimensions de la matrice
 const padding = 10; //marge
-const widthMap = 800; // Canvas width -> X
-const heightMap = 800; // Canvas height -> Y
+const widthMap = 600; // Canvas width -> X
+const heightMap = 600; // Canvas height -> Y
 const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;

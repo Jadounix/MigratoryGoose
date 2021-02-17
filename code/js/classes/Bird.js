@@ -42,17 +42,21 @@ class Bird {
   checkCellElement(area) {
     switch (area.hasElement) {
       case 'food':
-        console.log('Miam un burger vegan case ' + this.positionX,this.positionY);
-        this.nbIndividuals ++;
+        console.log('Miam un burger vegan case ' + this.positionX, this.positionY);
+        this.nbIndividuals++;
         break;
       case 'hurricane':
-        console.log('ah une tempête ! '+ this.positionX,this.positionY);
-        this.nbIndividuals --;
+        console.log('ah une tempête ! ' + this.positionX, this.positionY);
+        this.nbIndividuals--;
+        break;
+      case 'tree':
+        console.log('vive la nature');
         break;
       case 'no':
         //console.log('Cette case est vide');
         break;
-      default: ('error: area element');
+      default:
+        ('error: area element');
     }
   }
 
@@ -71,11 +75,13 @@ class Bird {
       case 'green':
         //console.log('je suis sur vert');
         break;
-      default: ('error area type');
+      default:
+        ('error: area type/color');
     }
+    return (area.areaType);
   }
 
-  randomMove(nbCell, step, tab) {
+  randomMove(tab) {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
     switch (rdn) {
       case 0: //Déplacement vers le haut
@@ -104,16 +110,52 @@ class Bird {
     rdn = Math.floor(Math.random() * 3);
   }
 
+  //Comprtement de déplacement des oiseaux sédentaires
+  sedentaryMove(tab, area) {
+    let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
+    switch (rdn) {
+      case 0: //Déplacement vers le haut
+        if (this.checkCellType(area[this.positionX][this.positionY - step]) == 'green' && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
+          this.setYPosition(this.positionY - step);
+        }
+        break;
+      case 1: //Déplacement vers la droite
+        if (this.checkCellType(area[this.positionX + step][this.positionY]) == 'green' && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
+          this.setXPosition(this.positionX + step);
+        }
+        break;
+      case 2: //Déplacement vers la gauche
+        if (this.checkCellType(area[this.positionX - step][this.positionY]) == 'green' && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
+          this.setXPosition(this.positionX - step);
+        }
+        break;
+      case 3: //Déplacement vers le bas
+        if (this.checkCellType(area[this.positionX][this.positionY + step]) == 'green' && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
+          this.setYPosition(this.positionY + step);
+        }
+        break;
+      default:
+        console.log('No move');
+    }
+    rdn = Math.floor(Math.random() * 3);
+  }
+
+  //Comprtement de déplacement des oiseaux migrateurs
+  migratoryMove() {
+
+  }
+
   //Comportement de déplacement de l'oiseau
-  moveBehavior(nbCell, step, tab) {
+  moveBehavior(tab, area) {
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'migratory':
-        this.randomMove(nbCell, step, tab);
+        this.randomMove(tab);
         break;
 
       case 'sedentary':
-        this.randomMove(nbCell, step, tab);
+        //this.randomMove(tab);
+        this.sedentaryMove(tab, area);
         break;
 
       default:

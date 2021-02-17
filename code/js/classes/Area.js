@@ -76,7 +76,7 @@ class Area {
         ("");
     }
 
-    if(this.hasElement == 'no') //La case est vide
+    if (this.hasElement == 'no') //La case est vide
     {
       if (rdn < hurricaneValue) {
         this.hasElement = 'hurricane';
@@ -92,6 +92,7 @@ class Area {
   createElementPicture(x, y) {
     x = convertGridCellToPixel(x);
     y = convertGridCellToPixel(y);
+
     switch (this.hasElement) {
       case 'food':
         this.picture.src = 'images/food.png';
@@ -117,8 +118,25 @@ class Area {
   }
 
   drawElementPicture(x, y) {
-    canvasContext.drawImage(this.picture, convertGridCellToPixel(x), convertGridCellToPixel(y));
-    console.log(this.picture.src);
+    x = convertGridCellToPixel(x);
+    y = convertGridCellToPixel(y);
+
+    switch (this.hasElement) {
+      case 'food':
+        this.picture.src = 'images/food.png';
+        canvasContext.drawImage(this.picture, x, y);
+        break;
+      case 'hurricane':
+        this.picture.src = 'images/hurricane.png';
+        canvasContext.drawImage(this.picture, x, y);
+        break;
+      case 'tree':
+        this.picture.src = 'images/tree.png';
+        canvasContext.drawImage(this.picture, x, y);
+        break;
+      default:
+        ('error type of element area');
+    }
   }
 
 } //Fin de la classe
