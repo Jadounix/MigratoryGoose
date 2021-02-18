@@ -13,7 +13,7 @@ class Simulation {
     //Nombre d'arbre sur la map
     this.nbTree = 70;
 
-    this.elementTime = 1;
+    this.elementTime = 6;
 
     //Nombres aléatoires permettant le placements des différents éléments de l'environnement sur la map
     //Math.floor(Math.random() * x) retourne un nombre entre 0 et x - 1
@@ -138,8 +138,6 @@ class Simulation {
     }
 
     if (this.elementTime >= 5) {
-      console.log('loop');
-
       for (let i = 0; i < heightMap / cellSize; i++) {
         for (let j = 0; j < widthMap / cellSize; j++) {
           area = this.areas[i][j];
