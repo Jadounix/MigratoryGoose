@@ -16,13 +16,11 @@ const step = 1;
 //Modification de l'affichage du nombre d'oiseau
 const nbMigratory = document.getElementById("nbMigratory");
 const nbSedentary = document.getElementById("nbSedentary");
+//Slider de vitesse
 const speedSlider = document.getElementById("speedSlider");
 
 //fonctions
 const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
   let pixel = padding + 1 + cellSize * cellPosition;
   return (pixel)
-}
-const changeSpeed = (event) => {
-  speedSlider.value = event.target.value;
 }
