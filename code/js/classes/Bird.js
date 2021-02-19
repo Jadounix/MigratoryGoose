@@ -5,6 +5,8 @@ class Bird {
     this.nbIndividuals = nbIndividuals;
     this.positionX = positionX;
     this.positionY = positionY;
+    this.age = 0;
+    this.lifeExpectancy = 3600; //Un déplacement sur la map équivaut à 3 jours. Donc un oiseau vit environ 3600 "step"
     this.pictureSource = pictureSource;
     this.birdPicture = new Image();
   }
@@ -36,6 +38,15 @@ class Bird {
     } else {
       return false; //Je ne peux pas me déplacer sur cette case
     }
+  }
+
+  lifeCycle()
+  {
+    if(this.age > this.lifeExpectancy)
+    {
+      nbIndividuals -= (nbIndividuals - 0,1*nbIndividuals); //Perte de 10% des individus de la popualtion
+    }
+    this.age++;
   }
 
 
@@ -147,6 +158,8 @@ class Bird {
 
   //Comportement de déplacement de l'oiseau
   moveBehavior(tab, area) {
+    //Evolution des décès dans la population
+    this.lifeCycle()
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'migratory':

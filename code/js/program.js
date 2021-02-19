@@ -9,9 +9,12 @@ let time;
 document.getElementById("buttonStart").addEventListener("click", function() {
   time = setInterval(function() {
     simulation.move();
-  }, 500);
+  }, speedSlider.value);
 });
+
 
 document.getElementById("buttonStop").addEventListener("click", function() {
   clearInterval(time);
 });
+
+speedSlider.addEventListener("input", changeSpeed);

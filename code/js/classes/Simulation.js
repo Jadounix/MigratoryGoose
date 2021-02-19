@@ -17,7 +17,7 @@ class Simulation {
 
     //Nombres aléatoires permettant le placements des différents éléments de l'environnement sur la map
     //Math.floor(Math.random() * x) retourne un nombre entre 0 et x - 1
-    this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 10);
+    this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 100);
     this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
     this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
   }
