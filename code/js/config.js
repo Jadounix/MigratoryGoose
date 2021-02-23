@@ -13,6 +13,10 @@ const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
 
+const birdLlifeExpectancy = ((heightMap/cellSize)/3)*120;
+const spentTimeOnWintering = ((heightMap/cellSize)/3) * 2; //Equivaut à 2 mois
+const spentTimeOnNursering = ((heightMap/cellSize)/3) * 4; //Equivaut à 4 mois
+
 //Modification de l'affichage du nombre d'oiseau
 const nbMigratory = document.getElementById("nbMigratory");
 const nbSedentary = document.getElementById("nbSedentary");

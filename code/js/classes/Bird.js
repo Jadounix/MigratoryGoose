@@ -6,7 +6,9 @@ class Bird {
     this.positionX = positionX;
     this.positionY = positionY;
     this.age = 0;
-    this.lifeExpectancy = 3600; //Un déplacement sur la map équivaut à 3 jours. Donc un oiseau vit environ 3600 "step"
+    this.lastVisitedColor = '';
+    this.goal = '';
+    this.spentTime = 0;
     this.pictureSource = pictureSource;
     this.birdPicture = new Image();
   }
@@ -40,11 +42,9 @@ class Bird {
     }
   }
 
-  lifeCycle()
-  {
-    if(this.age > this.lifeExpectancy)
-    {
-      nbIndividuals -= (nbIndividuals - 0,1*nbIndividuals); //Perte de 10% des individus de la popualtion
+  lifeCycle() {
+    if (this.age > birdLlifeExpectancy) {
+      nbIndividuals -= (nbIndividuals - 0, 1 * nbIndividuals); //Perte de 10% des individus de la popualtion
     }
     this.age++;
   }
@@ -92,6 +92,11 @@ class Bird {
     return (area.areaType);
   }
 
+  changeGoalArea()
+  {
+    console.log('mon nouveau but est la zone..');
+  }
+
   randomMove(tab) {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
     switch (rdn) {
@@ -121,27 +126,27 @@ class Bird {
     rdn = Math.floor(Math.random() * 3);
   }
 
-  //Comprtement de déplacement des oiseaux sédentaires
-  sedentaryMove(tab, area) {
+  //Comprtement de déplacement des oiseaux sédentaires et des migrateurs lorsqu'ils restent dans une zone
+  oneColorMove(tab, area, zone) {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
     switch (rdn) {
       case 0: //Déplacement vers le haut
-        if (this.checkCellType(area[this.positionX][this.positionY - step]) == 'green' && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
+        if (this.checkCellType(area[this.positionX][this.positionY - step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
           this.setYPosition(this.positionY - step);
         }
         break;
       case 1: //Déplacement vers la droite
-        if (this.checkCellType(area[this.positionX + step][this.positionY]) == 'green' && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
+        if (this.checkCellType(area[this.positionX + step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
           this.setXPosition(this.positionX + step);
         }
         break;
       case 2: //Déplacement vers la gauche
-        if (this.checkCellType(area[this.positionX - step][this.positionY]) == 'green' && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
+        if (this.checkCellType(area[this.positionX - step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
           this.setXPosition(this.positionX - step);
         }
         break;
       case 3: //Déplacement vers le bas
-        if (this.checkCellType(area[this.positionX][this.positionY + step]) == 'green' && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
+        if (this.checkCellType(area[this.positionX][this.positionY + step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
           this.setYPosition(this.positionY + step);
         }
         break;
@@ -153,6 +158,27 @@ class Bird {
 
   //Comprtement de déplacement des oiseaux migrateurs
   migratoryMove() {
+    switch (this.lastVisitedColor) {
+      case 'orange':
+        if (this.spentTime < spentTimeOnWintering) {
+          //
+        } else {
+          //
+        }
+
+        break;
+      case 'purple':
+        if (this.spentTime < spentTimeOnNursering) {
+          //
+        } else {
+          //
+        }
+
+        break;
+      default:
+        console.log('error : lastVisitedColor undefined');
+    }
+
 
   }
 
@@ -168,13 +194,12 @@ class Bird {
 
       case 'sedentary':
         //this.randomMove(tab);
-        this.sedentaryMove(tab, area);
+        this.oneColorMove(tab, area, 'green');
         break;
 
       default:
         console.log('error : Unknown bird species');
     }
   }
-
 
 } //Fin de la classe
