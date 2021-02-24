@@ -7,7 +7,7 @@ class Bird {
     this.positionY = positionY;
     this.age = 0;
     this.lastVisitedColor = '';
-    this.goal = '';
+    this.goal = [8, 12];
     this.spentTime = 0;
     this.pictureSource = pictureSource;
     this.birdPicture = new Image();
@@ -92,8 +92,7 @@ class Bird {
     return (area.areaType);
   }
 
-  changeGoalArea()
-  {
+  changeGoalArea() {
     console.log('mon nouveau but est la zone..');
   }
 
@@ -179,17 +178,33 @@ class Bird {
         console.log('error : lastVisitedColor undefined');
     }
 
+  }
 
+  findBestPath(tab, graphTrees) {
+    let graph = new Graph(graphTrees);
+    let start = graph.grid[this.positionX][this.positionY];
+    let end = graph.grid[this.goal[0]][this.goal[1]];
+    let result = astar.search(graph, start, end);
+
+    if (result.length > 0) {
+      if (this.checkCellDisponibility(tab, result[0].x, result[0].y)) {
+        this.setXPosition(result[0].x);
+        this.setYPosition(result[0].y);
+      }
+    } else {
+      console.log('error : astar solution undefined or no solution');
+    }
   }
 
   //Comportement de déplacement de l'oiseau
-  moveBehavior(tab, area) {
+  moveBehavior(tab, area, graphTrees) {
     //Evolution des décès dans la population
     this.lifeCycle()
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'migratory':
-        this.randomMove(tab);
+        //this.randomMove(tab);
+        this.migratoryMove2(tab, graphTrees);
         break;
 
       case 'sedentary':

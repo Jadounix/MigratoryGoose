@@ -10,6 +10,11 @@ class Simulation {
       this.areas[i] = new Array(widthMap / cellSize);
     }
 
+    this.graph = new Array(nbCell);
+    for (let i = 0; i < this.graph.length; i++) {
+      this.graph[i] = new Array(widthMap / cellSize);
+    }
+
     //Nombre d'arbre sur la map
     this.nbTree = 70;
 
@@ -23,6 +28,14 @@ class Simulation {
   }
 
   //Méthodes
+
+  initiateGraph() {
+    for (let i = 0; i < heightMap / cellSize; i++) {
+      for (let j = 0; j < widthMap / cellSize; j++) {
+        this.graph[i][j] = 1;
+      }
+    }
+  }
 
   //Méthode permettant de donner le type de chaque case de la map
   putTypeMap() {
@@ -81,6 +94,8 @@ class Simulation {
     //Création des arbres
     this.createTree();
 
+    this.initiateGraph(); 
+
     //Colorisation des difféerntes zones de la map
     let area;
     for (let i = 0; i < heightMap / cellSize; i++) {
@@ -115,7 +130,7 @@ class Simulation {
     //Déplacement des oiseaux et interactions avec l'environnement
     for (let bird of this.birds) {
       this.map.turnUnoccupied(bird.positionX, bird.positionY);
-      bird.moveBehavior(this.map.matrice, this.areas);
+      bird.moveBehavior(this.map.matrice, this.areas, this.graph);
       this.map.turnOccupied(bird.positionX, bird.positionY);
 
       bird.checkCellType(this.areas[bird.positionX][bird.positionY]);
