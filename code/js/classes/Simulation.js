@@ -2,22 +2,34 @@ class Simulation {
 
   //Constructeur
   constructor() {
-    //La simualtion prend en paramètre une map, une liste d'oiseaux et un tableau de zones/
+    //Map permettant de savoir si une case est vide ou non
     this.map = new Map();
+
+    //Liste des populatio,s d'oiseaux sur la map
     this.birds = [new Bird("migratory", 10, 8, 23, 'images/birdM.png'), new Bird("sedentary", 15, 14, 7, 'images/birdS.png')];
-    this.areas = new Array(nbCell);
+
+    //Liste des zones
+    this.areas = new Array(heightMap / cellSize);
     for (let i = 0; i < this.areas.length; i++) {
       this.areas[i] = new Array(widthMap / cellSize);
     }
 
-    this.graph = new Array(nbCell);
+    //Graph utilisé par l'algorithme A* pour la recherche du plus court chemin
+    this.graph = new Array(heightMap / cellSize);
     for (let i = 0; i < this.graph.length; i++) {
       this.graph[i] = new Array(widthMap / cellSize);
     }
+    //Initialisation du graph
+    for (let i = 0; i < heightMap / cellSize; i++) {
+      for (let j = 0; j < widthMap / cellSize; j++) {
+        this.graph[i][j] = 1;
+      }
+    }
 
-    //Nombre d'arbre sur la map
+    //Nombre d'arbres sur la map
     this.nbTree = 70;
 
+    //Nombre de déplacements des oiseaux durant lequels les elements ne bougent pas
     this.elementTime = 6;
 
     //Nombres aléatoires permettant le placements des différents éléments de l'environnement sur la map
@@ -28,14 +40,6 @@ class Simulation {
   }
 
   //Méthodes
-
-  initiateGraph() {
-    for (let i = 0; i < heightMap / cellSize; i++) {
-      for (let j = 0; j < widthMap / cellSize; j++) {
-        this.graph[i][j] = 1;
-      }
-    }
-  }
 
   //Méthode permettant de donner le type de chaque case de la map
   putTypeMap() {
@@ -76,6 +80,21 @@ class Simulation {
     }
   }
 
+
+  //Création des zones d'abres qui doivent être fixes : les arbres ne bougent pas.
+  //On donne à certaines cases choisies au hasard (et qui ne sont pas dans l'eau) la valeur 'tree'.
+  createTree() {
+    for (let t = 0; t < this.nbTree; t++) {
+      this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
+      this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
+      if (this.areas[this.rdnWidth][this.rdnHeight].areaType != 'blue') {
+        this.areas[this.rdnWidth][this.rdnHeight].hasElement = 'tree';
+        //Les cases contenant des arbres sont des passages plus difficiles pour les oiseaux
+        this.graph[this.rdnWidth][this.rdnHeight] = 2;
+      }
+    }
+  }
+
   //Méthode d'initialisation de la map et de la simulation
   initialisation() {
     //Modification de la taille du canvas en fonction de la taille de la map
@@ -94,7 +113,7 @@ class Simulation {
     //Création des arbres
     this.createTree();
 
-    this.initiateGraph(); 
+
 
     //Colorisation des difféerntes zones de la map
     let area;
@@ -109,18 +128,6 @@ class Simulation {
     //Affichage des images des oiseaux
     for (let bird of this.birds) {
       bird.createBirdPicture(bird.positionX, bird.positionY);
-    }
-  }
-
-  //Création des zones d'abres qui doivent être fixes : les arbres ne bougent pas.
-  //On donne à certaines cases choisies au hasard (et qui ne sont pas dans l'eau) la valeur 'tree'.
-  createTree() {
-    for (let t = 0; t < this.nbTree; t++) {
-      this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
-      this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
-      if (this.areas[this.rdnHeight][this.rdnWidth].areaType != 'blue') {
-        this.areas[this.rdnHeight][this.rdnWidth].hasElement = 'tree';
-      }
     }
   }
 

@@ -2,7 +2,6 @@
 let simulation = new Simulation();
 //Initialisation de la simulation
 simulation.initialisation();
-//simulation.createTree();
 
 let time;
 
@@ -27,5 +26,4 @@ document.getElementById("buttonStart").addEventListener("click", createInterval)
 document.getElementById("buttonStop").addEventListener("click", function() {
   clearInterval(time);
 });
-
 speedSlider.addEventListener("input", changeSpeed);

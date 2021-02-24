@@ -204,7 +204,7 @@ class Bird {
     switch (this.species) {
       case 'migratory':
         //this.randomMove(tab);
-        this.migratoryMove2(tab, graphTrees);
+        this.findBestPath(tab, graphTrees);
         break;
 
       case 'sedentary':
