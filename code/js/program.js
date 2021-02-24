@@ -2,33 +2,28 @@
 let simulation = new Simulation();
 //Initialisation de la simulation
 simulation.initialisation();
-simulation.createTree();
+//simulation.createTree();
 
 let time;
-//
-const changeSpeed = (event) => {
-  if(event.target.value !== "undefined")
-  {
-    speedSlider.value = event.target.value;
-  }
-  return speedSlider.value;
-}
 
-document.getElementById("buttonStart").addEventListener("click", function() {
+const createInterval = () => {
+  let inverseValue = (speedSlider.max*1 + speedSlider.min*1)  - speedSlider.value;
   time = setInterval(function() {
     simulation.move();
-  }, speedSlider.value);
-});
+  }, inverseValue);
+  console.log(inverseValue);
+}
 
-// document.getElementById("buttonStart").addEventListener("click", function() {
-//   time = setInterval(function() {
-//     simulation.move();
-//   }, function() {
-//     changeSpeed();
-//   });
-// });
+const changeSpeed = (event) => {
+  if (event.target.value !== "undefined") {
+    speedSlider.value = event.target.value;
+  }
+  clearInterval(time);
+  createInterval();
+}
 
 
+document.getElementById("buttonStart").addEventListener("click", createInterval);
 document.getElementById("buttonStop").addEventListener("click", function() {
   clearInterval(time);
 });
