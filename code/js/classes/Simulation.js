@@ -6,7 +6,7 @@ class Simulation {
     this.map = new Map();
 
     //Liste des populatio,s d'oiseaux sur la map
-    this.birds = [new Bird("migratory", 10, 8, 23, 'images/birdM.png'), new Bird("sedentary", 15, 14, 7, 'images/birdS.png')];
+    this.birds = [new Bird("migratory", 10, 8, 23, 'images/birdM.png'), new Bird("sedentary", 10, 14, 7, 'images/birdS.png')];
 
     //Liste des zones
     this.areas = new Array(heightMap / cellSize);
@@ -25,9 +25,6 @@ class Simulation {
         this.graph[i][j] = 1;
       }
     }
-
-    //Nombre d'arbres sur la map
-    this.nbTree = 70;
 
     //Nombre de déplacements des oiseaux durant lequels les elements ne bougent pas
     this.elementTime = 6;
@@ -83,8 +80,8 @@ class Simulation {
 
   //Création des zones d'abres qui doivent être fixes : les arbres ne bougent pas.
   //On donne à certaines cases choisies au hasard (et qui ne sont pas dans l'eau) la valeur 'tree'.
-  createTree() {
-    for (let t = 0; t < this.nbTree; t++) {
+  createTrees() {
+    for (let t = 0; t < nbTrees; t++) {
       this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
       this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
       if (this.areas[this.rdnWidth][this.rdnHeight].areaType != 'blue') {
@@ -111,7 +108,7 @@ class Simulation {
     this.putTypeMap();
 
     //Création des arbres
-    this.createTree();
+    this.createTrees();
 
 
 

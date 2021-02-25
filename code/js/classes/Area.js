@@ -53,23 +53,23 @@ class Area {
 
     switch (this.areaType) {
       case 'blue':
-        hurricaneValue = 0.6; //Sur une case bleu j'ai 60% de chance d'avoir une tempête
-        foodValue = 0.2;
+        hurricaneValue = 0.8; //Sur une case bleu j'ai 80% de chance d'avoir une tempête
+        foodValue = 0.1;
         break;
 
       case 'orange':
-        hurricaneValue = 0.3;
-        foodValue = 0.2;
+        hurricaneValue = 0.4;
+        foodValue = 0.4;
         break;
 
       case 'purple':
-        hurricaneValue = 0.3;
-        foodValue = 0.2;
+        hurricaneValue = 0.4;
+        foodValue = 0.4;
         break;
 
       case 'green':
-        hurricaneValue = 0.3;
-        foodValue = 0.2;
+        hurricaneValue = 0.4;
+        foodValue = 0.4;
         break;
 
       default:

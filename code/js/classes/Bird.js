@@ -6,7 +6,7 @@ class Bird {
     this.positionX = positionX;
     this.positionY = positionY;
     this.age = 0;
-    this.lastVisitedColor = '';
+    this.lastVisitedColor = 'orange';
     this.goal = [8, 12];
     this.spentTime = 0;
     this.pictureSource = pictureSource;
@@ -42,23 +42,35 @@ class Bird {
     }
   }
 
-  lifeCycle() {
-    if (this.age > birdLlifeExpectancy) {
-      nbIndividuals -= (nbIndividuals - 0, 1 * nbIndividuals); //Perte de 10% des individus de la popualtion
+  checkDeathPopulation() {
+    if (this.nbIndividuals <= 0) {
+      this.nbIndividuals = 0;
     }
-    this.age++;
+    //Supprimer la population de la carte -  à faire
   }
 
+  lifeCycle() {
+    if (this.age > birdLlifeExpectancy) {
+      if (this.nbIndividuals > 10) {
+        this.nbIndividuals -= Math.floor(0.1 * this.nbIndividuals); //Perte de 10% des individus de la population
+      } else {
+        this.nbIndividuals--;
+      }
+      this.age = 0;
+    }
+    this.age++;
+    this.checkDeathPopulation();
+  }
 
   checkCellElement(area) {
     switch (area.hasElement) {
       case 'food':
         console.log('Miam un burger vegan case ' + this.positionX, this.positionY);
-        this.nbIndividuals++;
+        this.nbIndividuals += Math.floor(0.1 * this.nbIndividuals); //Augementation de 10% des individus de la population
         break;
       case 'hurricane':
         console.log('ah une tempête ! ' + this.positionX, this.positionY);
-        this.nbIndividuals--;
+        this.nbIndividuals -= Math.floor(0.05 * this.nbIndividuals); //Perte de 5% des individus de la population
         break;
       case 'tree':
         console.log('vive la nature');
@@ -69,6 +81,7 @@ class Bird {
       default:
         ('error: area element');
     }
+    this.checkDeathPopulation();
   }
 
 
@@ -90,10 +103,6 @@ class Bird {
         ('error: area type/color');
     }
     return (area.areaType);
-  }
-
-  changeGoalArea() {
-    console.log('mon nouveau but est la zone..');
   }
 
   randomMove(tab) {
@@ -130,23 +139,31 @@ class Bird {
     let rdn = Math.floor(Math.random() * 4); //Retourne un nombre aléatoire entre 0 et 3
     switch (rdn) {
       case 0: //Déplacement vers le haut
-        if (this.checkCellType(area[this.positionX][this.positionY - step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
-          this.setYPosition(this.positionY - step);
+        if (this.positionY > 0) {
+          if (this.checkCellType(area[this.positionX][this.positionY - step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY - step)) {
+            this.setYPosition(this.positionY - step);
+          }
         }
         break;
       case 1: //Déplacement vers la droite
-        if (this.checkCellType(area[this.positionX + step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
-          this.setXPosition(this.positionX + step);
+        if (this.positionX < (widthMap / cellSize) - 1) {
+          if (this.checkCellType(area[this.positionX + step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX + step, this.positionY)) {
+            this.setXPosition(this.positionX + step);
+          }
         }
         break;
       case 2: //Déplacement vers la gauche
-        if (this.checkCellType(area[this.positionX - step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
-          this.setXPosition(this.positionX - step);
+        if (this.positionX > 0) {
+          if (this.checkCellType(area[this.positionX - step][this.positionY]) == zone && this.checkCellDisponibility(tab, this.positionX - step, this.positionY)) {
+            this.setXPosition(this.positionX - step);
+          }
         }
         break;
       case 3: //Déplacement vers le bas
-        if (this.checkCellType(area[this.positionX][this.positionY + step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
-          this.setYPosition(this.positionY + step);
+        if (this.positionY < (heightMap / cellSize) - 1) {
+          if (this.checkCellType(area[this.positionX][this.positionY + step]) == zone && this.checkCellDisponibility(tab, this.positionX, this.positionY + step)) {
+            this.setYPosition(this.positionY + step);
+          }
         }
         break;
       default:
@@ -156,28 +173,44 @@ class Bird {
   }
 
   //Comprtement de déplacement des oiseaux migrateurs
-  migratoryMove() {
+  migratoryMove(tab, area, graphTrees) {
     switch (this.lastVisitedColor) {
       case 'orange':
         if (this.spentTime < spentTimeOnWintering) {
-          //
+          //L'oiseau reste en zone orange
+          this.oneColorMove(tab, area, 'orange');
+          this.spentTime++;
         } else {
-          //
+          //L'oiseau migre vers la zone violette => on change l'objectif
+          this.goal = [18, 2];
+          //L'oiseau est arrivé dans la coleur suivante
+          /*Attention = l'appel à la fonction findBestPath qui correspond à la recherche du plus court chemin se fait même si elle est dans les conditions de la boucle if
+          Il n'y a donc pas besoin de refaire un appel de cette fonction en plus
+          */
+          if (this.findBestPath(tab, graphTrees) == true) {
+            this.spentTime = 0; //Le temps passé dans cette zone redevient 0
+            this.lastVisitedColor = 'purple'; //On modifie la dernière zone rencontrée
+          }
         }
-
         break;
       case 'purple':
         if (this.spentTime < spentTimeOnNursering) {
-          //
+          //L'oiseau reste en zone violette
+          this.oneColorMove(tab, area, 'purple');
+          this.spentTime++;
         } else {
-          //
+          //L'oiseau migre en zone orange => on change l'objectif
+          this.goal = [15, 28];
+          //L'oiseau est arrivé dans la coleur suivante
+          if (this.findBestPath(tab, graphTrees) == true) {
+            this.spentTime = 0; //Le temps passé dans cette zone redevient 0
+            this.lastVisitedColor = 'orange'; //On modifie la dernière zone rencontrée
+          }
         }
-
         break;
       default:
         console.log('error : lastVisitedColor undefined');
     }
-
   }
 
   findBestPath(tab, graphTrees) {
@@ -186,13 +219,16 @@ class Bird {
     let end = graph.grid[this.goal[0]][this.goal[1]];
     let result = astar.search(graph, start, end);
 
-    if (result.length > 0) {
+    if (result.length > 0 && start != end) {
       if (this.checkCellDisponibility(tab, result[0].x, result[0].y)) {
         this.setXPosition(result[0].x);
         this.setYPosition(result[0].y);
       }
-    } else {
-      console.log('error : astar solution undefined or no solution');
+    }
+
+    //Si on est arrivé au bout de l'algorithme la fonction renvoit true
+    if (start == end) {
+      return true;
     }
   }
 
@@ -204,7 +240,7 @@ class Bird {
     switch (this.species) {
       case 'migratory':
         //this.randomMove(tab);
-        this.findBestPath(tab, graphTrees);
+        this.migratoryMove(tab, area, graphTrees);
         break;
 
       case 'sedentary':

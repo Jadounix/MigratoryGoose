@@ -10,7 +10,6 @@ const createInterval = () => {
   time = setInterval(function() {
     simulation.move();
   }, inverseValue);
-  console.log(inverseValue);
 }
 
 const changeSpeed = (event) => {
