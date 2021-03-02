@@ -78,25 +78,85 @@
 			<div id="content" class="container">
 
 				<!-- Map de déplacement des oiseaux -->
-				<h2>Carte</h2> <br>
-				<canvas id="map" width="800" height="800"></canvas>
+				<h2>Interface de simulation</h2> <br>
+				<div id="interface">
 
-				<!-- Interface utilisateur de gestion de la map -->
-				<div class="" id="nbMigratory">
-					Nombre d'individus dans la population de migrateurs
-				</div>
-				<div class="" id="nbSedentary">
-					Nombre d'individus dans la population de sédentaires
-				</div>
-				<a id="buttonStart" class="button small">Lancer la simulation</a>
-				<a id="buttonStop" class="button small">Arrêter la simulation</a>
-				<br>
+					<div id="mapInterface">
+						<canvas id="map" width="800" height="800"></canvas>
+						<div id="nbMigratory">
+							Nombre d'individus dans la population de migrateurs
+						</div>
+						<div id="nbSedentary">
+							Nombre d'individus dans la population de sédentaires
+						</div>
+						<a id="buttonStart" class="button small">Lancer la simulation</a>
+						<a id="buttonStop" class="button small">Arrêter la simulation</a>
+					</div>
 
-				<!-- Slider permettant de modifier la vitesse de la simulation -->
-				<div class="">
-					Vitesse de la simulation :
-					<input type="range" id="speedSlider" min="125" max="2000" step = "125"/>
+					<div id="userInterface">
+						<h3>Paramètres de la simulation</h3>
+						<br>
+						<!-- Slider permettant de modifier la vitesse de la simulation -->
+						<div class="speedChoice">
+							Vitesse de la simulation
+							<input type="range" id="speedSlider" min="125" max="2000" step="125" />
+						</div>
+						<br>
+
+						<div class="">
+							Nombre d'individus initial dans la population <input type="text" id="NOMACHOISIR" placeholder="0.5">
+						</div>
+						<br>
+
+						<div class="">
+							Nombre d'arbre sur la map <input type="text" id="NOMACHOISIR" placeholder="100">
+						</div>
+						<br>
+
+						<div class="">
+							<table>
+								<tr>
+									<td>&nbsp;</td>
+									<td>Taux de catastrophes naturelles</td>
+									<td>Taux de nourriture</td>
+									<td>Taux de reproduction</td>
+								</tr>
+								<tr>
+									<td>Zone Violette</td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.9"></td>
+								</tr>
+								<tr>
+									<td>Zone Orange</td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.8"></td>
+								</tr>
+								<tr>
+									<td>Zone Verte</td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.1"></td>
+								</tr>
+								<tr>
+									<td>Zone Bleue</td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.6"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="Fixé à 0" readonly></td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="userInterfaceButton">
+							<a id="buttonReset" class="button small">Réinitialiser les paramètres</a>
+							<a id="buttonConfirm" class="button small">Valider les modifications</a>
+						</div>
+
+					</div>
+
 				</div>
+
 
 
 				<!-- Tracé des courbes -->
