@@ -83,12 +83,8 @@
 
 					<div id="mapInterface">
 						<canvas id="map" width="800" height="800"></canvas>
-						<div id="nbMigratory">
-							Nombre d'individus dans la population de migrateurs
-						</div>
-						<div id="nbSedentary">
-							Nombre d'individus dans la population de sédentaires
-						</div>
+						Nombre d'individus dans la population de migrateurs : <div id="nbMigratory"> 0 </div>
+						Nombre d'individus dans la population de sédentaires : <div id="nbSedentary"> 0 </div>
 						<a id="buttonStart" class="button small">Lancer la simulation</a>
 						<a id="buttonStop" class="button small">Arrêter la simulation</a>
 					</div>
@@ -104,12 +100,12 @@
 						<br>
 
 						<div class="">
-							Nombre d'individus initial dans la population <input type="text" id="NOMACHOISIR" placeholder="0.5">
+							Nombre d'individus initial dans la population <input type="text" id="nbBirdsOnMap" placeholder="10">
 						</div>
 						<br>
 
 						<div class="">
-							Nombre d'arbre sur la map <input type="text" id="NOMACHOISIR" placeholder="100">
+							Nombre d'arbre sur la map <input type="text" id="nbTreesOnMap" placeholder="100">
 						</div>
 						<br>
 
@@ -123,40 +119,39 @@
 								</tr>
 								<tr>
 									<td>Zone Violette</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.9"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRatePurple" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRatePurple" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="reproRatePurple" placeholder="0.9"></td>
 								</tr>
 								<tr>
 									<td>Zone Orange</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.8"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateOrange" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRateOrange" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="reproRateOrange" placeholder="0.8"></td>
 								</tr>
 								<tr>
 									<td>Zone Verte</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.1"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateGreen" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRateGreen" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="reproRateGreen" placeholder="0.1"></td>
 								</tr>
 								<tr>
 									<td>Zone Bleue</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0.6"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="0"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="NOMACHOISIR" placeholder="Fixé à 0" readonly></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateBlue" placeholder="0.6"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRateBlue" placeholder="0"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="reproRateBlue" placeholder="Fixé à 0" readonly></td>
 								</tr>
 							</table>
 						</div>
 
 						<div class="userInterfaceButton">
 							<a id="buttonReset" class="button small">Réinitialiser les paramètres</a>
-							<a id="buttonConfirm" class="button small">Valider les modifications</a>
+							<a id="buttonConfirm" class="button small">Confirmer les paramètres</a>
 						</div>
 
 					</div>
 
 				</div>
-
 
 
 				<!-- Tracé des courbes -->

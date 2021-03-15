@@ -6,6 +6,51 @@ const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de 
   return (pixel)
 }
 
+const resetParameters = () => {
+  nbTrees = 200;
+  nbBirds = 10;
+}
+
+const confirmParameters = () => {
+  if (document.getElementById("nbTreesOnMap").value != "") {
+    nbTrees = parseInt(document.getElementById("nbTreesOnMap").value);
+  } else {
+    nbTrees = 200;
+  }
+
+  if (document.getElementById("nbBirdsOnMap").value != "") {
+    nbBirds = parseInt(document.getElementById("nbBirdsOnMap").value);
+  } else {
+    nbBirds = 10;
+  }
+
+  if (document.getElementById("disasterRatePurple").value != "") {
+    disasterRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
+  } else {
+    disasterRatePurple = 0.3;
+  }
+
+  if (document.getElementById("foodRatePurple").value != "") {
+    foodRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
+  } else {
+    foodRatePurple = 0.3;
+  }
+
+  if (document.getElementById("reproRatePurple").value != "") {
+    reproRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
+  } else {
+    reproRatePurple = 0.8;
+  }
+
+}
+
+const generateSimulation = () => {
+  confirmParameters();
+  //Initialisation de la simulation avec les nouveaux paramètres
+  simulation.initialisation();
+}
+
+
 // //Creer un intervalle dans laquelle la fonction de déplacement move est appelée
 // let time;
 // const createInterval = () => {

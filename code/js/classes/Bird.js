@@ -1,10 +1,12 @@
 class Bird {
   //Constructeur
-  constructor(species, nbIndividuals, positionX, positionY, pictureSource) {
+  constructor(species, nbIndividuals, positionX, positionY, reproductionRate, state, pictureSource) {
     this.species = species;
     this.nbIndividuals = nbIndividuals;
     this.positionX = positionX;
     this.positionY = positionY;
+    this.reproductionRate = reproductionRate;
+    this.state = state; //Etat : population vivante ou population éteinte
     this.age = 0;
     this.lastVisitedColor = 'orange';
     this.goal = [8, 12];
@@ -45,14 +47,24 @@ class Bird {
   checkDeathPopulation() {
     if (this.nbIndividuals <= 0) {
       this.nbIndividuals = 0;
+      this.state = 'death';
     }
-    //Supprimer la population de la carte -  à faire
   }
 
-  lifeCycle() {
+  reproduction()
+  {
+    let rdnReproduction = Math.random();
+    if(rdnReproduction < this.reproductionRate)
+    {
+      this.nbIndividuals ++ //La population augemente d'un individu
+    }
+  }
+
+  //Augemnte ou diminue le nombre d'oiseaux dans la population en fonction du temps et du taux de reproduction
+  lifeCycle(area) {
     if (this.age > birdLlifeExpectancy) {
       if (this.nbIndividuals > 10) {
-        this.nbIndividuals -= Math.floor(0.1 * this.nbIndividuals); //Perte de 10% des individus de la population
+        this.nbIndividuals -= Math.floor(0.2 * this.nbIndividuals); //Perte de 20% des individus de la population
       } else {
         this.nbIndividuals--;
       }
@@ -60,6 +72,24 @@ class Bird {
     }
     this.age++;
     this.checkDeathPopulation();
+
+    switch (this.checkCellType(area[this.positionX][this.positionY])) {
+      case 'orange':
+        this.reproductionRate = 0.1;
+        break;
+      case 'blue':
+        this.reproductionRate = 0;
+        break;
+      case 'purple':
+        this.reproductionRate = 0.6;
+        break;
+      case 'green':
+        this.reproductionRate = 0.4;
+        break;
+      default: console.log('error : area type undefined');
+    }
+
+    this.reproduction();
   }
 
   checkCellElement(area) {
@@ -86,22 +116,6 @@ class Bird {
 
 
   checkCellType(area) {
-    switch (area.areaType) {
-      case 'blue':
-        //console.log('je suis sur bleu');
-        break;
-      case 'orange':
-        //console.log('je suis sur orange');
-        break;
-      case 'purple':
-        //console.log('je suis sur violet');
-        break;
-      case 'green':
-        //console.log('je suis sur vert');
-        break;
-      default:
-        ('error: area type/color');
-    }
     return (area.areaType);
   }
 
@@ -235,7 +249,7 @@ class Bird {
   //Comportement de déplacement de l'oiseau
   moveBehavior(tab, area, graphTrees) {
     //Evolution des décès dans la population
-    this.lifeCycle()
+    this.lifeCycle(area)
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'migratory':

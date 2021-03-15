@@ -14,14 +14,31 @@ const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
 
 //Nombre d'arbres sur la map
-const nbTrees = 200;
+let nbTrees;
+// Nombre d'oiseaux initial dans chaque population
+let nbBirds;
 
-const birdLlifeExpectancy = ((heightMap/cellSize)/3)*120;
+const birdLlifeExpectancy = ((heightMap/cellSize)/3) * 120; //Euivaut à une dizaine d'années
 const spentTimeOnWintering = ((heightMap/cellSize)/3) * 2; //Equivaut à 2 mois
 const spentTimeOnNursering = ((heightMap/cellSize)/3) * 4; //Equivaut à 4
 
+let disasterRatePurple;
+let foodRatePurple;
+let reproRatePurple;
+
+let disasterRateOrange;
+let foodRateOrange;
+let reproRateOrange;
+
+let disasterRateGreen;
+let foodRateGreen;
+let reproRateGreen;
+
+let disasterRateBlue;
+let foodRateBlue;
+let reproRateBlue;
+
+
 //Modification de l'affichage du nombre d'oiseau
-const nbMigratory = document.getElementById("nbMigratory");
-const nbSedentary = document.getElementById("nbSedentary");
-//Slider de vitesse
-const speedSlider = document.getElementById("speedSlider");
+let nbMigratory = document.getElementById("nbMigratory");
+let nbSedentary = document.getElementById("nbSedentary");

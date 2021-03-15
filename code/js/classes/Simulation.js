@@ -6,7 +6,7 @@ class Simulation {
     this.map = new Map();
 
     //Liste des populatio,s d'oiseaux sur la map
-    this.birds = [new Bird("migratory", 10, 8, 23, 'images/birdM.png'), new Bird("sedentary", 10, 14, 7, 'images/birdS.png')];
+    this.birds = [new Bird("migratory", nbBirds, 8, 23, 0.5, 'alive', 'images/birdM.png'), new Bird("sedentary", nbBirds, 14, 7, 0.5, 'alive', 'images/birdS.png')];
 
     //Liste des zones
     this.areas = new Array(heightMap / cellSize);
@@ -94,12 +94,17 @@ class Simulation {
 
   //Méthode d'initialisation de la map et de la simulation
   initialisation() {
+
+    for (let bird of this.birds) {
+      bird.nbIndividuals = nbBirds;
+    }
+
     //Modification de la taille du canvas en fonction de la taille de la map
     canvasMap.height = heightMap + 2 * padding;
     canvasMap.width = widthMap + 2 * padding;
     //Initialisation des valeurs des nombres d'inividus sous la map
-    nbMigratory.innerHTML = "Nombre d'individus dans la population de migrateurs : " + 0;
-    nbSedentary.innerHTML = "Nombre d'individus dans la population de sédentaires : " + 0;
+    nbMigratory.innerHTML = 0;
+    nbSedentary.innerHTML = 0;
     //Initialisation des valeurs true/false de la map qui permettent de gérer l'occupation des cases par les oiseaux
     this.map.mapInitialisation();
     //Dessin de la grille sur la map
@@ -109,8 +114,6 @@ class Simulation {
 
     //Création des arbres
     this.createTrees();
-
-
 
     //Colorisation des difféerntes zones de la map
     let area;
@@ -131,8 +134,15 @@ class Simulation {
   //Fonction principale appelée à chaque tour de la simulation
   move() {
 
+
     //Déplacement des oiseaux et interactions avec l'environnement
     for (let bird of this.birds) {
+      //On suuprime de la carte les populations qui n'ont plus d'oiseaux
+      if (bird.state == 'death') {
+        this.birds.splice(this.birds[bird], 1);
+      }
+
+      //Déplacement des oiseaux et interactions avec l'environnement
       this.map.turnUnoccupied(bird.positionX, bird.positionY);
       bird.moveBehavior(this.map.matrice, this.areas, this.graph);
       this.map.turnOccupied(bird.positionX, bird.positionY);
@@ -183,9 +193,9 @@ class Simulation {
       bird.drawBirdPicture(bird.positionX, bird.positionY);
 
       if (bird.species == 'migratory') {
-        nbMigratory.innerHTML = "Nombre d'individus dans la population de migrateurs : " + bird.nbIndividuals;
+        nbMigratory.innerHTML = bird.nbIndividuals;
       } else if (bird.species == 'sedentary') {
-        nbSedentary.innerHTML = "Nombre d'individus dans la population de sédentaires : " + bird.nbIndividuals;
+        nbSedentary.innerHTML = bird.nbIndividuals;
       } else {
         console.log('error: Unknown bird species');
       }
