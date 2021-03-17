@@ -1,2 +1,2 @@
 # MigratoryGoose
-Projet en cours de démarrage. 
+Projet en cours.
