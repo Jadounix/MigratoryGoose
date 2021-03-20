@@ -53,27 +53,27 @@ class Area {
 
     switch (this.areaType) {
       case 'blue':
-        hurricaneValue = 0.8; //Sur une case bleu j'ai 80% de chance d'avoir une tempête
-        foodValue = 0.1;
+        hurricaneValue = getParameter("disasterRateBlue");
+        foodValue = getParameter("foodRateBlue");
         break;
 
       case 'orange':
-        hurricaneValue = 0.4;
-        foodValue = 0.4;
+        hurricaneValue = getParameter("disasterRateOrange");
+        foodValue = getParameter("foodRateOrange");
         break;
 
       case 'purple':
-        hurricaneValue = 0.4;
-        foodValue = 0.4;
+        hurricaneValue = getParameter("disasterRatePurple");
+        foodValue = getParameter("foodRatePurple");
         break;
 
       case 'green':
-        hurricaneValue = 0.4;
-        foodValue = 0.4;
+        hurricaneValue = getParameter("disasterRateGreen");
+        foodValue = getParameter("foodRateGreen");
         break;
 
       default:
-        ("");
+        console.log("error : area type undefined");
     }
 
     if (this.hasElement == 'no') //La case est vide

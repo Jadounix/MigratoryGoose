@@ -51,12 +51,10 @@ class Bird {
     }
   }
 
-  reproduction()
-  {
+  reproduction() {
     let rdnReproduction = Math.random();
-    if(rdnReproduction < this.reproductionRate)
-    {
-      this.nbIndividuals ++ //La population augemente d'un individu
+    if (rdnReproduction < this.reproductionRate) {
+      this.nbIndividuals++ //La population augemente d'un individu
     }
   }
 
@@ -86,7 +84,8 @@ class Bird {
       case 'green':
         this.reproductionRate = 0.4;
         break;
-      default: console.log('error : area type undefined');
+      default:
+        console.log('error : area type undefined');
     }
 
     this.reproduction();

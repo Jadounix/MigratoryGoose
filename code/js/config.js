@@ -19,24 +19,23 @@ const spentTimeOnNursering = ((heightMap/cellSize)/3) * 4; //Equivaut à 4
 
 
 let parameters = {
-  nbTrees: {default:200, value:200},
-  nbBirds: {default:10, value:10},
+  nbTrees: {default:200, value:200, max:1000, min:0},
+  nbBirds: {default:10, value:10, max:100, min:1},
 
-  disasterRateOrange: {default:0.5, value:0.6},
-  foodRateOrange: {default:0.5, value:0.6},
-  reproRateOrange: {default:0.5, value:0.6},
+  disasterRateOrange: {default:0.3, value:0.6, max:1, min:0},
+  foodRateOrange: {default:0.3, value:0.6, max:1, min:0},
+  reproRateOrange: {default:0.8, value:0.6, max:1, min:0},
 
-  disasterRatePurple: {default:0.5, value:0.6},
-  foodRatePurple: {default:0.5, value:0.6},
-  reproRatePurple: {default:0.5, value:0.6},
+  disasterRatePurple: {default:0.4, value:0.6, max:1, min:0},
+  foodRatePurple: {default:0.3, value:0.6, max: 1, min: 0},
+  reproRatePurple: {default:0.9, value:0.6, max:1, min:0},
 
-  disasterRateGreen: {default:0.5, value:0.6},
-  foodRateGreen: {default:0.5, value:0.6},
-  reproRateGreen: {default:0.5, value:0.6},
+  disasterRateGreen: {default:0.3, value:0.6, max:1, min:0},
+  foodRateGreen: {default:0.3, value:0.6, max:1, min:0},
+  reproRateGreen: {default:0.1, value:0.6, max:1, min:0},
 
-  disasterRateBlue: {default:0.5, value:0.6},
-  foodRateBlue: {default:0.5, value:0.6},
-  reproRateBlue: {default:0.5, value:0.6},
+  disasterRateBlue: {default:0.6, value:0.6, max:1, min:0},
+  foodRateBlue: {default:0, value:0.6, max:1, min:0},
 }
 
 //Modification de l'affichage du nombre d'oiseau

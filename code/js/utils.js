@@ -14,16 +14,29 @@ const setParameter = (name, newValue) => {
   parameters[name].value = newValue;
 }
 
+//Fonction qui vérifie que la valeur du paramètre entrée est bien comprise dans le bon interval
+const checkParameter = (name) => {
+  let max = parameters[name].max;
+  let min = parameters[name].min;
+  parameters[name].value = (parameters[name].value >= min && parameters[name].value <= max) ? parameters[name].value : parameters[name].default;
+}
+
 const resetParameters = () => {
-  setParameter("nbTrees",200);
-  setParameter("nbBirds",10);
+  setParameter("nbTrees", 200);
+  setParameter("nbBirds", 10);
 }
 
 const confirmParameters = () => {
-  for(parameter in parameters)
-  {
+  for (parameter in parameters) {
     if (document.getElementById(parameter).value != "") {
-      parameters[parameter].value = parseInt(document.getElementById(parameter).value);
+      if (parameter == "nbBirds" || parameter == "nbTrees") //Sont des nombres entiers => besoin d'être covertis en cas d'erreur de l'utilisateur
+      {
+        console.log("i " + parameter)
+        parameters[parameter].value = parseInt(document.getElementById(parameter).value);
+      } else {
+        parameters[parameter].value = (document.getElementById(parameter).value);
+      }
+      checkParameter(parameter);
     } else {
       parameters[parameter].value = parameters[parameter].default;
     }
