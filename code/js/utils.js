@@ -6,42 +6,28 @@ const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de 
   return (pixel)
 }
 
+const getParameter = (name) => {
+  return parameters[name].value;
+}
+
+const setParameter = (name, newValue) => {
+  parameters[name].value = newValue;
+}
+
 const resetParameters = () => {
-  nbTrees = 200;
-  nbBirds = 10;
+  setParameter("nbTrees",200);
+  setParameter("nbBirds",10);
 }
 
 const confirmParameters = () => {
-  if (document.getElementById("nbTreesOnMap").value != "") {
-    nbTrees = parseInt(document.getElementById("nbTreesOnMap").value);
-  } else {
-    nbTrees = 200;
+  for(parameter in parameters)
+  {
+    if (document.getElementById(parameter).value != "") {
+      parameters[parameter].value = parseInt(document.getElementById(parameter).value);
+    } else {
+      parameters[parameter].value = parameters[parameter].default;
+    }
   }
-
-  if (document.getElementById("nbBirdsOnMap").value != "") {
-    nbBirds = parseInt(document.getElementById("nbBirdsOnMap").value);
-  } else {
-    nbBirds = 10;
-  }
-
-  if (document.getElementById("disasterRatePurple").value != "") {
-    disasterRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
-  } else {
-    disasterRatePurple = 0.3;
-  }
-
-  if (document.getElementById("foodRatePurple").value != "") {
-    foodRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
-  } else {
-    foodRatePurple = 0.3;
-  }
-
-  if (document.getElementById("reproRatePurple").value != "") {
-    reproRatePurple = parseInt(document.getElementById("nbBirdsOnMap").value);
-  } else {
-    reproRatePurple = 0.8;
-  }
-
 }
 
 const generateSimulation = () => {
@@ -50,22 +36,18 @@ const generateSimulation = () => {
   simulation.initialisation();
 }
 
+let time;
+const createInterval = () => {
+  let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;
+  time = setInterval(function() {
+    simulation.move();
+  }, inverseValue);
+}
 
-// //Creer un intervalle dans laquelle la fonction de déplacement move est appelée
-// let time;
-// const createInterval = () => {
-//   let inverseValue = (speedSlider.max*1 + speedSlider.min*1)  - speedSlider.value;
-//   let time = setInterval(function() {
-//     simulation.move();
-//   }, inverseValue);
-//   console.log(inverseValue);
-// }
-//
-// //Actualise la vitesse de la simulation à partir de la vitesse donnée par le slider
-// const changeSpeed = (event) => {
-//   if (event.target.value !== "undefined") {
-//     speedSlider.value = event.target.value;
-//   }
-//   clearInterval(time);
-//   createInterval();
-// }
+const changeSpeed = (event) => {
+  if (event.target.value !== "undefined") {
+    speedSlider.value = event.target.value;
+  }
+  clearInterval(time);
+  createInterval();
+}

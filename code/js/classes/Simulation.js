@@ -6,7 +6,7 @@ class Simulation {
     this.map = new Map();
 
     //Liste des populatio,s d'oiseaux sur la map
-    this.birds = [new Bird("migratory", nbBirds, 8, 23, 0.5, 'alive', 'images/birdM.png'), new Bird("sedentary", nbBirds, 14, 7, 0.5, 'alive', 'images/birdS.png')];
+    this.birds = [new Bird("migratory", getParameter("nbBirds"), 8, 23, 0.5, 'alive', 'images/birdM.png'), new Bird("sedentary", getParameter("nbBirds"), 14, 7, 0.5, 'alive', 'images/birdS.png')];
 
     //Liste des zones
     this.areas = new Array(heightMap / cellSize);
@@ -81,7 +81,7 @@ class Simulation {
   //Création des zones d'abres qui doivent être fixes : les arbres ne bougent pas.
   //On donne à certaines cases choisies au hasard (et qui ne sont pas dans l'eau) la valeur 'tree'.
   createTrees() {
-    for (let t = 0; t < nbTrees; t++) {
+    for (let t = 0; t < getParameter("nbTrees"); t++) {
       this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize); //Retourne un nombre aléatoire entre 0 et heightMap / cellSize - 1
       this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
       if (this.areas[this.rdnWidth][this.rdnHeight].areaType != 'blue') {
@@ -96,7 +96,7 @@ class Simulation {
   initialisation() {
 
     for (let bird of this.birds) {
-      bird.nbIndividuals = nbBirds;
+      bird.nbIndividuals = getParameter("nbBirds");
     }
 
     //Modification de la taille du canvas en fonction de la taille de la map

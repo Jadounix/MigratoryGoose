@@ -13,31 +13,31 @@ const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
 
-//Nombre d'arbres sur la map
-let nbTrees;
-// Nombre d'oiseaux initial dans chaque population
-let nbBirds;
-
 const birdLlifeExpectancy = ((heightMap/cellSize)/3) * 120; //Euivaut à une dizaine d'années
 const spentTimeOnWintering = ((heightMap/cellSize)/3) * 2; //Equivaut à 2 mois
 const spentTimeOnNursering = ((heightMap/cellSize)/3) * 4; //Equivaut à 4
 
-let disasterRatePurple;
-let foodRatePurple;
-let reproRatePurple;
 
-let disasterRateOrange;
-let foodRateOrange;
-let reproRateOrange;
+let parameters = {
+  nbTrees: {default:200, value:200},
+  nbBirds: {default:10, value:10},
 
-let disasterRateGreen;
-let foodRateGreen;
-let reproRateGreen;
+  disasterRateOrange: {default:0.5, value:0.6},
+  foodRateOrange: {default:0.5, value:0.6},
+  reproRateOrange: {default:0.5, value:0.6},
 
-let disasterRateBlue;
-let foodRateBlue;
-let reproRateBlue;
+  disasterRatePurple: {default:0.5, value:0.6},
+  foodRatePurple: {default:0.5, value:0.6},
+  reproRatePurple: {default:0.5, value:0.6},
 
+  disasterRateGreen: {default:0.5, value:0.6},
+  foodRateGreen: {default:0.5, value:0.6},
+  reproRateGreen: {default:0.5, value:0.6},
+
+  disasterRateBlue: {default:0.5, value:0.6},
+  foodRateBlue: {default:0.5, value:0.6},
+  reproRateBlue: {default:0.5, value:0.6},
+}
 
 //Modification de l'affichage du nombre d'oiseau
 let nbMigratory = document.getElementById("nbMigratory");
