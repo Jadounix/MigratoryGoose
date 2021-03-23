@@ -76,15 +76,3 @@ const changeSpeed = (event) => {
   clearInterval(time);
   createInterval();
 }
-
-const resetGraphic = () => {
-  sedentaryBirdsData = [];
-  migratoryBirdsData = []
-  // for (i = 0; i < 2; i++) {
-  //   birdsChart.data.datasets.splice(0, 1);
-  // }
-  // birdsChart.data.datasets[0] = migratoryBirdsData;
-  // birdsChart.data.datasets[1] = sedentaryBirdsData;
-  birdsChart.update();
-  stopSimulation();
-}
