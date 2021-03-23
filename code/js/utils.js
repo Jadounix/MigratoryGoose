@@ -31,7 +31,6 @@ const confirmParameters = () => {
     if (document.getElementById(parameter).value != "") {
       if (parameter == "nbBirds" || parameter == "nbTrees") //Sont des nombres entiers => besoin d'être covertis en cas d'erreur de l'utilisateur
       {
-        console.log("i " + parameter)
         parameters[parameter].value = parseInt(document.getElementById(parameter).value);
       } else {
         parameters[parameter].value = (document.getElementById(parameter).value);
@@ -49,11 +48,20 @@ const generateSimulation = () => {
   simulation.initialisation();
 }
 
+const addData = (chart, label) => {
+    chart.data.labels.push(iteration);
+    chart.data.datasets[0].data.push(nbMigratoryData);
+    chart.data.datasets[1].data.push(nbSedentaryData);
+    chart.update();
+    iteration ++;
+}
+
 let time;
 const createInterval = () => {
   let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;
   time = setInterval(function() {
     simulation.move();
+    addData(birdsChart);
   }, inverseValue);
 }
 

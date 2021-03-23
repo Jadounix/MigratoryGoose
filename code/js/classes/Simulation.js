@@ -194,8 +194,10 @@ class Simulation {
 
       if (bird.species == 'migratory') {
         nbMigratory.innerHTML = bird.nbIndividuals;
+        nbMigratoryData = bird.nbIndividuals;
       } else if (bird.species == 'sedentary') {
         nbSedentary.innerHTML = bird.nbIndividuals;
+        nbSedentaryData = bird.nbIndividuals;
       } else {
         console.log('error: Unknown bird species');
       }

@@ -157,39 +157,11 @@
 				<!-- Tracé des courbes -->
 				<br><br>
 				<h2>Courbes</h2> <br>
-				<canvas id="curve" width="400" height="400"></canvas>
+				<canvas id="graph" width="400" height="400"></canvas>
 
 				<!-- Interface utilisateur de gestion du tracé des courbes -->
 				<a href="#" class="button small">Modèle bouton</a>
 				<a href="#" class="button small">Modèle bouton</a>
-
-				<script type="text/javascript">
-					//Récupèration l'élément canvas
-					const canvasCurve = document.getElementById("curve");
-					//getContext conduit à la création d'un objet de représentation 2D
-					const canvasCurveContext = canvasCurve.getContext("2d");
-					//Les 0 correspondent aux coordonnées x et y du coin en haut à gauche du canvas à partir duquel on commence la copie
-					const canvasCurveData = canvasCurveContext.getImageData(0, 0, canvasCurve.width, canvasCurve.height);
-
-					let myChart = new Chart(canvasCurveContext, {
-						type: 'line',
-						data: {
-							datasets: [{
-								// This dataset appears on the first axis
-								yAxisID: "Nombre d'oiseaux dans la population"
-							}]
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									id: 'first-y-axis',
-									type: 'linear'
-								}]
-							}
-						}
-					});
-				</script>
-
 
 			</div>
 	</div>
@@ -244,6 +216,8 @@
 	<script type="text/javascript" src="js/classes/Simulation.js"></script>
 	<!-- Lancement du programme -->
 	<script type="text/javascript" src="js/program.js"></script>
+	<!-- Traçage des courbes -->
+	<script type="text/javascript" src="js/graphics.js"></script>
 
 </body>
 
