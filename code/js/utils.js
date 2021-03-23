@@ -49,11 +49,11 @@ const generateSimulation = () => {
 }
 
 const addData = (chart, label) => {
-    chart.data.labels.push(iteration);
-    chart.data.datasets[0].data.push(nbMigratoryData);
-    chart.data.datasets[1].data.push(nbSedentaryData);
-    chart.update();
-    iteration ++;
+  chart.data.labels.push(iteration);
+  chart.data.datasets[0].data.push(nbMigratoryData);
+  chart.data.datasets[1].data.push(nbSedentaryData);
+  chart.update();
+  iteration++;
 }
 
 let time;
@@ -65,10 +65,26 @@ const createInterval = () => {
   }, inverseValue);
 }
 
+const stopSimulation = () => {
+  clearInterval(time);
+}
+
 const changeSpeed = (event) => {
   if (event.target.value !== "undefined") {
     speedSlider.value = event.target.value;
   }
   clearInterval(time);
   createInterval();
+}
+
+const resetGraphic = () => {
+  sedentaryBirdsData = [];
+  migratoryBirdsData = []
+  // for (i = 0; i < 2; i++) {
+  //   birdsChart.data.datasets.splice(0, 1);
+  // }
+  // birdsChart.data.datasets[0] = migratoryBirdsData;
+  // birdsChart.data.datasets[1] = sedentaryBirdsData;
+  birdsChart.update();
+  stopSimulation();
 }

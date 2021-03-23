@@ -8,6 +8,9 @@ document.getElementById("buttonConfirm").addEventListener("click", generateSimul
 document.getElementById("buttonReset").addEventListener("click", resetParameters);
 document.getElementById("speedSlider").addEventListener("input", changeSpeed);
 document.getElementById("buttonStart").addEventListener("click", createInterval);
-document.getElementById("buttonStop").addEventListener("click", function() {
-  clearInterval(time);
-});
+document.getElementById("buttonResetGraph").addEventListener("click", resetGraphic);
+document.getElementById("buttonStop").addEventListener("click", stopSimulation);
+
+// document.getElementById("buttonStop").addEventListener("click", function() {
+//   clearInterval(time);
+// });
