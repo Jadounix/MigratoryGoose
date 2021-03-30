@@ -95,7 +95,7 @@ class Bird {
     switch (area.hasElement) {
       case 'food':
         console.log('Miam un burger vegan case ' + this.positionX, this.positionY);
-        this.nbIndividuals += Math.floor(0.1 * this.nbIndividuals); //Augementation de 10% des individus de la population
+        this.nbIndividuals += Math.floor(0.05 * this.nbIndividuals); //Augementation de 5% des individus de la population
         break;
       case 'hurricane':
         console.log('ah une tempête ! ' + this.positionX, this.positionY);

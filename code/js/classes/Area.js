@@ -46,6 +46,16 @@ class Area {
     canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
+  checkSumProbabilities(elt1, elt2, correctElt1, correctElt2) {
+    let sum = elt1 + elt2;
+    if (sum > 1) {
+      elt1 = correctElt1;
+      elt2 = correctElt2;
+      showErrorMsg();
+    }
+    return [elt1, elt2];
+  }
+
   createElement() {
     let rdn = Math.random();
     let hurricaneValue = 0;
@@ -76,13 +86,14 @@ class Area {
         console.log("error : area type undefined");
     }
 
+    hurricaneValue = this.checkSumProbabilities(hurricaneValue, foodValue, 0.01, 0.01)[0];
+    foodValue = this.checkSumProbabilities(hurricaneValue, foodValue, 0.01, 0.01)[1];
+
     if (this.hasElement == 'no') //La case est vide
     {
       if (rdn < hurricaneValue) {
         this.hasElement = 'hurricane';
-      }
-
-      if (rdn < foodValue) {
+      } else if (rdn < foodValue + hurricaneValue) {
         this.hasElement = 'food';
       }
     }

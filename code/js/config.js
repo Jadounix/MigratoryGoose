@@ -26,29 +26,94 @@ const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
 
-const birdLlifeExpectancy = ((heightMap/cellSize)/3) * 120; //Euivaut à une dizaine d'années
-const spentTimeOnWintering = ((heightMap/cellSize)/3) * 2; //Equivaut à 2 mois
-const spentTimeOnNursering = ((heightMap/cellSize)/3) * 4; //Equivaut à 4 mois
+const birdLlifeExpectancy = ((heightMap / cellSize) / 3) * 120; //Euivaut à une dizaine d'années
+const spentTimeOnWintering = ((heightMap / cellSize) / 3) * 2; //Equivaut à 2 mois
+const spentTimeOnNursering = ((heightMap / cellSize) / 3) * 4; //Equivaut à 4 mois
 
 
 let parameters = {
-  nbTrees: {default:200, value:200, max:1000, min:0},
-  nbBirds: {default:10, value:10, max:100, min:1},
+  nbTrees: {
+    default: 200,
+    value: 200,
+    max: 1000,
+    min: 0
+  },
+  nbBirds: {
+    default: 10,
+    value: 10,
+    max: 100,
+    min: 1
+  },
 
-  disasterRateOrange: {default:0.3, value:0.6, max:1, min:0},
-  foodRateOrange: {default:0.3, value:0.6, max:1, min:0},
-  reproRateOrange: {default:0.8, value:0.6, max:1, min:0},
+  disasterRateOrange: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  foodRateOrange: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  reproRateOrange: {
+    default: 0.8,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
 
-  disasterRatePurple: {default:0.4, value:0.6, max:1, min:0},
-  foodRatePurple: {default:0.3, value:0.6, max: 1, min: 0},
-  reproRatePurple: {default:0.9, value:0.6, max:1, min:0},
+  disasterRatePurple: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  foodRatePurple: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  reproRatePurple: {
+    default: 0.9,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
 
-  disasterRateGreen: {default:0.3, value:0.6, max:1, min:0},
-  foodRateGreen: {default:0.3, value:0.6, max:1, min:0},
-  reproRateGreen: {default:0.1, value:0.6, max:1, min:0},
+  disasterRateGreen: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  foodRateGreen: {
+    default: 0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  reproRateGreen: {
+    default: 0.1,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
 
-  disasterRateBlue: {default:0.6, value:0.6, max:1, min:0},
-  foodRateBlue: {default:0, value:0.6, max:1, min:0},
+  disasterRateBlue: {
+    default:0.01,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
+  foodRateBlue: {
+    default: 0,
+    value: 0.6,
+    max: 1,
+    min: 0
+  },
 }
 
 //Modification de l'affichage du nombre d'oiseau
@@ -64,3 +129,10 @@ let nbSedentaryData = 0;
 let iteration = 0;
 let sedentaryBirdsData = [parameters["nbBirds"].value];
 let migratoryBirdsData = [parameters["nbBirds"].value];
+
+
+/* ========================================================================== */
+//Message d'erreur en cas de paramètres rentrés erronés
+/* ========================================================================== */
+
+let errorMsg = "Les paramètres entrés sont erronés. Les valeurs par défaut ont donc été saisies.\nPour plus d'informations consultez le paragraphes au dessus de la simulation :)";

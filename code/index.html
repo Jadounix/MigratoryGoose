@@ -119,29 +119,30 @@
 								</tr>
 								<tr>
 									<td>Zone Violette</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="disasterRatePurple" placeholder="0.4"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="foodRatePurple" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRatePurple" placeholder="0.01"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRatePurple" placeholder="0.01"></td>
 									<td><input style="border:none" type="text" class="inputParameters" id="reproRatePurple" placeholder="0.9"></td>
 								</tr>
 								<tr>
 									<td>Zone Orange</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateOrange" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="foodRateOrange" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateOrange" placeholder="0.01"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRateOrange" placeholder="0.01"></td>
 									<td><input style="border:none" type="text" class="inputParameters" id="reproRateOrange" placeholder="0.8"></td>
 								</tr>
 								<tr>
 									<td>Zone Verte</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateGreen" placeholder="0.3"></td>
-									<td><input style="border:none" type="text" class="inputParameters" id="foodRateGreen" placeholder="0.3"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateGreen" placeholder="0.01"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="foodRateGreen" placeholder="0.01"></td>
 									<td><input style="border:none" type="text" class="inputParameters" id="reproRateGreen" placeholder="0.1"></td>
 								</tr>
 								<tr>
 									<td>Zone Bleue</td>
-									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateBlue" placeholder="0.6"></td>
+									<td><input style="border:none" type="text" class="inputParameters" id="disasterRateBlue" placeholder="0.01"></td>
 									<td><input style="border:none" type="text" class="inputParameters" id="foodRateBlue" placeholder="0"></td>
 									<td><input style="border:none" type="text" class="inputParameters" id="reproRateBlue" placeholder="Fixé à 0" readonly></td>
 								</tr>
 							</table>
+							<div id="errorMessage" style="color:red;"></div>
 						</div>
 
 						<div class="userInterfaceButton">
@@ -157,7 +158,7 @@
 				<!-- Tracé des courbes -->
 				<br><br>
 				<h2>Courbes</h2> <br>
-				<canvas id="graph" width="400" height="400"></canvas>
+				<canvas id="graph" width="300" height="300"></canvas>
 
 				<!-- Interface utilisateur de gestion du tracé des courbes -->
 				<a class="button small" onclick="javascript:location.reload();">Réinitialiser la simulation <i>(attention les courbes seront perdues)</i></a>

@@ -1,11 +1,16 @@
-//Fonctions et méthodes
+//Fonctions et méthodes du programme hors classe
 
-//Permet de convertir des coordonnées de grille en position en pixels
+/* ========================================================================== */
+//Fonction permettant de convertir des coordonnées de grille en position en pixels
+/* ========================================================================== */
 const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de décalage de départ. Le + 1 permet de ne pas recouvrir la grille
   let pixel = padding + 1 + cellSize * cellPosition;
   return (pixel)
 }
 
+/* ========================================================================== */
+//Fonction(s) concernant les paramètres
+/* ========================================================================== */
 const getParameter = (name) => {
   return parameters[name].value;
 }
@@ -33,7 +38,7 @@ const confirmParameters = () => {
       {
         parameters[parameter].value = parseInt(document.getElementById(parameter).value);
       } else {
-        parameters[parameter].value = (document.getElementById(parameter).value);
+        parameters[parameter].value = parseFloat(document.getElementById(parameter).value);
       }
       checkParameter(parameter);
     } else {
@@ -42,12 +47,25 @@ const confirmParameters = () => {
   }
 }
 
+/* ========================================================================== */
+//Fonction(s) concernant l'interface utilisateur
+/* ========================================================================== */
+const showErrorMsg = () => {
+  document.getElementById("errorMessage").innerHTML = errorMsg;
+}
+
+/* ========================================================================== */
+//Fonction de lancement de la simulation
+/* ========================================================================== */
 const generateSimulation = () => {
   confirmParameters();
   //Initialisation de la simulation avec les nouveaux paramètres
   simulation.initialisation();
 }
 
+/* ========================================================================== */
+//Fonction(s) concernant les graphes
+/* ========================================================================== */
 const addData = (chart, label) => {
   chart.data.labels.push(iteration);
   chart.data.datasets[0].data.push(nbMigratoryData);
@@ -56,6 +74,9 @@ const addData = (chart, label) => {
   iteration++;
 }
 
+/* ========================================================================== */
+//Fonction(s) concernant les intervalles de temps de la simulation
+/* ========================================================================== */
 let time;
 const createInterval = () => {
   let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;

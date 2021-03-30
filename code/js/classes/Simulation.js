@@ -31,7 +31,6 @@ class Simulation {
 
     //Nombres aléatoires permettant le placements des différents éléments de l'environnement sur la map
     //Math.floor(Math.random() * x) retourne un nombre entre 0 et x - 1
-    this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 100);
     this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
     this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
   }
@@ -86,7 +85,7 @@ class Simulation {
       this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize); //Retourne un nombre aléatoire entre 0 et widthMap / cellSize - 1
       if (this.areas[this.rdnWidth][this.rdnHeight].areaType != 'blue') {
         this.areas[this.rdnWidth][this.rdnHeight].hasElement = 'tree';
-        //Les cases contenant des arbres sont des passages plus difficiles pour les oiseaux
+        //Les cases contenant des arbres sont des passages plus difficiles pour les oiseaux : elle ont un poid plus important
         this.graph[this.rdnWidth][this.rdnHeight] = 2;
       }
     }
@@ -134,7 +133,6 @@ class Simulation {
   //Fonction principale appelée à chaque tour de la simulation
   move() {
 
-
     //Déplacement des oiseaux et interactions avec l'environnement
     for (let bird of this.birds) {
       //On suuprime de la carte les populations qui n'ont plus d'oiseaux
@@ -177,14 +175,12 @@ class Simulation {
       }
 
       //Choix aléatoire des cases qui contiendront les différents éléments possibles
-      for (let k = 0; k < this.rdnCaseNumber; k++) {
+      for (let k = 0; k < nbCell; k++) {
         this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
         this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
         area = this.areas[this.rdnWidth][this.rdnHeight];
         area.createElement();
       }
-      this.rdnCaseNumber = Math.floor(Math.random() * nbCell / 100);
-
       this.elementTime = 0;
     }
 
