@@ -1,7 +1,6 @@
 /* ========================================================================== */
 //Variables et constantes des éléments canvas
 /* ========================================================================== */
-
 //Récupèration l'élément canvas pour la simulation
 const canvasMap = document.getElementById("map");
 //getContext conduit à la création d'un objet de représentation 2D
@@ -15,16 +14,22 @@ const canvasGraphContext = canvasGraph.getContext("2d");
 const canvasGraphData = canvasGraphContext.getImageData(0, 0, canvasGraph.width, canvasGraph.height);
 
 /* ========================================================================== */
-//Variables et constantes des éléments utilisés lors de la simulation
+//Constantes correspondant aux dimensions de la carte
 /* ========================================================================== */
-
-//Constantes correspondant aux dimensions de la matrice
 const padding = 10; //marge
 const widthMap = 600; // Canvas width -> X
 const heightMap = 600; // Canvas height -> Y
 const cellSize = 20;
 const nbCell = (widthMap / cellSize) * (heightMap / cellSize);
 const step = 1;
+
+/* ========================================================================== */
+//Variables et constantes des éléments utilisés lors de la simulation
+/* ========================================================================== */
+
+//Etat de la simulation : vaut true si elle est en cours et false si elle est arrêtée.
+let simulationState = false;
+
 
 const birdLlifeExpectancy = ((heightMap / cellSize) / 3) * 120; //Euivaut à une dizaine d'années
 const spentTimeOnWintering = ((heightMap / cellSize) / 3) * 2; //Equivaut à 2 mois
@@ -47,70 +52,70 @@ let parameters = {
 
   disasterRateOrange: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   foodRateOrange: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   reproRateOrange: {
-    default: 0.8,
-    value: 0.6,
+    default: 0.1,
+    value: 0.1,
     max: 1,
     min: 0
   },
 
   disasterRatePurple: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   foodRatePurple: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   reproRatePurple: {
-    default: 0.9,
-    value: 0.6,
+    default: 0.1,
+    value: 0.1,
     max: 1,
     min: 0
   },
 
   disasterRateGreen: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   foodRateGreen: {
     default: 0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   reproRateGreen: {
     default: 0.1,
-    value: 0.6,
+    value: 0.1,
     max: 1,
     min: 0
   },
 
   disasterRateBlue: {
     default:0.01,
-    value: 0.6,
+    value: 0.01,
     max: 1,
     min: 0
   },
   foodRateBlue: {
     default: 0,
-    value: 0.6,
+    value: 0,
     max: 1,
     min: 0
   },

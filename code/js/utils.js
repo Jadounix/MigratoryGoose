@@ -47,6 +47,21 @@ const confirmParameters = () => {
   }
 }
 
+//Fonction qui empêche l'utilisateur de modifier les paramètres uen fois la simulation lancée
+const readOnlyParamaters = () => {
+  if (simulationState == false) {
+    for (parameter in parameters) {
+      document.getElementById(parameter).readOnly = false;
+    }
+  } else {
+    for (parameter in parameters) {
+      document.getElementById(parameter).readOnly = true;
+      document.getElementById("buttonReset").disabled = true;
+      document.getElementById("buttonConfirm").disabled = true;
+    }
+  }
+}
+
 /* ========================================================================== */
 //Fonction(s) concernant l'interface utilisateur
 /* ========================================================================== */
@@ -80,6 +95,8 @@ const addData = (chart, label) => {
 let time;
 const createInterval = () => {
   let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;
+  simulationState = true;
+  readOnlyParamaters();
   time = setInterval(function() {
     simulation.move();
     addData(birdsChart);
@@ -88,6 +105,7 @@ const createInterval = () => {
 
 const stopSimulation = () => {
   clearInterval(time);
+  readOnlyParamaters();
 }
 
 const changeSpeed = (event) => {
