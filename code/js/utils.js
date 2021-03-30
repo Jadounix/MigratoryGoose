@@ -8,6 +8,15 @@ const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de 
   return (pixel)
 }
 
+const saveGraph = () => {
+  //Récupéaration de l'image du canvas
+  let url_base64jp = document.getElementById("graph").toDataURL("image/jpg");
+  //Récupération du boutton
+  let a =  document.getElementById("downloadButton");
+
+  a.href = url_base64jp;
+}
+
 /* ========================================================================== */
 //Fonction(s) concernant les paramètres
 /* ========================================================================== */

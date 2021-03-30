@@ -4,6 +4,7 @@ confirmParameters();
 let simulation = new Simulation();
 simulation.initialisation();
 
+document.getElementById("downloadButton").addEventListener("click", saveGraph)
 document.getElementById("buttonConfirm").addEventListener("click", generateSimulation);
 document.getElementById("buttonReset").addEventListener("click", resetParameters);
 document.getElementById("speedSlider").addEventListener("input", changeSpeed);
