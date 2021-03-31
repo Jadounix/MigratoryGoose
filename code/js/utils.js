@@ -12,7 +12,7 @@ const saveGraph = () => {
   //Récupéaration de l'image du canvas
   let url_base64jp = document.getElementById("graph").toDataURL("image/jpg");
   //Récupération du boutton
-  let a =  document.getElementById("downloadButton");
+  let a = document.getElementById("downloadButton");
 
   a.href = url_base64jp;
 }
@@ -38,6 +38,7 @@ const checkParameter = (name) => {
 const resetParameters = () => {
   for (parameter in parameters) {
     setParameter(parameter, parameters[parameter].default);
+    document.getElementById(parameter).placeholder = parameters[parameter].default;
   }
 }
 
@@ -54,6 +55,22 @@ const confirmParameters = () => {
     } else {
       parameters[parameter].value = parameters[parameter].default;
     }
+    document.getElementById(parameter).placeholder = parameters[parameter].value;
+  }
+}
+
+//Fonctions qui mettent automatiquement les paramètres des scénario 1 et 2
+const paramScenario1 = () => {
+  for (parameter in parameters) {
+    setParameter(parameter, parameters[parameter].scenario1Value);
+    document.getElementById(parameter).placeholder = parameters[parameter].scenario1Value;
+  }
+}
+
+const paramScenario2 = () => {
+  for (parameter in parameters) {
+    setParameter(parameter, parameters[parameter].scenario2Value);
+    document.getElementById(parameter).placeholder = parameters[parameter].scenario2Value;
   }
 }
 

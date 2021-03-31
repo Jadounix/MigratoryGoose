@@ -14,8 +14,8 @@
 #userInterface {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: solid 1px black;
+  justify-content: space-between;
+  border: solid 1px green;
   padding: 20px;
 }
 

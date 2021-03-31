@@ -68,9 +68,30 @@ const testConfirmParameters = () => {
 }
 testConfirmParameters();
 
+
 /* ========================================================================== */
 //Tests unitaires des fonctions de la classe Map
 /* ========================================================================== */
+const testTurnOccupied = () => {
+  nbTests++;
+  simulation.map.turnOccupied(2,2);
+  const expectParam = 0.01;
+  if (simulation.map.matrice[2][2] !== true) {
+    failedTests++;
+    console.error('Function turnOccupied failed');
+  }
+}
+testTurnOccupied();
+
+const testTurnUnoccupied = () => {
+  nbTests++;
+  simulation.map.turnUnoccupied(3,3);
+  if (simulation.map.matrice[3][3] !== false) {
+    failedTests++;
+    console.error('Function turnUnoccupied failed');
+  }
+}
+testTurnUnoccupied();
 
 /* ========================================================================== */
 //Tests unitaires des fonctions de la classe Bird

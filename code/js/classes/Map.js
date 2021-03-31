@@ -37,10 +37,11 @@ class Map {
     console.table(this.matrice);
   }
 
+  //Rend la cellule occupée par un oiseaux
   turnOccupied(x, y) {
     this.matrice[y][x] = true;
   }
-
+  //Rend la cellule inoccupée par un oiseaux
   turnUnoccupied(x, y) {
     this.matrice[y][x] = false;
   }

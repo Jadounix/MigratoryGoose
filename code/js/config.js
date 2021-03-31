@@ -40,12 +40,16 @@ let parameters = {
   nbTrees: {
     default: 200,
     value: 200,
+    scenario1Value: 200,
+    scenario2Value: 200,
     max: 1000,
     min: 0
   },
   nbBirds: {
     default: 10,
     value: 10,
+    scenario1Value: 10,
+    scenario2Value: 10,
     max: 100,
     min: 1
   },
@@ -53,18 +57,24 @@ let parameters = {
   disasterRateOrange: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   foodRateOrange: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   reproRateOrange: {
     default: 0.1,
     value: 0.1,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
@@ -72,18 +82,24 @@ let parameters = {
   disasterRatePurple: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   foodRatePurple: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   reproRatePurple: {
     default: 0.1,
     value: 0.1,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
@@ -91,18 +107,24 @@ let parameters = {
   disasterRateGreen: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   foodRateGreen: {
     default: 0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   reproRateGreen: {
     default: 0.1,
     value: 0.1,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
@@ -110,12 +132,16 @@ let parameters = {
   disasterRateBlue: {
     default:0.01,
     value: 0.01,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
   foodRateBlue: {
     default: 0,
     value: 0,
+    scenario1Value: 0,
+    scenario2Value: 0,
     max: 1,
     min: 0
   },
