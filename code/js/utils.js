@@ -36,8 +36,9 @@ const checkParameter = (name) => {
 }
 
 const resetParameters = () => {
-  setParameter("nbTrees", 200);
-  setParameter("nbBirds", 10);
+  for (parameter in parameters) {
+    setParameter(parameter, parameters[parameter].default);
+  }
 }
 
 const confirmParameters = () => {
