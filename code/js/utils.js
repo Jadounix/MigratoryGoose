@@ -109,7 +109,8 @@ const generateSimulation = () => {
 //Fonction(s) concernant les graphes
 /* ========================================================================== */
 const addData = (chart, label) => {
-  chart.data.labels.push(iteration);
+  chart.data.labels.push(iteration); //Abcisse du graph
+  //Valeurs en ordonnée des deux courbes
   chart.data.datasets[0].data.push(nbMigratoryData);
   chart.data.datasets[1].data.push(nbSedentaryData);
   chart.update();
