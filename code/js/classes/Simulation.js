@@ -5,7 +5,7 @@ class Simulation {
     //Map permettant de savoir si une case est vide ou non
     this.map = new Map();
 
-    //Liste des populatio,s d'oiseaux sur la map
+    //Liste des populations d'oiseaux sur la map
     this.birds = [new Bird("migratory", getParameter("nbBirds"), 8, 23, 0.5, 'alive', 'images/birdM.png'), new Bird("sedentary", getParameter("nbBirds"), 14, 7, 0.5, 'alive', 'images/birdS.png')];
 
     //Liste des zones
