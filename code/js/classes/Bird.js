@@ -249,15 +249,11 @@ class Bird {
     //Déplacement différent en fonction de l'espèce de l'oiseau
     switch (this.species) {
       case 'migratory':
-        //this.randomMove(tab);
         this.migratoryMove(tab, area, graphTrees);
         break;
-
       case 'sedentary':
-        //this.randomMove(tab);
         this.oneColorMove(tab, area, 'green');
         break;
-
       default:
         console.log('error : Unknown bird species');
     }
