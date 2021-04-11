@@ -73,16 +73,16 @@ class Bird {
 
     switch (this.checkCellType(area[this.positionX][this.positionY])) {
       case 'orange':
-        this.reproductionRate = 0.1;
+        this.reproductionRate = getParameter("reproRateOrange");
         break;
       case 'blue':
-        this.reproductionRate = 0;
+        this.reproductionRate = getParameter("reproRateBlue");;
         break;
       case 'purple':
-        this.reproductionRate = 0.6;
+        this.reproductionRate = getParameter("reproRatePurple");;
         break;
       case 'green':
-        this.reproductionRate = 0.4;
+        this.reproductionRate = getParameter("reproRateGreen");;
         break;
       default:
         console.log('error : area type undefined');
@@ -94,18 +94,15 @@ class Bird {
   checkCellElement(area) {
     switch (area.hasElement) {
       case 'food':
-        console.log('Miam un burger vegan case ' + this.positionX, this.positionY);
         this.nbIndividuals += Math.floor(0.05 * this.nbIndividuals); //Augementation de 5% des individus de la population
         break;
       case 'hurricane':
-        console.log('ah une tempête ! ' + this.positionX, this.positionY);
         this.nbIndividuals -= Math.floor(0.05 * this.nbIndividuals); //Perte de 5% des individus de la population
         break;
       case 'tree':
-        console.log('vive la nature');
         break;
       case 'no':
-        //console.log('Cette case est vide');
+        //console.log('empty cell');
         break;
       default:
         ('error: area element');
