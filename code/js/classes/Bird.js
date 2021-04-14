@@ -76,13 +76,13 @@ class Bird {
         this.reproductionRate = getParameter("reproRateOrange");
         break;
       case 'blue':
-        this.reproductionRate = getParameter("reproRateBlue");;
+        this.reproductionRate = 0;
         break;
       case 'purple':
-        this.reproductionRate = getParameter("reproRatePurple");;
+        this.reproductionRate = getParameter("reproRatePurple");
         break;
       case 'green':
-        this.reproductionRate = getParameter("reproRateGreen");;
+        this.reproductionRate = getParameter("reproRateGreen");
         break;
       default:
         console.log('error : area type undefined');
