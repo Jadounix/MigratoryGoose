@@ -12,4 +12,4 @@ document.getElementById("buttonStart").addEventListener("click", createInterval)
 document.getElementById("buttonStop").addEventListener("click", stopSimulation);
 document.getElementById("buttonScenario1").addEventListener("click", paramScenario1);
 document.getElementById("buttonScenario2").addEventListener("click", paramScenario2);
-document.getElementById("buttonScenario2").addEventListener("click", paramScenario3);
+document.getElementById("buttonScenario3").addEventListener("click", paramScenario3);

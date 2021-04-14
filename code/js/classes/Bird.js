@@ -97,7 +97,7 @@ class Bird {
         this.nbIndividuals += Math.floor(0.05 * this.nbIndividuals); //Augementation de 5% des individus de la population
         break;
       case 'hurricane':
-        this.nbIndividuals -= Math.floor(0.05 * this.nbIndividuals); //Perte de 5% des individus de la population
+        this.nbIndividuals -= Math.floor(0.2 * this.nbIndividuals); //Perte de 20% des individus de la population
         break;
       case 'tree':
         break;

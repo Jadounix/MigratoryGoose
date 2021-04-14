@@ -77,9 +77,9 @@ let parameters = {
   reproRateOrange: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0.1,
-    scenario2Value: 0.1,
-    scenario3Value: 0.1,
+    scenario1Value: 0.05,
+    scenario2Value: 0.05,
+    scenario3Value: 0.05,
     max: 1,
     min: 0
   },
@@ -105,9 +105,9 @@ let parameters = {
   reproRatePurple: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0.8,
-    scenario2Value: 0.8,
-    scenario3Value: 0.8,
+    scenario1Value: 0.6,
+    scenario2Value: 0.6,
+    scenario3Value: 0.6,
     max: 1,
     min: 0
   },
@@ -133,9 +133,9 @@ let parameters = {
   reproRateGreen: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0.5,
-    scenario2Value: 0.5,
-    scenario3Value: 0.5,
+    scenario1Value: 0.3,
+    scenario2Value: 0.3,
+    scenario3Value: 0.3,
     max: 1,
     min: 0
   },
