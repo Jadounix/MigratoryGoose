@@ -6,7 +6,7 @@ let config = {
         label: "Population d'oiseaux migrateurs",
         backgroundColor: "#ff8080",
         borderColor: "#ff8080",
-        data: migratoryBirdsData,
+        data: [parameters["nbBirds"].value],
         fill: false,
       },
       {
@@ -14,7 +14,7 @@ let config = {
         fill: false,
         backgroundColor: "#ffff80",
         borderColor: "#ffff80",
-        data: sedentaryBirdsData,
+        data: [parameters["nbBirds"].value],
         fill: false,
       }
     ]

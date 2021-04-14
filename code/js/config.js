@@ -171,16 +171,18 @@ let parameters = {
 //Modification de l'affichage du nombre d'oiseau
 let nbMigratory = document.getElementById("nbMigratory");
 let nbSedentary = document.getElementById("nbSedentary");
-let nbMigratoryData = 0;
-let nbSedentaryData = 0;
 
 /* ========================================================================== */
 //Variables et constantes utilisées pour l'affichage des courbes
 /* ========================================================================== */
+let nbMigratoryData = 0;
+let nbSedentaryData = 0;
 
 let iteration = 0;
-let sedentaryBirdsData = [parameters["nbBirds"].value];
-let migratoryBirdsData = [parameters["nbBirds"].value];
+
+//Tableaux servant à faire des statistiques descriptives
+let sedentaryBirdsData = [];
+let migratoryBirdsData = [];
 
 
 /* ========================================================================== */

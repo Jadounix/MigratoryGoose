@@ -117,6 +117,10 @@ const addData = (chart, label) => {
   chart.data.datasets[0].data.push(nbMigratoryData);
   chart.data.datasets[1].data.push(nbSedentaryData);
   chart.update();
+
+  //Récupération des données sous forme de tableaux pour pouvoir faire des statistiques descriptives
+  sedentaryBirdsData = sedentaryBirdsData.concat([nbSedentaryData]);
+  migratoryBirdsData = migratoryBirdsData.concat([nbMigratoryData]);
   iteration++;
 }
 
