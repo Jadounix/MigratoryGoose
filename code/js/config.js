@@ -42,14 +42,16 @@ let parameters = {
     value: 200,
     scenario1Value: 200,
     scenario2Value: 200,
+    scenario3Value: 200,
     max: 1000,
     min: 0
   },
   nbBirds: {
     default: 10,
     value: 10,
-    scenario1Value: 10,
-    scenario2Value: 10,
+    scenario1Value: 20,
+    scenario2Value: 20,
+    scenario3Value: 20,
     max: 100,
     min: 1
   },
@@ -57,24 +59,27 @@ let parameters = {
   disasterRateOrange: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.2,
+    scenario2Value: 0.2,
+    scenario3Value: 0.4,
     max: 1,
     min: 0
   },
   foodRateOrange: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.1,
+    scenario2Value: 0.01,
+    scenario3Value: 0.2,
     max: 1,
     min: 0
   },
   reproRateOrange: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.1,
+    scenario2Value: 0.1,
+    scenario3Value: 0.1,
     max: 1,
     min: 0
   },
@@ -82,24 +87,27 @@ let parameters = {
   disasterRatePurple: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.3,
+    scenario2Value: 0.3,
+    scenario3Value: 0.6,
     max: 1,
     min: 0
   },
   foodRatePurple: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.1,
+    scenario2Value: 0.01,
+    scenario3Value: 0.2,
     max: 1,
     min: 0
   },
   reproRatePurple: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.8,
+    scenario2Value: 0.8,
+    scenario3Value: 0.8,
     max: 1,
     min: 0
   },
@@ -107,24 +115,27 @@ let parameters = {
   disasterRateGreen: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.3,
+    scenario2Value: 0.3,
+    scenario3Value: 0.6,
     max: 1,
     min: 0
   },
   foodRateGreen: {
     default: 0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.1,
+    scenario2Value: 0.01,
+    scenario3Value: 0.2,
     max: 1,
     min: 0
   },
   reproRateGreen: {
     default: 0.1,
     value: 0.1,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.5,
+    scenario2Value: 0.5,
+    scenario3Value: 0.5,
     max: 1,
     min: 0
   },
@@ -132,8 +143,9 @@ let parameters = {
   disasterRateBlue: {
     default:0.01,
     value: 0.01,
-    scenario1Value: 0,
-    scenario2Value: 0,
+    scenario1Value: 0.6,
+    scenario2Value: 0.6,
+    scenario3Value: 0.8,
     max: 1,
     min: 0
   },
@@ -142,6 +154,7 @@ let parameters = {
     value: 0,
     scenario1Value: 0,
     scenario2Value: 0,
+    scenario3Value: 0,
     max: 1,
     min: 0
   },

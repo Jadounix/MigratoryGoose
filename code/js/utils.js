@@ -74,6 +74,13 @@ const paramScenario2 = () => {
   }
 }
 
+const paramScenario3 = () => {
+  for (parameter in parameters) {
+    setParameter(parameter, parameters[parameter].scenario3Value);
+    document.getElementById(parameter).placeholder = parameters[parameter].scenario3Value;
+  }
+}
+
 //Fonction qui empêche l'utilisateur de modifier les paramètres uen fois la simulation lancée
 const readOnlyParamaters = () => {
   if (simulationState == false) {
