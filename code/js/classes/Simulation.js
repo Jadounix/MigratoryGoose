@@ -26,7 +26,7 @@ class Simulation {
       }
     }
 
-    //Nombre de déplacements des oiseaux durant lequels les elements ne bougent pas
+    //Nombre de déplacements des oiseaux durant lequels les elements (nourritures et tempêtes) ne bougent pas
     this.elementTime = 6;
 
     //Nombres aléatoires permettant le placements des différents éléments de l'environnement sur la map
@@ -93,11 +93,6 @@ class Simulation {
 
   //Méthode d'initialisation de la map et de la simulation
   initialisation() {
-
-    for (let bird of this.birds) {
-      bird.nbIndividuals = getParameter("nbBirds");
-    }
-
     //Modification de la taille du canvas en fonction de la taille de la map
     canvasMap.height = heightMap + 2 * padding;
     canvasMap.width = widthMap + 2 * padding;
@@ -127,6 +122,14 @@ class Simulation {
     //Affichage des images des oiseaux
     for (let bird of this.birds) {
       bird.createBirdPicture(bird.positionX, bird.positionY);
+    }
+  }
+
+  //On sépare l'initialisation des oiseaux avec l'initialisation de la map afin que celle-ci aparaisse dès le départ, mais que les oiseaux ne soit crées
+  //que lorsque l'utilisateur en a modifié le nombre
+  initiateNbBirds() {
+    for (let bird of this.birds) {
+      bird.nbIndividuals = getParameter("nbBirds");
     }
   }
 

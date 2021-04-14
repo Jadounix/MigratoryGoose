@@ -8,6 +8,9 @@ const convertGridCellToPixel = (cellPosition) => { //le padding est la marge de 
   return (pixel)
 }
 
+/* ========================================================================== */
+//Fonction qui permet de récupérer les graphes sous format jpg
+/* ========================================================================== */
 const saveGraph = () => {
   //Récupéaration de l'image du canvas
   let url_base64jp = document.getElementById("graph").toDataURL("image/jpg");
@@ -35,6 +38,7 @@ const checkParameter = (name) => {
   parameters[name].value = (parameters[name].value >= min && parameters[name].value <= max) ? parameters[name].value : parameters[name].default;
 }
 
+//Fonction qui réinitialise les paramètres à leurs valeurs de défaut
 const resetParameters = () => {
   for (parameter in parameters) {
     setParameter(parameter, parameters[parameter].default);
@@ -42,6 +46,7 @@ const resetParameters = () => {
   }
 }
 
+//Fonction qui permet de confirmer les nouveaux paramètres entrés par l'utilisateur
 const confirmParameters = () => {
   for (parameter in parameters) {
     if (document.getElementById(parameter).value != "") {
@@ -59,7 +64,7 @@ const confirmParameters = () => {
   }
 }
 
-//Fonctions qui mettent automatiquement les paramètres des scénario 1 et 2
+//Fonctions qui mettent automatiquement les paramètres des différents scénarios
 const paramScenario1 = () => {
   for (parameter in parameters) {
     setParameter(parameter, parameters[parameter].scenario1Value);
@@ -104,15 +109,6 @@ const showErrorMsg = () => {
 }
 
 /* ========================================================================== */
-//Fonction de lancement de la simulation
-/* ========================================================================== */
-const generateSimulation = () => {
-  confirmParameters();
-  //Initialisation de la simulation avec les nouveaux paramètres
-  simulation.initialisation();
-}
-
-/* ========================================================================== */
 //Fonction(s) concernant les graphes
 /* ========================================================================== */
 const addData = (chart, label) => {
@@ -128,7 +124,14 @@ const addData = (chart, label) => {
 //Fonction(s) concernant les intervalles de temps de la simulation
 /* ========================================================================== */
 let time;
+let first = true;
+
 const createInterval = () => {
+  //Si c'est la première fois que je rentre dans cette fonction j'initialise la simulation. Ensuite first devient false et l'initialisation n'est plus appelée
+  if (first == true) {
+    simulation.initiateNbBirds();
+    first = false;
+  }
   let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;
   simulationState = true;
   readOnlyParamaters();
@@ -138,11 +141,13 @@ const createInterval = () => {
   }, inverseValue);
 }
 
+//Fonction pour mettre la simulation en pause
 const stopSimulation = () => {
   clearInterval(time);
   readOnlyParamaters();
 }
 
+//Fonction qui modifie la vitesse de déplacement
 const changeSpeed = (event) => {
   if (event.target.value !== "undefined") {
     speedSlider.value = event.target.value;

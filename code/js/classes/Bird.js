@@ -64,7 +64,7 @@ class Bird {
       if (this.nbIndividuals > 10) {
         this.nbIndividuals -= Math.floor(0.2 * this.nbIndividuals); //Perte de 20% des individus de la population
       } else {
-        this.nbIndividuals--;
+        this.nbIndividuals = this.nbIndividuals - 2;
       }
       this.age = 0;
     }
@@ -87,7 +87,6 @@ class Bird {
       default:
         console.log('error : area type undefined');
     }
-
     this.reproduction();
   }
 
