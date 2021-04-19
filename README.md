@@ -1,6 +1,6 @@
 # MigratoryGoose
 Petit projet (réalisé dans un cadre scolaire) d'un système multi agents ayant pour thème la migration des oiseaux.
-![simulation_picture](code/images/simulation_picture.PNG)
+![simulation_picture](code/images/simgif.gif)
 
 ## Installation
 Une fois le code source copié sur sa propre machine, il est nécessaire de lancer la commande `npm install` afin de télécharger les librairies dont dépend le projet.
