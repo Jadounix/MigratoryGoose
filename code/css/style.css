@@ -33,6 +33,11 @@ table, th, td {
   text-transform: none;
 }
 
+.description {
+  text-transform: none;
+  text-align: justify;
+}
+
 /*
 	Solarize by TEMPLATED
 	templated.co @templatedco
