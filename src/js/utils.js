@@ -133,7 +133,7 @@ let first = true;
 const createInterval = () => {
   //Si c'est la première fois que je rentre dans cette fonction j'initialise la simulation. Ensuite first devient false et l'initialisation n'est plus appelée
   if (first == true) {
-    simulation.initiateNbBirds();
+    simulation.initiateNbBirdsAndTrees();
     first = false;
   }
   let inverseValue = (speedSlider.max * 1 + speedSlider.min * 1) - speedSlider.value;

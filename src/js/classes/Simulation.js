@@ -106,9 +106,6 @@ class Simulation {
     //Initialisation des types de chaque zone de la map
     this.putTypeMap();
 
-    //Création des arbres
-    this.createTrees();
-
     //Colorisation des difféerntes zones de la map
     let area;
     for (let i = 0; i < heightMap / cellSize; i++) {
@@ -125,9 +122,11 @@ class Simulation {
     }
   }
 
-  //On sépare l'initialisation des oiseaux avec l'initialisation de la map afin que celle-ci aparaisse dès le départ, mais que les oiseaux ne soit crées
-  //que lorsque l'utilisateur en a modifié le nombre
-  initiateNbBirds() {
+  //On sépare l'initialisation des oiseaux et des arbres avec l'initialisation de la map afin que celle-ci aparaisse dès le départ, mais que les oiseaux et les arbres ne soit créés que lorsque l'utilisateur en a modifié le nombre.
+  initiateNbBirdsAndTrees() {
+    //Création des arbres
+    this.createTrees();
+    //Création des oiseaux
     for (let bird of this.birds) {
       bird.nbIndividuals = getParameter("nbBirds");
     }
