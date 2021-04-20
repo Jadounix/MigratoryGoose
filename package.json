@@ -1,0 +1,19 @@
+{
+  "name": "migratorygoose",
+  "version": "1.0.0",
+  "description": "honk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jadounix/MigratoryGoose.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jadounix/MigratoryGoose/issues"
+  },
+  "homepage": "https://github.com/Jadounix/MigratoryGoose#readme"
+}
