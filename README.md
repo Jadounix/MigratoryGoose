@@ -22,7 +22,6 @@ Une fois la simulation lancée, les paramètres ne peuvent plus être modifiés.
 
 ## Documentation
 Une documentation plus complète du projet est disponible [ici](rapport.pdf).
-Une vidéo explicative du projet se trouve dans le [dossier Drive](https://drive.google.com/drive/folders/1-Zapn_Mmr8edoH0dLd-4J3Fxs-gdHIn8?usp=sharing) suivant.
 
 
 
