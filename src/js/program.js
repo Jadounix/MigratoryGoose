@@ -1,4 +1,4 @@
-//Création d'une simulation
+//Création d'une nouvelle simulation
 let simulation = new Simulation();
 simulation.initialisation();
 

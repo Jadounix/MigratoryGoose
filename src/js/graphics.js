@@ -1,3 +1,4 @@
+//Configuration des courbes à tracer
 let config = {
   type: 'line',
   data: {
@@ -52,4 +53,5 @@ let config = {
   }
 };
 
+//Initialisation d'un nouveau graphique
 let birdsChart = new Chart(canvasGraphContext, config);

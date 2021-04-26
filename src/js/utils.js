@@ -1,4 +1,4 @@
-//Fonctions et méthodes du programme hors classe
+//Fonctions et méthodes annexes du programme (hors classe)
 
 /* ========================================================================== */
 //Fonction permettant de convertir des coordonnées de grille en position en pixels
@@ -21,6 +21,14 @@ const saveGraph = () => {
 }
 
 /* ========================================================================== */
+//Fonction(s) concernant l'interface utilisateur
+/* ========================================================================== */
+//Affiche un message d'erreur si l'utilisateur ne rentre pas les bons paramètres
+const showErrorMsg = () => {
+  document.getElementById("errorMessage").innerHTML = errorMsg;
+}
+
+/* ========================================================================== */
 //Fonction(s) concernant les paramètres
 /* ========================================================================== */
 const getParameter = (name) => {
@@ -31,11 +39,14 @@ const setParameter = (name, newValue) => {
   parameters[name].value = newValue;
 }
 
-//Fonction qui vérifie que la valeur du paramètre entrée est bien comprise dans le bon interval
+//Fonction qui vérifie que la valeur du paramètre entrée est bien comprise dans le bon interval (ie ne dépasse pas les max et min)
 const checkParameter = (name) => {
   let max = parameters[name].max;
   let min = parameters[name].min;
-  parameters[name].value = (parameters[name].value >= min && parameters[name].value <= max) ? parameters[name].value : parameters[name].default;
+  if (parameters[name].value > max || parameters[name].value < min) {
+    parameters[name].value = parameters[name].default;
+    showErrorMsg();
+  }
 }
 
 //Fonction qui réinitialise les paramètres à leurs valeurs de défaut
@@ -50,11 +61,11 @@ const resetParameters = () => {
 const confirmParameters = () => {
   for (parameter in parameters) {
     if (document.getElementById(parameter).value != "") {
-      if (parameter == "nbBirds" || parameter == "nbTrees") //Sont des nombres entiers => besoin d'être covertis en cas d'erreur de l'utilisateur
+      if (parameter == "nbBirds" || parameter == "nbTrees") //nbBirds et nbTrees doivent être covertis en nombres entiers
       {
         parameters[parameter].value = parseInt(document.getElementById(parameter).value);
       } else {
-        parameters[parameter].value = parseFloat(document.getElementById(parameter).value);
+        parameters[parameter].value = parseFloat(document.getElementById(parameter).value); //Les autres paramètres sont des taux : ils doivent être convertis en nombres réels
       }
       checkParameter(parameter);
     } else {
@@ -71,14 +82,12 @@ const paramScenario1 = () => {
     document.getElementById(parameter).placeholder = parameters[parameter].scenario1Value;
   }
 }
-
 const paramScenario2 = () => {
   for (parameter in parameters) {
     setParameter(parameter, parameters[parameter].scenario2Value);
     document.getElementById(parameter).placeholder = parameters[parameter].scenario2Value;
   }
 }
-
 const paramScenario3 = () => {
   for (parameter in parameters) {
     setParameter(parameter, parameters[parameter].scenario3Value);
@@ -102,22 +111,15 @@ const readOnlyParamaters = () => {
 }
 
 /* ========================================================================== */
-//Fonction(s) concernant l'interface utilisateur
-/* ========================================================================== */
-const showErrorMsg = () => {
-  document.getElementById("errorMessage").innerHTML = errorMsg;
-}
-
-/* ========================================================================== */
 //Fonction(s) concernant les graphes
 /* ========================================================================== */
+//Fonction qui ajoute les nouvelles données aux graphiques
 const addData = (chart, label) => {
-  chart.data.labels.push(iteration); //Abcisse du graph
+  chart.data.labels.push(iteration); //Abcsisse du graph
   //Valeurs en ordonnée des deux courbes
   chart.data.datasets[0].data.push(nbMigratoryData);
   chart.data.datasets[1].data.push(nbSedentaryData);
   chart.update();
-
   //Récupération des données sous forme de tableaux pour pouvoir faire des statistiques descriptives
   sedentaryBirdsData = sedentaryBirdsData.concat([nbSedentaryData]);
   migratoryBirdsData = migratoryBirdsData.concat([nbMigratoryData]);
@@ -130,6 +132,7 @@ const addData = (chart, label) => {
 let time;
 let first = true;
 
+//Fonction qui utilise setInterval pour faire bouger la simulation à chauque tour
 const createInterval = () => {
   //Si c'est la première fois que je rentre dans cette fonction j'initialise la simulation. Ensuite first devient false et l'initialisation n'est plus appelée
   if (first == true) {

@@ -46,6 +46,7 @@ class Area {
     canvasContext.fillRect(convertGridCellToPixel(x), convertGridCellToPixel(y), cellSize, cellSize);
   }
 
+  //Fonction qui vérifie que la somme de deux probas est bien inférieure à 1
   checkSumProbabilities(elt1, elt2, correctElt1, correctElt2) {
     let sum = elt1 + elt2;
     if (sum > 1) {
@@ -56,6 +57,7 @@ class Area {
     return [elt1, elt2];
   }
 
+  //Fonction qui créée les différents éléments de la simulation : food or hurricane, en fonction des paramètres entrés
   createElement() {
     let rdn = Math.random();
     let hurricaneValue = 0;
@@ -86,6 +88,7 @@ class Area {
         console.log("error : area type undefined");
     }
 
+    //On vérifie que la somme des paramètres entrés est bien inférieure à 1
     hurricaneValue = this.checkSumProbabilities(hurricaneValue, foodValue, 0.01, 0.01)[0];
     foodValue = this.checkSumProbabilities(hurricaneValue, foodValue, 0.01, 0.01)[1];
 
@@ -150,4 +153,4 @@ class Area {
     }
   }
 
-} //Fin de la classe
+}

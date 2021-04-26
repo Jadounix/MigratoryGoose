@@ -30,12 +30,13 @@ const step = 1;
 //Etat de la simulation : vaut true si elle est en cours et false si elle est arrêtée.
 let simulationState = false;
 
-
+//Durée de vie des oiseaux
 const birdLlifeExpectancy = ((heightMap / cellSize) / 3) * 120; //Euivaut à une dizaine d'années
+//Temps que doit passer la poulation d'oiseaux dans une certaine zone
 const spentTimeOnWintering = ((heightMap / cellSize) / 3) * 2; //Equivaut à 2 mois
 const spentTimeOnNursering = ((heightMap / cellSize) / 3) * 4; //Equivaut à 4 mois
 
-
+//Paramètres de la simulation
 let parameters = {
   nbTrees: {
     default: 200,
@@ -183,7 +184,6 @@ let iteration = 0;
 //Tableaux servant à faire des statistiques descriptives
 let sedentaryBirdsData = [];
 let migratoryBirdsData = [];
-
 
 /* ========================================================================== */
 //Message d'erreur en cas de paramètres rentrés erronés

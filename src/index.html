@@ -69,7 +69,7 @@
 		</section>
 	</div>
 
-	<!-- Game Section -->
+	<!-- Simulation Section -->
 	<div class="wrapper style4">
 		<section class="container">
 
@@ -84,11 +84,14 @@
 				<br>
 				Les taux de nourriture, de catastrophes naturelles et de reproduction doivent êtres compris entre 0 et 1. Attention, la somme des taux de nourriture et de catastrophes naturelles ne peut pas dépasser 1.
 				<br>
-				Une fois les paramètres choisis, vous pouvez cliquer sur <i>Confirmer les paramètres</i>, puis sur le bouton <i>Lancer la simulation</i>. Vous pouvez également utiliser le bouton <i>Réinitialiser les paramètres</i> pour les faire revenir à leurs valeurs par défaut.
+				Une fois les paramètres choisis, vous pouvez cliquer sur <i>Confirmer les paramètres</i>, puis sur le bouton <i>Lancer la simulation</i>. Vous pouvez également utiliser le bouton <i>Réinitialiser les paramètres</i> pour les faire revenir à
+				leurs valeurs par défaut.
 				<br>
-				Les boutons <i>Scénario 1, 2 et 3</i> correspondent à des jeux de paramètres précis, utilisés pour comparer différents environnements de simulation. Les résultats de ces tests sont disponibles dans la partie Scénario de tests du <a href="../rapport.pdf">rapport</a> associé au projet.
+				Les boutons <i>Scénario 1, 2 et 3</i> correspondent à des jeux de paramètres précis, utilisés pour comparer différents environnements de simulation. Les résultats de ces tests sont disponibles dans la partie Scénario de tests du <a
+					href="../rapport.pdf">rapport</a> associé au projet.
 				<br>
-				Une fois la simulation lancée, les paramètres ne peuvent plus être modifiés. Les boutons <i>Lancer la simulation</i> et <i>Arrêter la simulation</i> permettent de faire des pauses à n’importe quel moment et de reprendre ensuite la simulation là où elle s’est arrêtée.
+				Une fois la simulation lancée, les paramètres ne peuvent plus être modifiés. Les boutons <i>Lancer la simulation</i> et <i>Arrêter la simulation</i> permettent de faire des pauses à n’importe quel moment et de reprendre ensuite la simulation
+				là où elle s’est arrêtée.
 			</p>
 
 			<p>La documentation complète du projet, ainsi que le code source sont disponibles sur la page github <a href="https://github.com/Jadounix/MigratoryGoose">MigratoryGoose</a>.
@@ -96,10 +99,9 @@
 
 			<div id="content" class="container">
 
-				<!-- Map de déplacement des oiseaux -->
+				<!-- Map -->
 				<h2>Interface de simulation</h2> <br>
 				<div id="interface">
-
 					<div id="mapInterface">
 						<canvas id="map" width="800" height="800"></canvas>
 						Nombre d'individus dans la population de migrateurs : <div id="nbMigratory"> 0 </div>
@@ -107,27 +109,23 @@
 						<a id="buttonStart" class="button small">Lancer la simulation</a>
 						<a id="buttonStop" class="button small">Arrêter la simulation</a>
 					</div>
-
 					<div id="userInterface">
 						<h3>Paramètres de la simulation</h3>
 						<br>
-						<!-- Slider permettant de modifier la vitesse de la simulation -->
 						<div class="speedChoice">
 							Vitesse de la simulation
 							<input type="range" id="speedSlider" min="125" max="2000" step="125" />
 						</div>
 						<br>
-
 						<div class="">
 							Nombre d'individus initial dans la population <input type="text" id="nbBirds" placeholder="10">
 						</div>
 						<br>
-
 						<div class="">
 							Nombre d'arbre sur la map <input type="text" id="nbTrees" placeholder="100">
 						</div>
 						<br>
-
+						<!-- Tableau de modifications des paramètres -->
 						<div class="">
 							<table>
 								<tr>
@@ -163,7 +161,7 @@
 							</table>
 							<div id="errorMessage" style="color:red;"></div>
 						</div>
-
+						<!-- Boutons -->
 						<div class="userInterfaceButton">
 							<a id="buttonReset" class="button small">Réinitialiser les paramètres</a>
 							<a id="buttonConfirm" class="button small">Confirmer les paramètres</a>
@@ -174,9 +172,7 @@
 							<a id="buttonScenario2" class="button small">Paramètres du scénario 2</a>
 							<a id="buttonScenario3" class="button small">Paramètres du scénario 3</a>
 						</div>
-
 					</div>
-
 				</div>
 
 
@@ -217,7 +213,8 @@
 		</div>
 	</div>
 
-	<!-- Initialisation des constantes du programme -->
+	<!-- Appel aux documents JS -->
+	<!-- Initialisation des constantes du programme et fonctions annexes -->
 	<script type="text/javascript" src="js/config.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<!-- Classes -->

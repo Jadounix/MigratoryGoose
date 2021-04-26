@@ -1,4 +1,6 @@
+//Nombre de tests réalisés
 let nbTests = 0;
+//Nombre de tests ayant échoués
 let failedTests = 0;
 
 /* ========================================================================== */
@@ -35,7 +37,7 @@ const testSetParameters = () => {
 }
 testSetParameters();
 
-const testCheckParameter = () => { //A REVOIR
+const testCheckParameter = () => {
   nbTests++;
   const expectParam = 0.02;
   checkParameter("disasterRatePurple");
@@ -74,7 +76,7 @@ testConfirmParameters();
 /* ========================================================================== */
 const testTurnOccupied = () => {
   nbTests++;
-  simulation.map.turnOccupied(2,2);
+  simulation.map.turnOccupied(2, 2);
   const expectParam = 0.01;
   if (simulation.map.matrice[2][2] !== true) {
     failedTests++;
@@ -85,7 +87,7 @@ testTurnOccupied();
 
 const testTurnUnoccupied = () => {
   nbTests++;
-  simulation.map.turnUnoccupied(3,3);
+  simulation.map.turnUnoccupied(3, 3);
   if (simulation.map.matrice[3][3] !== false) {
     failedTests++;
     console.error('Function turnUnoccupied failed');
@@ -94,22 +96,10 @@ const testTurnUnoccupied = () => {
 testTurnUnoccupied();
 
 /* ========================================================================== */
-//Tests unitaires des fonctions de la classe Bird
-/* ========================================================================== */
-
-/* ========================================================================== */
-//Tests unitaires des fonctions de la classe Area
-/* ========================================================================== */
-
-/* ========================================================================== */
-//Tests unitaires des fonctions de la classe Simulation
-/* ========================================================================== */
-
-/* ========================================================================== */
 //Affichage des tests
 /* ========================================================================== */
 console.log("Lancement des tests unitaires :");
-console.log("Tests effectués : "+nbTests);
-console.log("Nombre de tests échoués : "+failedTests);
-console.log("Nombre de tests réussis : "+(nbTests-failedTests));
+console.log("Tests effectués : " + nbTests);
+console.log("Nombre de tests échoués : " + failedTests);
+console.log("Nombre de tests réussis : " + (nbTests - failedTests));
 console.log("Fin des tests unitaires.");

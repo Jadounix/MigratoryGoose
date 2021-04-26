@@ -1,6 +1,4 @@
 class Simulation {
-
-  //Constructeur
   constructor() {
     //Map permettant de savoir si une case est vide ou non
     this.map = new Map();
@@ -166,23 +164,26 @@ class Simulation {
       }
     }
 
+    //Les éléments (nourriture et tempête) restent une certaine durée sur la carte avant de bouger. Cette durée est determinée par elementTime (égale à 5 ici)
     if (this.elementTime >= 5) {
       for (let i = 0; i < heightMap / cellSize; i++) {
         for (let j = 0; j < widthMap / cellSize; j++) {
           area = this.areas[i][j];
           if (area.hasElement != 'tree') {
+            //Une fois que elementTime est arrivée à 5 on remplace tous les éléments, sauf les arbres. Pour cela on réiniatialise l'attribut hasElement de chaque case
             area.hasElement = 'no';
           }
         }
       }
-
       //Choix aléatoire des cases qui contiendront les différents éléments possibles
       for (let k = 0; k < nbCell; k++) {
         this.rdnHeight = Math.floor(Math.random() * heightMap / cellSize);
         this.rdnWidth = Math.floor(Math.random() * widthMap / cellSize);
         area = this.areas[this.rdnWidth][this.rdnHeight];
+        //On crée de nouveaux éléments sur la carte
         area.createElement();
       }
+      //Puis elementTime est de nouveau réiniatialisé
       this.elementTime = 0;
     }
 
@@ -203,7 +204,4 @@ class Simulation {
 
     this.elementTime++;
   }
-
-
-
 }

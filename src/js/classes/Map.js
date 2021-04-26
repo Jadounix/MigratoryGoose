@@ -1,7 +1,6 @@
 class Map {
-  //Constructeur
   constructor() {
-    //Tableau qui va contenir les valeurs occupé ou non des cases de la map
+    //Tableau qui va contenir les valeurs "occupée" ou non des cases de la map
     this.matrice = new Array(heightMap / cellSize);
     for (let i = 0; i < this.matrice.length; i++) {
       this.matrice[i] = new Array(widthMap / cellSize);
